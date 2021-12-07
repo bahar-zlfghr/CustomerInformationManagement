@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
-import java.sql.Date;
 
 /**
  * @author : Bahar Zolfaghari
@@ -28,7 +27,7 @@ public class IndividualCustomer extends Customer {
 
     @Getter
     @Setter
-    private Date birthDate;
+    private String birthDate;
 
     @Getter
     @Setter
