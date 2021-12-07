@@ -23,5 +23,5 @@ public class Customer {
 
     @Getter
     @Setter
-    private CustomerType customerType;
+    private String customerType;
 }
