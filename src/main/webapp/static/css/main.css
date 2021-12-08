@@ -4,7 +4,8 @@
 }
 
 body {
-    height: 994px;
+    min-height: 994px;
+    height: max-content;
     display: flex;
     direction: rtl;
     font-family: Vazir-Regular, sans-serif !important;
@@ -13,12 +14,14 @@ body {
 }
 
 .container {
+    height: max-content;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    padding: 50px;
     background-color: #FFFFFF;
-    margin: 100px;
+    padding: 50px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .btn-outline-primary a {
