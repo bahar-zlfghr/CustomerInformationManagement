@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author : Bahar Zolfaghari
  **/
@@ -34,10 +36,15 @@ public class IndividualCustomerController {
     }
 
     @PostMapping(value = "/save-individual-customer")
-    public String saveCustomer(@ModelAttribute IndividualCustomer individualCustomer, Model model, BindingResult bindingResult) {
-        individualCustomerService.saveIndividualCustomer(individualCustomer);
+    public String saveIndividualCustomer(@ModelAttribute IndividualCustomer individualCustomer, Model model,
+                                         HttpSession httpSession, BindingResult bindingResult) {
+        IndividualCustomer registeredIndividualCustomer = individualCustomerService.saveIndividualCustomer(individualCustomer);
+        String nationalCode = registeredIndividualCustomer.getNationalCode();
         model.addAttribute("saveCustomerSuccessMessage",
-                messageSourceComponent.getPersian("customer.successfully.registered", individualCustomer.getNationalCode()));
+                messageSourceComponent.getPersian("customer.successfully.registered", nationalCode));
+        httpSession.setAttribute("customerNumberMessage",
+                messageSourceComponent.getPersian("customer.customerNumber.generated",
+                        nationalCode, String.valueOf(registeredIndividualCustomer.getCustomerNO())));
         return "index";
     }
 }
