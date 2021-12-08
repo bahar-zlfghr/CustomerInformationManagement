@@ -23,7 +23,7 @@ public class IndividualIndividualCustomerServiceImpl implements IndividualCustom
     }
 
     @Override
-    public void saveIndividualCustomer(IndividualCustomer individualCustomer) throws DuplicateIndividualCustomerException {
+    public IndividualCustomer saveIndividualCustomer(IndividualCustomer individualCustomer) throws DuplicateIndividualCustomerException {
         Optional<Customer> existingIndividualCustomer = customerRepository.findByNationalCode(individualCustomer.getNationalCode());
         if (existingIndividualCustomer.isPresent()) {
             throw new DuplicateIndividualCustomerException(
@@ -32,6 +32,6 @@ public class IndividualIndividualCustomerServiceImpl implements IndividualCustom
                             individualCustomer.getNationalCode()));
         }
         individualCustomer.setCustomerType(CustomerType.INDIVIDUAL.getCustomerType());
-        customerRepository.save(individualCustomer);
+        return customerRepository.save(individualCustomer);
     }
 }
