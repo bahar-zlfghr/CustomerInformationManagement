@@ -8,5 +8,5 @@ import com.dotin.model.data.IndividualCustomer;
  **/
 public interface IndividualCustomerService {
 
-    void saveCustomer(IndividualCustomer individualCustomer) throws DuplicateIndividualCustomerException;
+    void saveIndividualCustomer(IndividualCustomer individualCustomer) throws DuplicateIndividualCustomerException;
 }
