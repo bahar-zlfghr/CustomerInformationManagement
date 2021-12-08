@@ -3,19 +3,101 @@ function validateRegistrationForm() {
     let lastName = document.forms['registration-form']['lastName'].value;
     let fatherName = document.forms['registration-form']['fatherName'].value;
     let birthDate = document.forms['registration-form']['birthDate'].value;
+    let nationalCode = document.forms['registration-form']['nationalCode'].value;
 
+    let vFirstName = validateFirstName(firstName);
+    let vLastName = validateLastName(lastName);
+    let vFatherName = validateFatherName(fatherName);
+    let vBirthDate = validateBirthDate(birthDate);
+    let vNationalCode = validateNationalCode(nationalCode);
+
+    if (vFirstName) {
+        document.getElementById('firstNameError').style.display = 'none';
+    }
+    if (vLastName) {
+        document.getElementById('lastNameError').style.display = 'none';
+    }
+    if (vFatherName) {
+        document.getElementById('fatherNameError').style.display = 'none';
+    }
+    if (vBirthDate) {
+        document.getElementById('birthDateError').style.display = 'none';
+    }
+    if (vNationalCode) {
+        document.getElementById('nationalCodeError').style.display = 'none';
+    }
+
+    return vFirstName && vLastName && vFatherName && vBirthDate && vNationalCode;
+}
+
+function validateFirstName(firstName) {
+    let errorMessage;
     if (isEmpty(firstName)) {
-        printError('نام مشتری را وارد کنید', 'firstNameError');
+        errorMessage = 'نام مشتری را وارد کنید';
+        printError(errorMessage, 'firstNameError');
+        return false;
     }
+    else if (firstName.length < 3) {
+        errorMessage = 'حداقل طول نام مشتری ۳ است';
+        printError(errorMessage, 'firstNameError');
+        return false;
+    }
+    return true;
+}
+
+function validateLastName(lastName) {
+    let errorMessage;
     if (isEmpty(lastName)) {
-        printError('نام خانوادگی مشتری را وارد کنید', 'lastNameError');
+        errorMessage = 'نام خانوادگی مشتری را وارد کنید';
+        printError(errorMessage, 'lastNameError');
+        return false;
     }
+    else if (lastName.length < 3) {
+        errorMessage = 'حداقل طول نام خانوادگی مشتری ۳ است';
+        printError(errorMessage, 'lastNameError');
+        return false;
+    }
+    return true;
+}
+
+function validateFatherName(fatherName) {
+    let errorMessage;
     if (isEmpty(fatherName)) {
-        printError('نام پدر مشتری را وارد کنید', 'fatherNameError');
+        errorMessage = 'نام پدر مشتری را وارد کنید';
+        printError(errorMessage, 'fatherNameError');
+        return false;
     }
+    else if (fatherName.length < 3) {
+        errorMessage = 'حداقل طول نام پدر مشتری ۳ است';
+        printError(errorMessage, 'fatherNameError');
+        return false;
+    }
+    return true;
+}
+
+function validateBirthDate(birthDate) {
+    let errorMessage;
     if (isEmpty(birthDate)) {
-        printError('تاریخ تولد مشتری را وارد کنید', 'birthDateError');
+        errorMessage = 'تاریخ تولد مشتری را وارد کنید';
+        printError(errorMessage, 'birthDateError');
+        return false;
     }
+    return true;
+}
+
+function validateNationalCode(nationalCode) {
+    let errorMessage;
+    if (isEmpty(nationalCode)) {
+        errorMessage = 'کد ملی مشتری را وارد کنید';
+        printError(errorMessage, 'nationalCodeError');
+        return false;
+    }
+    else if (nationalCode.length !== 10) {
+        errorMessage = 'کد ملی مشتری باید 10 رقمی باشد';
+        printError(errorMessage, 'nationalCodeError');
+        return false;
+    }
+    return true;
 }
 
 function isEmpty(data) {
@@ -23,5 +105,7 @@ function isEmpty(data) {
 }
 
 function printError(errorMessage, errorElement) {
-    document.getElementById(errorElement).innerHTML = errorMessage;
+    let element = document.getElementById(errorElement);
+    element.style.display = 'block';
+    element.innerHTML = errorMessage;
 }
