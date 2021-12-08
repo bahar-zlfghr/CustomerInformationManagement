@@ -15,13 +15,9 @@ public interface CustomerFactory {
     static Customer createCustomer(CustomerType customerType) {
         switch (customerType) {
             case INDIVIDUAL:
-                IndividualCustomer individualCustomer = new IndividualCustomer();
-                individualCustomer.setCustomerType(customerType.getCustomerType());
-                return individualCustomer;
+                return new IndividualCustomer();
             case LEGAL:
-                LegalCustomer legalCustomer = new LegalCustomer();
-                legalCustomer.setCustomerType(customerType.getCustomerType());
-                return legalCustomer;
+                return new LegalCustomer();
             default:
                 return null;
         }
