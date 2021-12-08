@@ -17,7 +17,7 @@ public class ControllerAdvise {
     public ModelAndView duplicateCustomerException(DuplicateIndividualCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         IndividualCustomer individualCustomer = (IndividualCustomer) CustomerFactory.createCustomer(CustomerType.INDIVIDUAL);
-        modelAndView.addObject("duplicateIndividualCustomerException", "کاربر با این کد ملی در سیستم وجود دارد!");
+        modelAndView.addObject("duplicateIndividualCustomerException", e.getMessage());
         modelAndView.addObject("individualCustomer", individualCustomer);
         modelAndView.setViewName("individual-customer-registration");
         return modelAndView;
