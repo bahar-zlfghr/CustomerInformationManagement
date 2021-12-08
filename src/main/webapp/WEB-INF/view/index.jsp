@@ -19,7 +19,7 @@
             </div>
         </c:if>
 
-        <c:if test="${customerNumberMessage.length() > 0}">
+        <c:if test="${sessionScope.customerNumberMessage.length() > 0}">
             <div class="alert alert-info" role="alert">
                 <h5>
                     <%
