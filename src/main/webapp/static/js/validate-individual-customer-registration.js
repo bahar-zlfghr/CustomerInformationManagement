@@ -1,4 +1,4 @@
-function validateRegistrationForm() {
+function validateIndividualCustomerRegistrationForm() {
     let firstName = document.forms['registration-form']['firstName'].value;
     let lastName = document.forms['registration-form']['lastName'].value;
     let fatherName = document.forms['registration-form']['fatherName'].value;
