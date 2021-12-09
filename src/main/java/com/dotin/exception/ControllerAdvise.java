@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControllerAdvise {
 
     @ExceptionHandler(value = DuplicateIndividualCustomerException.class)
-    public ModelAndView duplicateCustomerException(DuplicateIndividualCustomerException e) {
+    public ModelAndView duplicateIndividualCustomerException(DuplicateIndividualCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         IndividualCustomer individualCustomer = (IndividualCustomer) CustomerFactory.createCustomer(CustomerType.INDIVIDUAL);
         modelAndView.addObject("duplicateIndividualCustomerException", e.getMessage());
@@ -25,7 +25,7 @@ public class ControllerAdvise {
     }
 
     @ExceptionHandler(value = DuplicateLegalCustomerException.class)
-    public ModelAndView duplicateLegalException(DuplicateLegalCustomerException e) {
+    public ModelAndView duplicateLegalCustomerException(DuplicateLegalCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         LegalCustomer legalCustomer = (LegalCustomer) CustomerFactory.createCustomer(CustomerType.LEGAL);
         modelAndView.addObject("duplicateLegalCustomerException", e.getMessage());
