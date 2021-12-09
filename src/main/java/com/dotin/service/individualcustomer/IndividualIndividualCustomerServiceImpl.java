@@ -1,13 +1,14 @@
 package com.dotin.service.individualcustomer;
 
+import com.dotin.exception.CustomerNotFoundException;
 import com.dotin.exception.DuplicateIndividualCustomerException;
-import com.dotin.model.data.Customer;
 import com.dotin.model.data.CustomerType;
 import com.dotin.model.data.IndividualCustomer;
 import com.dotin.model.repository.IndividualCustomerRepository;
 import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,17 +16,17 @@ import java.util.Optional;
  **/
 @Service
 public class IndividualIndividualCustomerServiceImpl implements IndividualCustomerService {
-    private final IndividualCustomerRepository customerRepository;
+    private final IndividualCustomerRepository individualCustomerRepository;
     private final MessageSourceComponent messageSourceComponent;
 
-    public IndividualIndividualCustomerServiceImpl(IndividualCustomerRepository customerRepository, MessageSourceComponent messageSourceComponent) {
-        this.customerRepository = customerRepository;
+    public IndividualIndividualCustomerServiceImpl(IndividualCustomerRepository individualCustomerRepository, MessageSourceComponent messageSourceComponent) {
+        this.individualCustomerRepository = individualCustomerRepository;
         this.messageSourceComponent = messageSourceComponent;
     }
 
     @Override
     public IndividualCustomer saveIndividualCustomer(IndividualCustomer individualCustomer) throws DuplicateIndividualCustomerException {
-        Optional<Customer> existingIndividualCustomer = customerRepository.findByNationalCode(individualCustomer.getNationalCode());
+        Optional<IndividualCustomer> existingIndividualCustomer = individualCustomerRepository.findByNationalCode(individualCustomer.getNationalCode());
         if (existingIndividualCustomer.isPresent()) {
             throw new DuplicateIndividualCustomerException(
                     messageSourceComponent.getPersian(
@@ -33,6 +34,19 @@ public class IndividualIndividualCustomerServiceImpl implements IndividualCustom
                             individualCustomer.getNationalCode()));
         }
         individualCustomer.setCustomerType(CustomerType.INDIVIDUAL.getCustomerType());
-        return customerRepository.save(individualCustomer);
+        return individualCustomerRepository.save(individualCustomer);
+    }
+
+    @Override
+    public List<IndividualCustomer> findAllIndividualCustomers() {
+        return individualCustomerRepository.findAll();
+    }
+
+    @Override
+    public void deleteIndividualCustomer(Integer customerNO) {
+        Optional<IndividualCustomer> existingIndividualCustomer = individualCustomerRepository.findByCustomerNO(customerNO);
+        individualCustomerRepository.delete(existingIndividualCustomer
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        messageSourceComponent.getPersian("individual.customer.not.found", String.valueOf(customerNO)))));
     }
 }
