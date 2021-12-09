@@ -38,6 +38,10 @@
         <button type="button" class="btn btn-outline-primary">
             <a href="<c:url value="/save-individual-customer"/>">مشتری حقیقی</a>
         </button>
+
+        <button type="button" class="btn btn-outline-primary">
+            <a href="<c:url value="/save-legal-customer"/>">مشتری حقوقی</a>
+        </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
