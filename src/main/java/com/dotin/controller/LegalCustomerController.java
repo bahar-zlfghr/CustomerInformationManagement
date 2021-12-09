@@ -1,0 +1,51 @@
+package com.dotin.controller;
+
+import com.dotin.model.CustomerFactory;
+import com.dotin.model.data.CustomerType;
+import com.dotin.model.data.LegalCustomer;
+import com.dotin.service.component.MessageSourceComponent;
+import com.dotin.service.legalcustomer.LegalCustomerService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
+
+/**
+ * @author : Bahar Zolfaghari
+ **/
+@Controller
+public class LegalCustomerController {
+    private final LegalCustomerService legalCustomerService;
+    private final MessageSourceComponent messageSourceComponent;
+
+    public LegalCustomerController(LegalCustomerService legalCustomerService, MessageSourceComponent messageSourceComponent) {
+        this.legalCustomerService = legalCustomerService;
+        this.messageSourceComponent = messageSourceComponent;
+    }
+
+    @GetMapping(value = "/save-legal-customer")
+    public String getLegalCustomerRegistrationForm(Model model) {
+        LegalCustomer legalCustomer = (LegalCustomer) CustomerFactory.createCustomer(CustomerType.LEGAL);
+        model.addAttribute("legalCustomer", legalCustomer);
+        return "legal-customer-registration";
+    }
+
+    @PostMapping(value = "/save-legal-customer")
+    public String saveLegalCustomer(@ModelAttribute LegalCustomer legalCustomer, Model model,
+                                         HttpSession httpSession, BindingResult bindingResult) {
+        LegalCustomer registeredLegalCustomer = legalCustomerService.saveLegalCustomer(legalCustomer);
+        String economicCode = registeredLegalCustomer.getEconomicCode();
+        model.addAttribute("saveCustomerSuccessMessage",
+                messageSourceComponent.getPersian(
+                        "legal.customer.successfully.registered", economicCode));
+        httpSession.setAttribute("customerNumberMessage",
+                messageSourceComponent.getPersian(
+                        "legal.customer.customerNumber.generated",
+                        economicCode, String.valueOf(registeredLegalCustomer.getCustomerNO())));
+        return "index";
+    }
+}
