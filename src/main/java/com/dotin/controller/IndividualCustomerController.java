@@ -41,9 +41,11 @@ public class IndividualCustomerController {
         IndividualCustomer registeredIndividualCustomer = individualCustomerService.saveIndividualCustomer(individualCustomer);
         String nationalCode = registeredIndividualCustomer.getNationalCode();
         model.addAttribute("saveCustomerSuccessMessage",
-                messageSourceComponent.getPersian("customer.successfully.registered", nationalCode));
+                messageSourceComponent.getPersian(
+                "individual.customer.successfully.registered", nationalCode));
         httpSession.setAttribute("customerNumberMessage",
-                messageSourceComponent.getPersian("customer.customerNumber.generated",
+                messageSourceComponent.getPersian(
+                        "individual.customer.customerNumber.generated",
                         nationalCode, String.valueOf(registeredIndividualCustomer.getCustomerNO())));
         return "index";
     }
