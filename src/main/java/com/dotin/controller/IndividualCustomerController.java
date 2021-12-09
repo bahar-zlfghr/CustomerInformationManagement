@@ -34,8 +34,8 @@ public class IndividualCustomerController {
     }
 
     @PostMapping(value = "/save-individual-customer")
-    public String saveIndividualCustomer(@ModelAttribute IndividualCustomer individualCustomer, HttpSession httpSession,
-                                         BindingResult bindingResult) {
+    public String updateIndividualCustomer(@ModelAttribute IndividualCustomer individualCustomer, HttpSession httpSession,
+                                           BindingResult bindingResult) {
         IndividualCustomer registeredIndividualCustomer = individualCustomerService.saveIndividualCustomer(individualCustomer);
         String nationalCode = registeredIndividualCustomer.getNationalCode();
         httpSession.setAttribute("saveCustomerSuccessMessage",
@@ -46,6 +46,23 @@ public class IndividualCustomerController {
                         "individual.customer.customerNumber.generated",
                         nationalCode, String.valueOf(registeredIndividualCustomer.getCustomerNO())));
         return "redirect:http://localhost:8080/";
+    }
+
+    @GetMapping(value = "/update-individual-customer/{customerNO}")
+    public String updateIndividualCustomer(@PathVariable String customerNO, Model model) {
+        IndividualCustomer individualCustomer =
+                individualCustomerService.findIndividualCustomerByCustomerNO(Integer.valueOf(customerNO));
+        model.addAttribute("individualCustomer", individualCustomer);
+        return "individual-customer-updatation";
+    }
+
+    @PostMapping(value = "/update-individual-customer")
+    public String updateIndividualCustomer(@ModelAttribute IndividualCustomer individualCustomer, HttpSession httpSession) {
+        IndividualCustomer updatingIndividualCustomer = individualCustomerService.updateIndividualCustomer(individualCustomer);
+        httpSession.setAttribute("updateIndividualCustomerSuccessMessage",
+                messageSourceComponent.getPersian(
+                        "individual.customer.successfully.updated", String.valueOf(updatingIndividualCustomer.getCustomerNO())));
+        return "redirect:http://localhost:8080/customers";
     }
 
     @GetMapping(value = "/delete-individual-customer/{customerNO}")
