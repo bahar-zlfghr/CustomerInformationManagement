@@ -20,20 +20,24 @@ body {
     flex-direction: column;
     background-color: #FFFFFF;
     padding: 50px;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin: 100px auto;
 }
 
-.btn-outline-primary a {
+a {
     text-decoration: none;
 }
 
-.btn-outline-primary a:hover {
-    color: #FFFFFF;
+.btn.btn-outline-primary {
+    margin: 20px auto 20px auto;
+    width: 25%;
 }
 
-.btn-outline-primary {
-    margin: 20px;
+.btn:hover {
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.20), 0 5px 5px 0 rgba(0, 0, 0, 0.20);
+}
+
+.btn:hover a {
+    color: #FFFFFF;
 }
 
 .selector-for-some-widget {
