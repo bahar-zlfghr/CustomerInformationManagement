@@ -13,6 +13,18 @@
 </head>
 <body>
 <div class="container rounded-3">
+    <c:if test="${sessionScope.updateIndividualCustomerSuccessMessage.length() > 0}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.updateIndividualCustomerSuccessMessage}
+            </h5>
+            <%
+                session.removeAttribute("updateIndividualCustomerSuccessMessage");
+            %>
+        </div>
+    </c:if>
+
     <c:if test="${sessionScope.deleteIndividualCustomerSuccessMessage.length() > 0}">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -34,8 +46,11 @@
                     <th>نوع</th>
                     <th>نام</th>
                     <th>نام خانوادگی</th>
+                    <th>نام پدر</th>
+                    <th>تاریخ تولد</th>
                     <th>کد ملی</th>
                     <th>شماره مشتری</th>
+                    <th>به روز رسانی</th>
                     <th>حذف</th>
                 </tr>
                 </thead>
@@ -45,8 +60,15 @@
                         <td>${individualCustomer.customerType}</td>
                         <td>${individualCustomer.firstName}</td>
                         <td>${individualCustomer.lastName}</td>
+                        <td>${individualCustomer.fatherName}</td>
+                        <td>${individualCustomer.birthDate}</td>
                         <td>${individualCustomer.nationalCode}</td>
                         <td>${individualCustomer.customerNO}</td>
+                        <td>
+                            <button type="button" class="btn btn-info">
+                                <a href="<c:url value="/update-individual-customer/${individualCustomer.customerNO}"/>">به روز رسانی</a>
+                            </button>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-danger">
                                 <a href="<c:url value="/delete-individual-customer/${individualCustomer.customerNO}"/>">حذف</a>
@@ -86,7 +108,9 @@
                     <th>نوع</th>
                     <th>نام شرکت</th>
                     <th>کد اقتصادی</th>
+                    <th>تاریخ ثبت</th>
                     <th>شماره مشتری</th>
+                    <th>به روز رسانی</th>
                     <th>حذف</th>
                 </tr>
                 </thead>
@@ -96,7 +120,13 @@
                         <td>${legalCustomer.customerType}</td>
                         <td>${legalCustomer.companyName}</td>
                         <td>${legalCustomer.economicCode}</td>
+                        <td>${legalCustomer.registrationDate}</td>
                         <td>${legalCustomer.customerNO}</td>
+                        <td>
+                            <button type="button" class="btn btn-info">
+                                <a href="<c:url value="/update-legal-customer/${legalCustomer.customerNO}"/>">به روز رسانی</a>
+                            </button>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-danger">
                                 <a href="<c:url value="/delete-legal-customer/${legalCustomer.customerNO}"/>">حذف</a>
