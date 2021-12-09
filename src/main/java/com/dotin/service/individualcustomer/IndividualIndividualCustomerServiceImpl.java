@@ -29,7 +29,7 @@ public class IndividualIndividualCustomerServiceImpl implements IndividualCustom
         if (existingIndividualCustomer.isPresent()) {
             throw new DuplicateIndividualCustomerException(
                     messageSourceComponent.getPersian(
-                            "customer.nationalCode.duplicated",
+                            "individual.customer.nationalCode.duplicated",
                             individualCustomer.getNationalCode()));
         }
         individualCustomer.setCustomerType(CustomerType.INDIVIDUAL.getCustomerType());
