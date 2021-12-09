@@ -1,13 +1,14 @@
 package com.dotin.service.legalcustomer;
 
+import com.dotin.exception.CustomerNotFoundException;
 import com.dotin.exception.DuplicateLegalCustomerException;
-import com.dotin.model.data.Customer;
 import com.dotin.model.data.CustomerType;
 import com.dotin.model.data.LegalCustomer;
 import com.dotin.model.repository.LegalCustomerRepository;
 import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,7 +26,7 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
 
     @Override
     public LegalCustomer saveLegalCustomer(LegalCustomer legalCustomer) {
-        Optional<Customer> existingLegalCustomer = legalCustomerRepository.findByEconomicCode(legalCustomer.getEconomicCode());
+        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByEconomicCode(legalCustomer.getEconomicCode());
         if (existingLegalCustomer.isPresent()) {
             throw new DuplicateLegalCustomerException(
                     messageSourceComponent.getPersian(
@@ -33,5 +34,18 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
         }
         legalCustomer.setCustomerType(CustomerType.LEGAL.getCustomerType());
         return legalCustomerRepository.save(legalCustomer);
+    }
+
+    @Override
+    public List<LegalCustomer> findAllLegalCustomers() {
+        return legalCustomerRepository.findAll();
+    }
+
+    @Override
+    public void deleteLegalCustomer(Integer customerNO) {
+        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCustomerNO(customerNO);
+        legalCustomerRepository.delete(existingLegalCustomer
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        messageSourceComponent.getPersian("legal.customer.not.found", String.valueOf(customerNO)))));
     }
 }
