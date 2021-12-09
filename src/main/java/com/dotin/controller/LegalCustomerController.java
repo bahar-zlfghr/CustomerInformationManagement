@@ -35,17 +35,17 @@ public class LegalCustomerController {
     }
 
     @PostMapping(value = "/save-legal-customer")
-    public String saveLegalCustomer(@ModelAttribute LegalCustomer legalCustomer, Model model,
-                                         HttpSession httpSession, BindingResult bindingResult) {
+    public String saveLegalCustomer(@ModelAttribute LegalCustomer legalCustomer, HttpSession httpSession,
+                                    BindingResult bindingResult) {
         LegalCustomer registeredLegalCustomer = legalCustomerService.saveLegalCustomer(legalCustomer);
         String economicCode = registeredLegalCustomer.getEconomicCode();
-        model.addAttribute("saveCustomerSuccessMessage",
+        httpSession.setAttribute("saveCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
                         "legal.customer.successfully.registered", economicCode));
         httpSession.setAttribute("customerNumberMessage",
                 messageSourceComponent.getPersian(
                         "legal.customer.customerNumber.generated",
                         economicCode, String.valueOf(registeredLegalCustomer.getCustomerNO())));
-        return "index";
+        return "redirect:http://localhost:8080/";
     }
 }

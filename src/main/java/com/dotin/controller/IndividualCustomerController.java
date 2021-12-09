@@ -36,17 +36,17 @@ public class IndividualCustomerController {
     }
 
     @PostMapping(value = "/save-individual-customer")
-    public String saveIndividualCustomer(@ModelAttribute IndividualCustomer individualCustomer, Model model,
-                                         HttpSession httpSession, BindingResult bindingResult) {
+    public String saveIndividualCustomer(@ModelAttribute IndividualCustomer individualCustomer, HttpSession httpSession,
+                                         BindingResult bindingResult) {
         IndividualCustomer registeredIndividualCustomer = individualCustomerService.saveIndividualCustomer(individualCustomer);
         String nationalCode = registeredIndividualCustomer.getNationalCode();
-        model.addAttribute("saveCustomerSuccessMessage",
+        httpSession.setAttribute("saveCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
                 "individual.customer.successfully.registered", nationalCode));
         httpSession.setAttribute("customerNumberMessage",
                 messageSourceComponent.getPersian(
                         "individual.customer.customerNumber.generated",
                         nationalCode, String.valueOf(registeredIndividualCustomer.getCustomerNO())));
-        return "index";
+        return "redirect:http://localhost:8080/";
     }
 }
