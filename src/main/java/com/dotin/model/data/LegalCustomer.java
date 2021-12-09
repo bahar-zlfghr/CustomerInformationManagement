@@ -22,4 +22,8 @@ public class LegalCustomer extends Customer {
     @Getter
     @Setter
     private String economicCode;
+
+    @Getter
+    @Setter
+    private String registrationDate;
 }
