@@ -8,9 +8,7 @@ import com.dotin.service.legalcustomer.LegalCustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -47,5 +45,13 @@ public class LegalCustomerController {
                         "legal.customer.customerNumber.generated",
                         economicCode, String.valueOf(registeredLegalCustomer.getCustomerNO())));
         return "redirect:http://localhost:8080/";
+    }
+
+    @GetMapping(value = "/delete-legal-customer/{customerNO}")
+    public String deleteLegalCustomer(@PathVariable String customerNO, HttpSession httpSession) {
+        legalCustomerService.deleteLegalCustomer(Integer.valueOf(customerNO));
+        httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
+                messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
+        return "redirect:http://localhost:8080/customers";
     }
 }

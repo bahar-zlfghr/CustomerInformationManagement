@@ -8,9 +8,7 @@ import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,5 +46,13 @@ public class IndividualCustomerController {
                         "individual.customer.customerNumber.generated",
                         nationalCode, String.valueOf(registeredIndividualCustomer.getCustomerNO())));
         return "redirect:http://localhost:8080/";
+    }
+
+    @GetMapping(value = "/delete-individual-customer/{customerNO}")
+    public String deleteIndividualCustomer(@PathVariable String customerNO, HttpSession httpSession) {
+        individualCustomerService.deleteIndividualCustomer(Integer.valueOf(customerNO));
+        httpSession.setAttribute("deleteIndividualCustomerSuccessMessage",
+                messageSourceComponent.getPersian("individual.customer.successfully.deleted", customerNO));
+        return "redirect:http://localhost:8080/customers";
     }
 }
