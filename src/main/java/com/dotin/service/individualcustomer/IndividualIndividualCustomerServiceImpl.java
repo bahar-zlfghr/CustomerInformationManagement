@@ -2,6 +2,7 @@ package com.dotin.service.individualcustomer;
 
 import com.dotin.exception.CustomerNotFoundException;
 import com.dotin.exception.DuplicateIndividualCustomerException;
+import com.dotin.model.CustomerUpdater;
 import com.dotin.model.data.CustomerType;
 import com.dotin.model.data.IndividualCustomer;
 import com.dotin.model.repository.IndividualCustomerRepository;
@@ -48,5 +49,23 @@ public class IndividualIndividualCustomerServiceImpl implements IndividualCustom
         individualCustomerRepository.delete(existingIndividualCustomer
                 .orElseThrow(() -> new CustomerNotFoundException(
                         messageSourceComponent.getPersian("individual.customer.not.found", String.valueOf(customerNO)))));
+    }
+
+    @Override
+    public IndividualCustomer findIndividualCustomerByCustomerNO(Integer customerNO) {
+        Optional<IndividualCustomer> existingIndividualCustomer = individualCustomerRepository.findByCustomerNO(customerNO);
+        return existingIndividualCustomer
+                .orElseThrow(() -> new CustomerNotFoundException(
+                        messageSourceComponent.getPersian("individual.customer.not.found", String.valueOf(customerNO))));
+    }
+
+    @Override
+    public IndividualCustomer updateIndividualCustomer(IndividualCustomer individualCustomer) {
+        Optional<IndividualCustomer> existingIndividualCustomer =
+                individualCustomerRepository.findByNationalCode(individualCustomer.getNationalCode());
+        IndividualCustomer updatingIndividualCustomer = existingIndividualCustomer.orElseThrow(() -> new CustomerNotFoundException(
+                messageSourceComponent.getPersian("individual.customer.not.found")));
+        CustomerUpdater.updateIndividualCustomer(updatingIndividualCustomer, individualCustomer);
+        return individualCustomerRepository.save(updatingIndividualCustomer);
     }
 }
