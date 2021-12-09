@@ -2,7 +2,7 @@ package com.dotin.service.individualcustomer;
 
 import com.dotin.exception.CustomerNotFoundException;
 import com.dotin.exception.DuplicateIndividualCustomerException;
-import com.dotin.model.CustomerUpdater;
+import com.dotin.util.CustomerUpdater;
 import com.dotin.model.data.CustomerType;
 import com.dotin.model.data.IndividualCustomer;
 import com.dotin.model.repository.IndividualCustomerRepository;
