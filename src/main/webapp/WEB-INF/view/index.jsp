@@ -14,20 +14,29 @@
 <body>
     <div class="container rounded-3">
         <c:if test="${sessionScope.saveCustomerSuccessMessage.length() > 0}">
-            <div class="alert alert-success" role="alert">
-                <h5> ${sessionScope.saveCustomerSuccessMessage} </h5>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.saveCustomerSuccessMessage}
+                </h5>
+                <%
+                    session.removeAttribute("saveCustomerSuccessMessage");
+                %>
             </div>
         </c:if>
 
         <c:if test="${sessionScope.customerNumberMessage.length() > 0}">
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
                 <h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     <%
                         out.print(DigitConverterComponent.convertDigitsEnToFa(
                                 String.valueOf(session.getAttribute("customerNumberMessage"))));
-                        session.removeAttribute("customerNumberMessage");
                     %>
                 </h5>
+                <%
+                    session.removeAttribute("customerNumberMessage");
+                %>
             </div>
         </c:if>
 
