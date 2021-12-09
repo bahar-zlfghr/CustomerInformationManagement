@@ -20,7 +20,7 @@
     <link href="<c:url value="/static/css/form-style.css"/>" rel="stylesheet"/>
 </head>
 <body>
-<div class="container rounded-3">
+<div class="container rounded-3" style="margin: 100px auto">
     <div class="alert alert-primary" role="alert">
         <h5> اطلاعات زیر را به دقت وارد کنید </h5>
     </div>
