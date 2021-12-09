@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>مدیریت اطلاعات مشتری</title>
+    <title>ثبت اطلاعات مشتری حقیقی</title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-date/dist/persian-date.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/js/persian-datepicker.js"></script>
-    <script src="<c:url value="/static/js/validate-registration.js"/>"></script>
+    <script src="<c:url value="/static/js/validate-individual-customer-registration.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/css/persian-datepicker.css" rel="stylesheet"/>
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
@@ -29,7 +29,7 @@
                modelAttribute="individualCustomer"
                method="post"
                action="/save-individual-customer"
-               onsubmit="return validateRegistrationForm()">
+               onsubmit="return validateIndividualCustomerRegistrationForm()">
         <table class="table" dir="rtl">
             <tbody>
                 <tr>
