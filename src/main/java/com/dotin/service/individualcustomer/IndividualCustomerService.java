@@ -1,4 +1,4 @@
-package com.dotin.service;
+package com.dotin.service.individualcustomer;
 
 import com.dotin.exception.DuplicateIndividualCustomerException;
 import com.dotin.model.data.IndividualCustomer;

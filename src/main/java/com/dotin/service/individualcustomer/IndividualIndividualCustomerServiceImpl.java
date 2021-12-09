@@ -1,10 +1,11 @@
-package com.dotin.service;
+package com.dotin.service.individualcustomer;
 
 import com.dotin.exception.DuplicateIndividualCustomerException;
 import com.dotin.model.data.Customer;
 import com.dotin.model.data.CustomerType;
 import com.dotin.model.data.IndividualCustomer;
 import com.dotin.model.repository.IndividualCustomerRepository;
+import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

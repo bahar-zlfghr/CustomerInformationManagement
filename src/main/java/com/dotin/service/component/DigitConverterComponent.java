@@ -1,4 +1,4 @@
-package com.dotin.service;
+package com.dotin.service.component;
 
 import org.springframework.stereotype.Component;
 
