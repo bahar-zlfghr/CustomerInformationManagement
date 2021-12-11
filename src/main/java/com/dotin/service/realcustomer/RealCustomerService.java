@@ -1,0 +1,18 @@
+package com.dotin.service.realcustomer;
+
+import com.dotin.dto.RealCustomerDto;
+import com.dotin.exception.DuplicateRealCustomerException;
+
+import java.util.List;
+
+/**
+ * @author : Bahar Zolfaghari
+ **/
+public interface RealCustomerService {
+
+    RealCustomerDto saveRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateRealCustomerException;
+    List<RealCustomerDto> findAllRealCustomers();
+    void deleteRealCustomer(Integer customerNO);
+    RealCustomerDto findRealCustomerByCustomerNO(Integer customerNO);
+    void updateRealCustomer(RealCustomerDto realCustomerDto);
+}
