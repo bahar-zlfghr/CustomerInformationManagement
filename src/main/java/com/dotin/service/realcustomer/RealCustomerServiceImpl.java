@@ -54,10 +54,8 @@ public class RealCustomerServiceImpl implements RealCustomerService {
 
     @Override
     public void deleteRealCustomer(Integer customerNO) {
-        Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCustomerNO(customerNO);
-        realCustomerRepository.delete(existingRealCustomer
-                .orElseThrow(() -> new RealCustomerNotFoundException(
-                        messageSourceComponent.getPersian("real.customer.not.found", String.valueOf(customerNO)))));
+        RealCustomerDto realCustomerDto = findRealCustomerByCustomerNO(customerNO);
+        realCustomerRepository.delete(realCustomerMapper.toRealCustomer(realCustomerDto));
     }
 
     @Override

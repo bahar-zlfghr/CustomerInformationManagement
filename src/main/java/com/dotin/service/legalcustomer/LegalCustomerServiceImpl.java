@@ -51,7 +51,8 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
 
     @Override
     public void deleteLegalCustomerDto(Integer customerNO) {
-        legalCustomerRepository.deleteById(customerNO);
+        LegalCustomerDto legalCustomerDto = findLegalCustomerDtoByCustomerNO(customerNO);
+        legalCustomerRepository.delete(legalCustomerMapper.toLegalCustomer(legalCustomerDto));
     }
 
     @Override
