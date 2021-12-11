@@ -1,6 +1,7 @@
 package com.dotin.exception;
 
-import com.dotin.util.CustomerDtoUtil;
+import com.dotin.dto.LegalCustomerDto;
+import com.dotin.dto.RealCustomerDto;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ public class ControllerAdvise {
     public ModelAndView duplicateIndividualCustomerException(DuplicateRealCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("duplicateRealCustomerException", e.getMessage());
-        modelAndView.addObject("realCustomer", CustomerDtoUtil.createRealCustomer());
+        modelAndView.addObject("realCustomer", new RealCustomerDto());
         modelAndView.setViewName("real-customer-registration");
         return modelAndView;
     }
@@ -26,7 +27,7 @@ public class ControllerAdvise {
     public ModelAndView duplicateLegalCustomerException(DuplicateLegalCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("duplicateLegalCustomerException", e.getMessage());
-        modelAndView.addObject("legalCustomer", CustomerDtoUtil.createLegalCustomer());
+        modelAndView.addObject("legalCustomer", new LegalCustomerDto());
         modelAndView.setViewName("legal-customer-registration");
         return modelAndView;
     }
