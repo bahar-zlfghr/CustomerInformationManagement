@@ -1,7 +1,7 @@
 function validateLegalCustomerRegistrationForm() {
-    let companyName = document.forms['registration-form']['companyName'].value;
-    let registrationDate = document.forms['registration-form']['registrationDate'].value;
-    let economicCode = document.forms['registration-form']['economicCode'].value;
+    let companyName = document.getElementById('companyName').value;
+    let registrationDate = document.getElementById('registrationDate').value;
+    let economicCode = document.getElementById('economicCode').value;
 
     let vCompanyName = validateCompanyName(companyName);
     let vRegistrationDate = validateRegistrationDate(registrationDate);

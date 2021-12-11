@@ -1,9 +1,10 @@
-function validateIndividualCustomerRegistrationForm() {
-    let firstName = document.forms['registration-form']['firstName'].value;
-    let lastName = document.forms['registration-form']['lastName'].value;
-    let fatherName = document.forms['registration-form']['fatherName'].value;
-    let birthDate = document.forms['registration-form']['birthDate'].value;
-    let nationalCode = document.forms['registration-form']['nationalCode'].value;
+function validateRealCustomerRegistrationForm() {
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
+    let fatherName = document.getElementById('fatherName').value;
+    let birthDate = document.getElementById('birthDate').value;
+    let nationalCode = document.getElementById('nationalCode').value;
+    console.log(nationalCode);
 
     let vFirstName = validateFirstName(firstName);
     let vLastName = validateLastName(lastName);
