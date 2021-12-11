@@ -6,7 +6,7 @@ import lombok.Getter;
  * @author : Bahar Zolfaghari
  **/
 public enum CustomerType {
-    INDIVIDUAL("حقیقی"), LEGAL("حقوقی");
+    Real("حقیقی"), LEGAL("حقوقی");
 
     @Getter
     private final String customerType;
