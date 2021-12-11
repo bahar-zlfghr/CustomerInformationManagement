@@ -10,6 +10,7 @@
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-date/dist/persian-date.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/js/persian-datepicker.js"></script>
     <script src="<c:url value="/static/js/validate-legal-customer-registration.js"/>"></script>
+    <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/css/persian-datepicker.css" rel="stylesheet"/>
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
@@ -35,16 +36,16 @@
                 <tr>
                     <td>نوع مشتری</td>
                     <td>
-                        <form:label path="customerType">
-                            <form:input path="customerType" type="text" value="حقوقی" disabled="true"/>
-                        </form:label>
+                        <label>
+                            <input type="text" value="حقوقی" readonly onclick="alert('فیلد نوع مشتری قابل تغییر نیست!')"/>
+                        </label>
                     </td>
                 </tr>
                 <tr>
                     <td>نام شرکت</td>
                     <td>
                         <form:label path="companyName">
-                            <form:input path="companyName" name="companyName" type="text"/>
+                            <form:input path="companyName" id="companyName" type="text"/>
                         </form:label>
                     </td>
                 </tr>
@@ -57,7 +58,7 @@
                     <td>تاریخ ثبت</td>
                     <td>
                         <form:label path="registrationDate">
-                            <form:input path="registrationDate" type="text" name="registrationDate" class="registration-date" />
+                            <form:input path="registrationDate" type="text" id="registrationDate" class="registration-date" />
                         </form:label>
                     </td>
                 </tr>
@@ -70,7 +71,7 @@
                     <td>کد اقتصادی</td>
                     <td>
                         <form:label path="economicCode">
-                            <form:input path="economicCode" type="text" name="economicCode" id="economicCode"/>
+                            <form:input path="economicCode" type="text" id="economicCode"/>
                         </form:label>
                     </td>
                 </tr>
@@ -112,26 +113,12 @@
             initialValue: false
         });
     });
-</script>
 
-<script type="text/javascript">
     $(function () {
-        $('[id*=economicCode]').keyup(function (e) {
-            const ctrlKey = 67, vKey = 86;
-            if (e.keyCode !== ctrlKey && e.keyCode !== vKey) {
-                $('[id*=economicCode]').val(toPersianNumber($(this).val()));
-            }
+        $('[id*=economicCode]').keyup(function () {
+            $('[id*=economicCode]').val(toPersianNumber($(this).val()));
         });
     });
-
-    function toPersianNumber(input) {
-        let inputString = input;
-        const persian = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-        for (let j = 0; j < persian.length; j++) {
-            inputString = inputString.toString().replace(new RegExp(j.toString(), "g"), persian[j]);
-        }
-        return inputString;
-    }
 </script>
 </body>
 </html>

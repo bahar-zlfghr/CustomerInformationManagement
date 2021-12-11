@@ -4,12 +4,13 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>ثبت اطلاعات مشتری حقیقی</title>
+    <title>به روز رسانی اطلاعات مشتری حقیقی</title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-date/dist/persian-date.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/js/persian-datepicker.js"></script>
-    <script src="<c:url value="/static/js/validate-individual-customer-registration.js"/>"></script>
+    <script src="<c:url value="/static/js/validate-real-customer-registration.js"/>"></script>
+    <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/css/persian-datepicker.css" rel="stylesheet"/>
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
@@ -26,25 +27,25 @@
     </div>
 
     <form:form name="registration-form"
-               modelAttribute="individualCustomer"
+               modelAttribute="realCustomer"
                method="post"
-               action="/update-individual-customer"
-               onsubmit="return validateIndividualCustomerRegistrationForm()">
+               action="/update-real-customer"
+               onsubmit="return validateRealCustomerRegistrationForm()">
         <table class="table" dir="rtl">
             <tbody>
             <tr>
                 <td>نوع مشتری</td>
                 <td>
-                    <form:label path="customerType">
-                        <form:input path="customerType" type="text" disabled="true"/>
-                    </form:label>
+                    <label>
+                        <input type="text" value="حقیقی" readonly onclick="alert('فیلد نوع مشتری قابل تغییر نیست!')"/>
+                    </label>
                 </td>
             </tr>
             <tr>
                 <td>شماره مشتری</td>
                 <td>
                     <form:label path="customerNO">
-                        <form:input path="customerNO" type="text" disabled="true"/>
+                        <form:input path="customerNO" type="text" readonly="true" onclick="alert('فیلد شماره مشتری قابل تغییر نیست!')"/>
                     </form:label>
                 </td>
             </tr>
@@ -52,7 +53,7 @@
                 <td>نام</td>
                 <td>
                     <form:label path="firstName">
-                        <form:input path="firstName" name="firstName" type="text"/>
+                        <form:input path="firstName" id="firstName" type="text"/>
                     </form:label>
                 </td>
             </tr>
@@ -65,7 +66,7 @@
                 <td>نام خانوادگی</td>
                 <td>
                     <form:label path="lastName">
-                        <form:input path="lastName" name="lastName" type="text"/>
+                        <form:input path="lastName" id="lastName" type="text"/>
                     </form:label>
                 </td>
             </tr>
@@ -78,7 +79,7 @@
                 <td>نام پدر</td>
                 <td>
                     <form:label path="fatherName">
-                        <form:input path="fatherName" name="fatherName" type="text"/>
+                        <form:input path="fatherName" id="fatherName" type="text"/>
                     </form:label>
                 </td>
             </tr>
@@ -91,7 +92,7 @@
                 <td>تاریخ تولد</td>
                 <td>
                     <form:label path="birthDate">
-                        <form:input path="birthDate" type="text" name="birthDate" class="birth-date" />
+                        <form:input path="birthDate" type="text" id="birthDate" class="birth-date" />
                     </form:label>
                 </td>
             </tr>
@@ -104,7 +105,7 @@
                 <td>کد ملی</td>
                 <td>
                     <form:label path="nationalCode">
-                        <form:input path="nationalCode" type="text" name="nationalCode" id="nationalCode"/>
+                        <form:input path="nationalCode" type="text" id="nationalCode"/>
                     </form:label>
                 </td>
             </tr>
@@ -146,26 +147,12 @@
             initialValue: false
         });
     });
-</script>
 
-<script type="text/javascript">
     $(function () {
-        $('[id*=nationalCode]').keyup(function (e) {
-            const ctrlKey = 67, vKey = 86;
-            if (e.keyCode !== ctrlKey && e.keyCode !== vKey) {
-                $('[id*=nationalCode]').val(toPersianNumber($(this).val()));
-            }
+        $('[id*=nationalCode]').keyup(function () {
+            $('[id*=nationalCode]').val(toPersianNumber($(this).val()));
         });
     });
-
-    function toPersianNumber(input) {
-        let inputString = input;
-        const persian = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-        for (let j = 0; j < persian.length; j++) {
-            inputString = inputString.toString().replace(new RegExp(j.toString(), "g"), persian[j]);
-        }
-        return inputString;
-    }
 </script>
 </body>
 </html>
