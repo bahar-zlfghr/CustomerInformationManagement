@@ -30,7 +30,7 @@
                 <h5>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     <%
-                        out.print(DigitConverterComponent.convertDigitsEnToFa(
+                        out.print(DigitConverterComponent.convertEnToFa(
                                 String.valueOf(session.getAttribute("customerNumberMessage"))));
                     %>
                 </h5>
@@ -45,7 +45,7 @@
         </div>
 
         <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/save-individual-customer"/>">مشتری حقیقی</a>
+            <a href="<c:url value="/save-real-customer"/>">مشتری حقیقی</a>
         </button>
 
         <button type="button" class="btn btn-outline-primary">
