@@ -5,6 +5,7 @@
 <head>
     <title>مدیریت اطلاعات مشتری</title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
+    <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
     <link href="<c:url value="/static/css/main.css"/>" rel="stylesheet"/>
@@ -13,24 +14,36 @@
 </head>
 <body>
 <div class="container rounded-3">
-    <c:if test="${sessionScope.updateIndividualCustomerSuccessMessage.length() > 0}">
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <c:if test="${sessionScope.realCustomerNotFoundException.length() > 0}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <h5>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    ${sessionScope.updateIndividualCustomerSuccessMessage}
+                    ${sessionScope.realCustomerNotFoundException}
             </h5>
             <%
-                session.removeAttribute("updateIndividualCustomerSuccessMessage");
+                session.removeAttribute("realCustomerNotFoundException");
             %>
         </div>
     </c:if>
 
-    <c:if test="${sessionScope.deleteIndividualCustomerSuccessMessage.length() > 0}">
+    <c:if test="${sessionScope.updateRealCustomerSuccessMessage.length() > 0}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.updateRealCustomerSuccessMessage}
+            </h5>
+            <%
+                session.removeAttribute("updateRealCustomerSuccessMessage");
+            %>
+        </div>
+    </c:if>
+
+    <c:if test="${sessionScope.deleteRealCustomerSuccessMessage.length() > 0}">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            <h5> ${sessionScope.deleteIndividualCustomerSuccessMessage} </h5>
+            <h5> ${sessionScope.deleteRealCustomerSuccessMessage} </h5>
             <%
-                session.removeAttribute("deleteIndividualCustomerSuccessMessage");
+                session.removeAttribute("deleteRealCustomerSuccessMessage");
             %>
         </div>
     </c:if>
@@ -39,7 +52,7 @@
         <h5> جدول مشتریان حقیقی </h5>
     </div>
     <c:choose>
-        <c:when test="${individualCustomers.size() != 0}">
+        <c:when test="${realCustomers.size() != 0}">
             <table class="table table-sm">
                 <thead>
                 <tr>
@@ -55,23 +68,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="individualCustomer" items="${individualCustomers}">
+                <c:forEach var="realCustomer" items="${realCustomers}">
                     <tr>
-                        <td>${individualCustomer.customerType}</td>
-                        <td>${individualCustomer.firstName}</td>
-                        <td>${individualCustomer.lastName}</td>
-                        <td>${individualCustomer.fatherName}</td>
-                        <td>${individualCustomer.birthDate}</td>
-                        <td>${individualCustomer.nationalCode}</td>
-                        <td>${individualCustomer.customerNO}</td>
+                        <td>حقیقی</td>
+                        <td>${realCustomer.firstName}</td>
+                        <td>${realCustomer.lastName}</td>
+                        <td>${realCustomer.fatherName}</td>
+                        <td>${realCustomer.birthDate}</td>
+                        <td>${realCustomer.nationalCode}</td>
+                        <td id="real-customerNO">${realCustomer.customerNO}</td>
                         <td>
                             <button type="button" class="btn btn-info">
-                                <a href="<c:url value="/update-individual-customer/${individualCustomer.customerNO}"/>">به روز رسانی</a>
+                                <a href="<c:url value="/update-real-customer/${realCustomer.customerNO}"/>">به روز رسانی</a>
                             </button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger">
-                                <a href="<c:url value="/delete-individual-customer/${individualCustomer.customerNO}"/>">حذف</a>
+                                <a href="<c:url value="/delete-real-customer/${realCustomer.customerNO}"/>">حذف</a>
                             </button>
                         </td>
                     </tr>
@@ -87,6 +100,30 @@
     </c:choose>
 </div>
 <div class="container rounded-3">
+    <c:if test="${sessionScope.legalCustomerNotFoundException.length() > 0}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.legalCustomerNotFoundException}
+            </h5>
+            <%
+                session.removeAttribute("legalCustomerNotFoundException");
+            %>
+        </div>
+    </c:if>
+
+    <c:if test="${sessionScope.updateLegalCustomerSuccessMessage.length() > 0}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.updateLegalCustomerSuccessMessage}
+            </h5>
+            <%
+                session.removeAttribute("updateLegalCustomerSuccessMessage");
+            %>
+        </div>
+    </c:if>
+
     <c:if test="${sessionScope.deleteLegalCustomerSuccessMessage.length() > 0}">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -117,7 +154,7 @@
                 <tbody>
                 <c:forEach var="legalCustomer" items="${legalCustomers}">
                     <tr>
-                        <td>${legalCustomer.customerType}</td>
+                        <td>حقوقی</td>
                         <td>${legalCustomer.companyName}</td>
                         <td>${legalCustomer.economicCode}</td>
                         <td>${legalCustomer.registrationDate}</td>
