@@ -1,7 +1,5 @@
 package com.dotin.model.data;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -11,13 +9,13 @@ import javax.persistence.*;
  * @author : Bahar Zolfaghari
  **/
 @Entity(name = "Customer")
-@Table(name = "Customer")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Customers")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "customerType")
+@DiscriminatorValue(value = "-")
 public class Customer {
 
     @Id
-    @Getter
-    @Setter
     @GeneratedValue(generator = "sequence-generator")
     @GenericGenerator(
             name = "sequence-generator",
@@ -30,7 +28,46 @@ public class Customer {
     )
     private Integer customerNO;
 
-    @Getter
-    @Setter
-    private String customerType;
+    private String name;
+
+    @Column(name = "`datee`")
+    private String date;
+
+    private String code;
+
+    public Integer getCustomerNO() {
+        return customerNO;
+    }
+
+    public Customer setCustomerNO(Integer customerNO) {
+        this.customerNO = customerNO;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Customer setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public Customer setDate(String date) {
+        this.date = date;
+        return this;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Customer setCode(String code) {
+        this.code = code;
+        return this;
+    }
 }
