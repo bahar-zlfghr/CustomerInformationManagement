@@ -11,7 +11,17 @@
     <link href="<c:url value="/static/css/main.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/static/css/alert-style.css"/>" rel="stylesheet"/>
 </head>
-<body>
+<body style="flex-direction: column;">
+    <nav class="nav nav-pills flex-column flex-sm-row border-gradient border-gradient-purple">
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">به روز رسانی اطلاعات مشتریان</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">حذف اطلاعات مشتریان</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">جستجو میان مشتریان</a>
+    </nav>
+
     <div class="container rounded-3">
         <c:if test="${sessionScope.saveCustomerSuccessMessage.length() > 0}">
             <div class="alert alert-success alert-dismissible fade show" role="alert">

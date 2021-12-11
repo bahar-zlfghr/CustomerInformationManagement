@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>مدیریت اطلاعات مشتری</title>
+    <title>لیست مشتریان</title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
@@ -13,6 +13,16 @@
     <link href="<c:url value="/static/css/customers-table.css"/>" rel="stylesheet"/>
 </head>
 <body>
+<nav class="nav nav-pills flex-column flex-sm-row border-gradient border-gradient-purple">
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">به روز رسانی اطلاعات مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">حذف اطلاعات مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">جستجو میان مشتریان</a>
+</nav>
+
 <div class="container rounded-3">
     <c:if test="${sessionScope.realCustomerNotFoundException.length() > 0}">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">

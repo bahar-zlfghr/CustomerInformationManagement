@@ -13,6 +13,31 @@ body {
     background-repeat: no-repeat;
 }
 
+.nav {
+    background-image: linear-gradient(135deg, #d53a9d 10%, #743ad5 100%);
+    background-repeat: no-repeat;
+    border-style: solid;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+.nav a {
+    color: #FFFFFF;
+}
+
+.border-gradient {
+    border-bottom: 5px solid;
+    border-top: 5px solid;
+    border-left: 0;
+    border-right: 0;
+    border-image-slice: 1;
+}
+.border-gradient-purple {
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+
 .container {
     height: max-content;
     display: flex;
