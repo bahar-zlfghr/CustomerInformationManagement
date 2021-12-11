@@ -1,8 +1,6 @@
 package com.dotin.controller;
 
-import com.dotin.model.CustomerFactory;
-import com.dotin.model.data.CustomerType;
-import com.dotin.model.data.LegalCustomer;
+import com.dotin.dto.LegalCustomerDto;
 import com.dotin.service.component.MessageSourceComponent;
 import com.dotin.service.legalcustomer.LegalCustomerService;
 import org.springframework.stereotype.Controller;
@@ -27,15 +25,15 @@ public class LegalCustomerController {
 
     @GetMapping(value = "/save-legal-customer")
     public String getLegalCustomerRegistrationForm(Model model) {
-        LegalCustomer legalCustomer = (LegalCustomer) CustomerFactory.createCustomer(CustomerType.LEGAL);
+        LegalCustomerDto legalCustomer = new LegalCustomerDto();
         model.addAttribute("legalCustomer", legalCustomer);
         return "legal-customer-registration";
     }
 
     @PostMapping(value = "/save-legal-customer")
-    public String saveLegalCustomer(@ModelAttribute LegalCustomer legalCustomer, HttpSession httpSession,
+    public String saveLegalCustomer(@ModelAttribute LegalCustomerDto legalCustomer, HttpSession httpSession,
                                     BindingResult bindingResult) {
-        LegalCustomer registeredLegalCustomer = legalCustomerService.saveLegalCustomer(legalCustomer);
+        LegalCustomerDto registeredLegalCustomer = legalCustomerService.saveLegalCustomer(legalCustomer);
         String economicCode = registeredLegalCustomer.getEconomicCode();
         httpSession.setAttribute("saveCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
@@ -47,9 +45,26 @@ public class LegalCustomerController {
         return "redirect:http://localhost:8080/";
     }
 
+    @GetMapping(value = "/update-legal-customer/{customerNO}")
+    public String updateLegalCustomer(@PathVariable String customerNO, Model model) {
+        LegalCustomerDto legalCustomer =
+                legalCustomerService.findLegalCustomerDtoByCustomerNO(Integer.valueOf(customerNO));
+        model.addAttribute("legalCustomer", legalCustomer);
+        return "legal-customer-updatation";
+    }
+
+    @PostMapping(value = "/update-legal-customer")
+    public String updateLegalCustomer(@ModelAttribute LegalCustomerDto legalCustomer, HttpSession httpSession) {
+        legalCustomerService.updateLegalCustomerDto(legalCustomer);
+        httpSession.setAttribute("updateLegalCustomerSuccessMessage",
+                messageSourceComponent.getPersian(
+                        "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
+        return "redirect:http://localhost:8080/customers";
+    }
+
     @GetMapping(value = "/delete-legal-customer/{customerNO}")
     public String deleteLegalCustomer(@PathVariable String customerNO, HttpSession httpSession) {
-        legalCustomerService.deleteLegalCustomer(Integer.valueOf(customerNO));
+        legalCustomerService.deleteLegalCustomerDto(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
         return "redirect:http://localhost:8080/customers";
