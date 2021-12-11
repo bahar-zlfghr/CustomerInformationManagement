@@ -8,6 +8,7 @@ import com.dotin.model.data.RealCustomer;
 import com.dotin.model.repository.RealCustomerRepository;
 import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  * @author : Bahar Zolfaghari
  **/
 @Service
+@Transactional
 public class RealCustomerServiceImpl implements RealCustomerService {
     private final RealCustomerRepository realCustomerRepository;
     private final MessageSourceComponent messageSourceComponent;
