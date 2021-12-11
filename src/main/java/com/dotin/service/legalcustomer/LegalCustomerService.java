@@ -1,6 +1,6 @@
 package com.dotin.service.legalcustomer;
 
-import com.dotin.model.data.LegalCustomer;
+import com.dotin.dto.LegalCustomerDto;
 
 import java.util.List;
 
@@ -9,7 +9,9 @@ import java.util.List;
  **/
 public interface LegalCustomerService {
 
-    LegalCustomer saveLegalCustomer(LegalCustomer legalCustomer);
-    List<LegalCustomer> findAllLegalCustomers();
-    void deleteLegalCustomer(Integer customerNO);
+    LegalCustomerDto saveLegalCustomer(LegalCustomerDto legalCustomerDto);
+    List<LegalCustomerDto> findAllLegalCustomers();
+    void deleteLegalCustomerDto(Integer customerNO);
+    LegalCustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO);
+    void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto);
 }

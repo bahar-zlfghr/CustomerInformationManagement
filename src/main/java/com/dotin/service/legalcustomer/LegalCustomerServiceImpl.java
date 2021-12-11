@@ -1,51 +1,72 @@
 package com.dotin.service.legalcustomer;
 
-import com.dotin.exception.CustomerNotFoundException;
+import com.dotin.dto.LegalCustomerDto;
+import com.dotin.exception.LegalCustomerNotFoundException;
 import com.dotin.exception.DuplicateLegalCustomerException;
-import com.dotin.model.data.CustomerType;
+import com.dotin.mapper.legalcustomer.LegalCustomerMapper;
 import com.dotin.model.data.LegalCustomer;
 import com.dotin.model.repository.LegalCustomerRepository;
 import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author : Bahar Zolfaghari
  **/
 @Service
+@Transactional
 public class LegalCustomerServiceImpl implements LegalCustomerService {
     private final LegalCustomerRepository legalCustomerRepository;
     private final MessageSourceComponent messageSourceComponent;
+    private final LegalCustomerMapper legalCustomerMapper;
 
-    public LegalCustomerServiceImpl(LegalCustomerRepository legalCustomerRepository, MessageSourceComponent messageSourceComponent) {
+    public LegalCustomerServiceImpl(LegalCustomerRepository legalCustomerRepository, MessageSourceComponent messageSourceComponent, LegalCustomerMapper legalCustomerMapper) {
         this.legalCustomerRepository = legalCustomerRepository;
         this.messageSourceComponent = messageSourceComponent;
+        this.legalCustomerMapper = legalCustomerMapper;
     }
 
     @Override
-    public LegalCustomer saveLegalCustomer(LegalCustomer legalCustomer) {
-        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByEconomicCode(legalCustomer.getEconomicCode());
+    public LegalCustomerDto saveLegalCustomer(LegalCustomerDto legalCustomerDto) {
+        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getEconomicCode());
         if (existingLegalCustomer.isPresent()) {
             throw new DuplicateLegalCustomerException(
                     messageSourceComponent.getPersian(
-                            "legal.customer.economicCode.duplicated", legalCustomer.getEconomicCode()));
+                            "legal.customer.economicCode.duplicated", legalCustomerDto.getEconomicCode()));
         }
-        legalCustomer.setCustomerType(CustomerType.LEGAL.getCustomerType());
-        return legalCustomerRepository.save(legalCustomer);
+        return legalCustomerMapper.toLegalCustomerDto(
+                legalCustomerRepository.save(legalCustomerMapper.toLegalCustomer(legalCustomerDto)));
     }
 
     @Override
-    public List<LegalCustomer> findAllLegalCustomers() {
-        return legalCustomerRepository.findAll();
+    public List<LegalCustomerDto> findAllLegalCustomers() {
+        return legalCustomerRepository.findAll().stream()
+                .map(legalCustomerMapper::toLegalCustomerDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void deleteLegalCustomer(Integer customerNO) {
+    public void deleteLegalCustomerDto(Integer customerNO) {
+        legalCustomerRepository.deleteById(customerNO);
+    }
+
+    @Override
+    public LegalCustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO) {
         Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCustomerNO(customerNO);
-        legalCustomerRepository.delete(existingLegalCustomer
-                .orElseThrow(() -> new CustomerNotFoundException(
+        return legalCustomerMapper.toLegalCustomerDto(
+                existingLegalCustomer.orElseThrow(() -> new LegalCustomerNotFoundException(
                         messageSourceComponent.getPersian("legal.customer.not.found", String.valueOf(customerNO)))));
+    }
+
+
+
+    @Override
+    public void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto) {
+        legalCustomerMapper.toLegalCustomerDto(
+                legalCustomerRepository.save(legalCustomerMapper.toLegalCustomer(legalCustomerDto)));
     }
 }
