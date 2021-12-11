@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface LegalCustomerRepository extends JpaRepository<LegalCustomer, Integer> {
 
-    Optional<LegalCustomer> findByEconomicCode(String economicCode);
+    Optional<LegalCustomer> findByCode(String economicCode);
     Optional<LegalCustomer> findByCustomerNO(Integer customerNo);
 }
