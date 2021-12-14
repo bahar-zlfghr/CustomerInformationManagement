@@ -24,6 +24,12 @@ public class RealCustomerController {
         this.messageSourceComponent = messageSourceComponent;
     }
 
+    @GetMapping(value = "/real-customers")
+    public String getRealCustomers(Model model) {
+        model.addAttribute("realCustomers", realCustomerService.findAllRealCustomers());
+        return "real-customers-list";
+    }
+
     @GetMapping(value = "/save-real-customer")
     public String getRealCustomerRegistrationForm(Model model) {
         model.addAttribute("realCustomer", new RealCustomerDto());

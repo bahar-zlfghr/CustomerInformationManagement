@@ -23,8 +23,14 @@ public class LegalCustomerController {
         this.messageSourceComponent = messageSourceComponent;
     }
 
+    @GetMapping(value = "/legal-customers")
+    public String viewCustomersListPage(Model model) {
+        model.addAttribute("legalCustomers", legalCustomerService.findAllLegalCustomers());
+        return "legal-customers-list";
+    }
+
     @GetMapping(value = "/save-legal-customer")
-    public String getLegalCustomerRegistrationForm(Model model) {
+    public String getLegalCustomers(Model model) {
         LegalCustomerDto legalCustomer = new LegalCustomerDto();
         model.addAttribute("legalCustomer", legalCustomer);
         return "legal-customer-registration";
