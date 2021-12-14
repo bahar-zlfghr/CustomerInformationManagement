@@ -77,6 +77,6 @@ public class LegalCustomerController {
         legalCustomerService.deleteLegalCustomerDto(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
-        return "redirect:http://localhost:8080/customers";
+        return "redirect:http://localhost:8080/legal-customers";
     }
 }

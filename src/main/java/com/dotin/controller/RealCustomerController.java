@@ -79,6 +79,6 @@ public class RealCustomerController {
         realCustomerService.deleteRealCustomer(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteRealCustomerSuccessMessage",
                 messageSourceComponent.getPersian("real.customer.successfully.deleted", customerNO));
-        return "redirect:http://localhost:8080/customers";
+        return "redirect:http://localhost:8080/real-customers";
     }
 }
