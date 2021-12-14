@@ -18,15 +18,21 @@ public class RealCustomerController {
     private final RealCustomerService realCustomerService;
     private final MessageSourceComponent messageSourceComponent;
 
-    public RealCustomerController(RealCustomerService realCustomerService, 
+    public RealCustomerController(RealCustomerService realCustomerService,
                                   MessageSourceComponent messageSourceComponent) {
         this.realCustomerService = realCustomerService;
         this.messageSourceComponent = messageSourceComponent;
     }
 
     @GetMapping(value = "/real-customers")
-    public String getRealCustomers(Model model) {
-        model.addAttribute("realCustomers", realCustomerService.findAllRealCustomers());
+    public String getRealCustomers(@RequestParam(required = false, name = "firstName") String firstName,
+                                   @RequestParam(required = false, name = "lastName") String lastName,
+                                   @RequestParam(required = false, name = "nationalCode") String nationalCode,
+                                   @RequestParam(required = false, name = "customerNO") String customerNO,
+                                   Model model) {
+        model.addAttribute("realCustomers",
+                realCustomerService.findAllRealCustomers(firstName, lastName,
+                        nationalCode, customerNO));
         return "real-customers-list";
     }
 
