@@ -1,0 +1,12 @@
+#search-form {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-info {
+    color: #FFFFFF;
+}
+
+.btn-info:hover {
+    color: #FFFFFF;
+}
