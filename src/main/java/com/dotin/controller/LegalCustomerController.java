@@ -24,8 +24,12 @@ public class LegalCustomerController {
     }
 
     @GetMapping(value = "/legal-customers")
-    public String viewCustomersListPage(Model model) {
-        model.addAttribute("legalCustomers", legalCustomerService.findAllLegalCustomers());
+    public String getLegalCustomers(@RequestParam(required = false, name = "companyName") String companyName,
+                                        @RequestParam(required = false, name = "economicCode") String economicCode,
+                                        @RequestParam(required = false, name = "customerNO") String customerNO,
+                                        Model model) {
+        model.addAttribute("legalCustomers",
+                legalCustomerService.findAllLegalCustomers(companyName, economicCode, customerNO));
         return "legal-customers-list";
     }
 
