@@ -11,7 +11,7 @@ import java.util.List;
 public interface RealCustomerService {
 
     RealCustomerDto saveRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateRealCustomerException;
-    List<RealCustomerDto> findAllRealCustomers();
+    List<RealCustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO);
     void deleteRealCustomer(Integer customerNO);
     RealCustomerDto findRealCustomerByCustomerNO(Integer customerNO);
     void updateRealCustomer(RealCustomerDto realCustomerDto);

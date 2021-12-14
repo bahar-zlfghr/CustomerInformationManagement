@@ -6,7 +6,9 @@ import com.dotin.exception.RealCustomerNotFoundException;
 import com.dotin.mapper.realcustomer.RealCustomerMapper;
 import com.dotin.model.data.RealCustomer;
 import com.dotin.model.repository.RealCustomerRepository;
+import com.dotin.model.repository.RealCustomerSpecification;
 import com.dotin.service.component.MessageSourceComponent;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,8 +48,10 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     }
 
     @Override
-    public List<RealCustomerDto> findAllRealCustomers() {
-        return realCustomerRepository.findAll().stream()
+    public List<RealCustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO) {
+        return realCustomerRepository.findAll(Specification
+                .where(RealCustomerSpecification.search(firstName, lastName, nationalCode, customerNO)))
+                .stream()
                 .map(realCustomerMapper::toRealCustomerDto)
                 .collect(Collectors.toList());
     }
