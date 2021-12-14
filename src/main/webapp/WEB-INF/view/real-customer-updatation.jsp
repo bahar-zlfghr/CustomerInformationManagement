@@ -119,17 +119,6 @@
             </tr>
             <tr>
                 <td colspan="2">
-                        <%--@elvariable id="duplicateIndividualCustomerException" type="String"--%>
-                    <c:set var="duplucateCustomer" value="${duplicateIndividualCustomerException}"/>
-                    <c:if test="${duplucateCustomer.length() > 0}">
-                        <div class="alert alert-danger" role="alert">
-                                ${duplucateCustomer}
-                        </div>
-                    </c:if>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
                     <div id="nationalCodeError" class="alert alert-danger" role="alert" style=" display: none"></div>
                 </td>
             </tr>
