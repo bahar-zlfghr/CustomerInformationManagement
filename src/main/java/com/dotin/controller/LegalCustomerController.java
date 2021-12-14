@@ -69,7 +69,7 @@ public class LegalCustomerController {
         httpSession.setAttribute("updateLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
                         "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
-        return "redirect:http://localhost:8080/customers";
+        return "redirect:http://localhost:8080/legal-customers";
     }
 
     @GetMapping(value = "/delete-legal-customer/{customerNO}")

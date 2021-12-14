@@ -71,7 +71,7 @@ public class RealCustomerController {
         httpSession.setAttribute("updateRealCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
                         "real.customer.successfully.updated", String.valueOf(realCustomer.getCustomerNO())));
-        return "redirect:http://localhost:8080/customers";
+        return "redirect:http://localhost:8080/real-customers";
     }
 
     @GetMapping(value = "/delete-real-customer/{customerNO}")
