@@ -16,10 +16,8 @@
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">به روز رسانی اطلاعات مشتریان</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">حذف اطلاعات مشتریان</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">جستجو میان مشتریان</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/real-customers"/>">لیست مشتریان حقیقی</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/legal-customers"/>">لیست مشتریان حقوقی</a>
     </nav>
 
     <div class="container rounded-3">
@@ -51,19 +49,23 @@
         </c:if>
 
         <div class="alert alert-primary" role="alert">
-            <h5> نوع مشتری مورد نظر را انتخاب کنید </h5>
+            <h5> به سامانه مدیریت اطلاعات مشتریان خوش آمدید </h5>
         </div>
 
         <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/save-real-customer"/>">مشتری حقیقی</a>
+            <a href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
         </button>
 
         <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/save-legal-customer"/>">مشتری حقوقی</a>
+            <a href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
         </button>
 
         <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/customers"/>">لیست مشتریان</a>
+            <a href="<c:url value="/real-customers"/>">لیست مشتریان حقیقی</a>
+        </button>
+
+        <button type="button" class="btn btn-outline-primary">
+            <a href="<c:url value="/legal-customers"/>">لیست مشتریان حقوقی</a>
         </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
