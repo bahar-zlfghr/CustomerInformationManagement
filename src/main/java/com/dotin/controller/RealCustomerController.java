@@ -43,7 +43,7 @@ public class RealCustomerController {
     }
 
     @PostMapping(value = "/save-real-customer")
-    public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomerDto, HttpSession httpSession,
+    public String saveRealCustomer(@ModelAttribute RealCustomerDto realCustomerDto, HttpSession httpSession,
                                      BindingResult bindingResult) {
         RealCustomerDto registeredRealCustomer = realCustomerService.saveRealCustomer(realCustomerDto);
         String nationalCode = registeredRealCustomer.getNationalCode();
@@ -58,7 +58,7 @@ public class RealCustomerController {
     }
 
     @GetMapping(value = "/update-real-customer/{customerNO}")
-    public String updateRealCustomer(@PathVariable String customerNO, Model model) {
+    public String getRealCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
         RealCustomerDto realCustomer =
                 realCustomerService.findRealCustomerByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("realCustomer", realCustomer);
@@ -66,7 +66,8 @@ public class RealCustomerController {
     }
 
     @PostMapping(value = "/update-real-customer")
-    public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomer, HttpSession httpSession) {
+    public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomer, HttpSession httpSession,
+                                     BindingResult bindingResult) {
         realCustomerService.updateRealCustomer(realCustomer);
         httpSession.setAttribute("updateRealCustomerSuccessMessage",
                 messageSourceComponent.getPersian(

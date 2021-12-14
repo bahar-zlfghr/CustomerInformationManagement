@@ -34,7 +34,7 @@ public class LegalCustomerController {
     }
 
     @GetMapping(value = "/save-legal-customer")
-    public String saveLegalCustomer(Model model) {
+    public String getLegalCustomerRegistrationForm(Model model) {
         LegalCustomerDto legalCustomer = new LegalCustomerDto();
         model.addAttribute("legalCustomer", legalCustomer);
         return "legal-customer-registration";
@@ -56,7 +56,7 @@ public class LegalCustomerController {
     }
 
     @GetMapping(value = "/update-legal-customer/{customerNO}")
-    public String updateLegalCustomer(@PathVariable String customerNO, Model model) {
+    public String getLegalCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
         LegalCustomerDto legalCustomer =
                 legalCustomerService.findLegalCustomerDtoByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("legalCustomer", legalCustomer);
