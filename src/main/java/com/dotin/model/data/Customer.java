@@ -30,9 +30,10 @@ public class Customer {
 
     private String name;
 
-    @Column(name = "`datee`")
+    @Column(name = "`date`")
     private String date;
 
+    @Column(unique = true)
     private String code;
 
     public Integer getCustomerNO() {
