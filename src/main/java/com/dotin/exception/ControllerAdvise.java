@@ -35,12 +35,12 @@ public class ControllerAdvise {
     @ExceptionHandler(value = RealCustomerNotFoundException.class)
     public String realCustomerNotFoundException(RealCustomerNotFoundException e, HttpSession httpSession) {
         httpSession.setAttribute("realCustomerNotFoundException", e.getMessage());
-        return "redirect:http://localhost:8080/customers";
+        return "redirect:http://localhost:8080/real-customers";
     }
 
     @ExceptionHandler(value = LegalCustomerNotFoundException.class)
     public String legalCustomerNotFoundException(LegalCustomerNotFoundException e, HttpSession httpSession) {
         httpSession.setAttribute("legalCustomerNotFoundException", e.getMessage());
-        return "redirect:http://localhost:8080/customers";
+        return "redirect:http://localhost:8080/legal-customers";
     }
 }
