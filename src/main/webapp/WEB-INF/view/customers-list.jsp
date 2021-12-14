@@ -62,7 +62,7 @@
         <h5> جدول مشتریان حقیقی </h5>
     </div>
     <c:choose>
-        <c:when test="${realCustomers.size() != 0}">
+        <c:when test="${realCustomers.size() > 0}">
             <table class="table table-sm">
                 <thead>
                 <tr>
