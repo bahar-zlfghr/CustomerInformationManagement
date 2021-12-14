@@ -45,7 +45,7 @@
                 <td>نوع مشتری</td>
                 <td>
                     <label>
-                        <input type="text" value="حقوقی" disabled/>
+                        <input type="text" value="حقوقی" readonly onclick="alert('فیلد نوع مشتری قابل تغییر نیست!')"/>
                     </label>
                 </td>
             </tr>
@@ -53,7 +53,7 @@
                 <td>شماره مشتری</td>
                 <td>
                     <form:label path="customerNO">
-                        <form:input path="customerNO" type="text" readonly="true"/>
+                        <form:input path="customerNO" type="text" readonly="true" onclick="alert('فیلد شماره مشتری قابل تغییر نیست!')"/>
                     </form:label>
                 </td>
             </tr>
