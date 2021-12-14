@@ -31,7 +31,7 @@
 
 <div class="container rounded-3">
     <div class="alert alert-primary" role="alert">
-        <h5> اطلاعات زیر را به دقت وارد کنید </h5>
+        <h5> اطلاعات مشتری حقوقی را جهت ثبت نام با دقت وارد کنید </h5>
     </div>
 
     <form:form name="registration-form"
