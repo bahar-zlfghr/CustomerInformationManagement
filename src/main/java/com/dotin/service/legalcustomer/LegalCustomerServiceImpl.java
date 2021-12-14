@@ -6,7 +6,9 @@ import com.dotin.exception.DuplicateLegalCustomerException;
 import com.dotin.mapper.legalcustomer.LegalCustomerMapper;
 import com.dotin.model.data.LegalCustomer;
 import com.dotin.model.repository.LegalCustomerRepository;
+import com.dotin.model.repository.LegalCustomerSpecification;
 import com.dotin.service.component.MessageSourceComponent;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,8 +45,10 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     }
 
     @Override
-    public List<LegalCustomerDto> findAllLegalCustomers() {
-        return legalCustomerRepository.findAll().stream()
+    public List<LegalCustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO) {
+        return legalCustomerRepository.findAll(Specification
+                .where(LegalCustomerSpecification.search(companyName, economicCode, customerNO)))
+                .stream()
                 .map(legalCustomerMapper::toLegalCustomerDto)
                 .collect(Collectors.toList());
     }

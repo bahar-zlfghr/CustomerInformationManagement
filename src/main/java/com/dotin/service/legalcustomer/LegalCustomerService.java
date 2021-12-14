@@ -10,7 +10,7 @@ import java.util.List;
 public interface LegalCustomerService {
 
     LegalCustomerDto saveLegalCustomer(LegalCustomerDto legalCustomerDto);
-    List<LegalCustomerDto> findAllLegalCustomers();
+    List<LegalCustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO);
     void deleteLegalCustomerDto(Integer customerNO);
     LegalCustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO);
     void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto);
