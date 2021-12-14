@@ -44,7 +44,7 @@ public class RealCustomerController {
 
     @PostMapping(value = "/save-real-customer")
     public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomerDto, HttpSession httpSession,
-                                           BindingResult bindingResult) {
+                                     BindingResult bindingResult) {
         RealCustomerDto registeredRealCustomer = realCustomerService.saveRealCustomer(realCustomerDto);
         String nationalCode = registeredRealCustomer.getNationalCode();
         httpSession.setAttribute("saveCustomerSuccessMessage",

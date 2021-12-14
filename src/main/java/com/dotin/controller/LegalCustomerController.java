@@ -24,17 +24,17 @@ public class LegalCustomerController {
     }
 
     @GetMapping(value = "/legal-customers")
-    public String getLegalCustomers(@RequestParam(required = false, name = "companyName") String companyName,
-                                        @RequestParam(required = false, name = "economicCode") String economicCode,
-                                        @RequestParam(required = false, name = "customerNO") String customerNO,
-                                        Model model) {
+    public String saveLegalCustomer(@RequestParam(required = false, name = "companyName") String companyName,
+                                    @RequestParam(required = false, name = "economicCode") String economicCode,
+                                    @RequestParam(required = false, name = "customerNO") String customerNO,
+                                    Model model) {
         model.addAttribute("legalCustomers",
                 legalCustomerService.findAllLegalCustomers(companyName, economicCode, customerNO));
         return "legal-customers-list";
     }
 
     @GetMapping(value = "/save-legal-customer")
-    public String getLegalCustomers(Model model) {
+    public String saveLegalCustomer(Model model) {
         LegalCustomerDto legalCustomer = new LegalCustomerDto();
         model.addAttribute("legalCustomer", legalCustomer);
         return "legal-customer-registration";
