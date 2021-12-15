@@ -123,6 +123,17 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2">
+                        <%--@elvariable id="duplicateNationalCodeException" type="java.lang.String"--%>
+                    <c:set var="duplicateNationalCode" value="${sessionScope.duplicateNationalCodeException}"/>
+                    <c:if test="${duplicateNationalCode.length() > 0}">
+                        <div class="alert alert-danger" role="alert">
+                                ${duplicateNationalCode}
+                        </div>
+                    </c:if>
+                </td>
+            </tr>
+            <tr>
                 <td rowspan="2">
                     <input type="submit" class="btn btn-success" value="به روز رسانی">
                     <button type="button" class="btn btn-danger">
