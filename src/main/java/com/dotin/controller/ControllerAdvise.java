@@ -1,7 +1,11 @@
-package com.dotin.exception;
+package com.dotin.controller;
 
 import com.dotin.dto.LegalCustomerDto;
 import com.dotin.dto.RealCustomerDto;
+import com.dotin.exception.DuplicateLegalCustomerException;
+import com.dotin.exception.DuplicateRealCustomerException;
+import com.dotin.exception.LegalCustomerNotFoundException;
+import com.dotin.exception.RealCustomerNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
