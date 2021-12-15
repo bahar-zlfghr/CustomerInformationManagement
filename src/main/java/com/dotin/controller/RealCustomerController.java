@@ -1,6 +1,7 @@
 package com.dotin.controller;
 
 import com.dotin.dto.RealCustomerDto;
+import com.dotin.exception.DuplicateNationalCodeException;
 import com.dotin.service.realcustomer.RealCustomerService;
 import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Controller;
@@ -67,12 +68,17 @@ public class RealCustomerController {
 
     @PostMapping(value = "/update-real-customer")
     public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomer, HttpSession httpSession,
-                                     BindingResult bindingResult) {
-        realCustomerService.updateRealCustomer(realCustomer);
-        httpSession.setAttribute("updateRealCustomerSuccessMessage",
-                messageSourceComponent.getPersian(
-                        "real.customer.successfully.updated", String.valueOf(realCustomer.getCustomerNO())));
-        return "redirect:http://localhost:8080/real-customers";
+                                     BindingResult bindingResult, Model model) {
+        try {
+            realCustomerService.updateRealCustomer(realCustomer);
+            httpSession.setAttribute("updateRealCustomerSuccessMessage",
+                    messageSourceComponent.getPersian(
+                            "real.customer.successfully.updated", String.valueOf(realCustomer.getCustomerNO())));
+            return "redirect:http://localhost:8080/real-customers";
+        } catch (DuplicateNationalCodeException e) {
+            httpSession.setAttribute("nationalCodeDuplicatedException", e.getMessage());
+            return "redirect:http://localhost:8080/update-real-customer/" + realCustomer.getCustomerNO();
+        }
     }
 
     @GetMapping(value = "/delete-real-customer/{customerNO}")
