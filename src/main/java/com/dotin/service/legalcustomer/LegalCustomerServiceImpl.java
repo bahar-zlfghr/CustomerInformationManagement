@@ -1,6 +1,7 @@
 package com.dotin.service.legalcustomer;
 
 import com.dotin.dto.LegalCustomerDto;
+import com.dotin.exception.DuplicateEconomicCodeException;
 import com.dotin.exception.LegalCustomerNotFoundException;
 import com.dotin.exception.DuplicateLegalCustomerException;
 import com.dotin.mapper.legalcustomer.LegalCustomerMapper;
@@ -67,10 +68,16 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
                         messageSourceComponent.getPersian("legal.customer.not.found", String.valueOf(customerNO)))));
     }
 
-
-
     @Override
-    public void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto) {
+    public void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto) throws DuplicateEconomicCodeException {
+        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getEconomicCode());
+        if (existingLegalCustomer.isPresent()) {
+            LegalCustomer legalCustomer = existingLegalCustomer.get();
+            if (!legalCustomer.getCustomerNO().equals(legalCustomerDto.getCustomerNO())) {
+                throw new DuplicateEconomicCodeException(
+                  messageSourceComponent.getPersian("legal.customer.economicCode.duplicated", legalCustomerDto.getEconomicCode()));
+            }
+        }
         legalCustomerMapper.toLegalCustomerDto(
                 legalCustomerRepository.save(legalCustomerMapper.toLegalCustomer(legalCustomerDto)));
     }
