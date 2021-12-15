@@ -76,7 +76,7 @@ public class RealCustomerController {
                             "real.customer.successfully.updated", String.valueOf(realCustomer.getCustomerNO())));
             return "redirect:http://localhost:8080/real-customers";
         } catch (DuplicateNationalCodeException e) {
-            httpSession.setAttribute("nationalCodeDuplicatedException", e.getMessage());
+            httpSession.setAttribute("duplicateNationalCodeException", e.getMessage());
             return "redirect:http://localhost:8080/update-real-customer/" + realCustomer.getCustomerNO();
         }
     }
