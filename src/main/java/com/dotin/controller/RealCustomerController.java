@@ -67,8 +67,7 @@ public class RealCustomerController {
     }
 
     @PostMapping(value = "/update-real-customer")
-    public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomer, HttpSession httpSession,
-                                     BindingResult bindingResult, Model model) {
+    public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomer, HttpSession httpSession) {
         try {
             realCustomerService.updateRealCustomer(realCustomer);
             httpSession.setAttribute("updateRealCustomerSuccessMessage",
