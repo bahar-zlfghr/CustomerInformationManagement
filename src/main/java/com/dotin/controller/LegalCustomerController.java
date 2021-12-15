@@ -1,6 +1,7 @@
 package com.dotin.controller;
 
 import com.dotin.dto.LegalCustomerDto;
+import com.dotin.exception.DuplicateEconomicCodeException;
 import com.dotin.service.component.MessageSourceComponent;
 import com.dotin.service.legalcustomer.LegalCustomerService;
 import org.springframework.stereotype.Controller;
@@ -65,11 +66,16 @@ public class LegalCustomerController {
 
     @PostMapping(value = "/update-legal-customer")
     public String updateLegalCustomer(@ModelAttribute LegalCustomerDto legalCustomer, HttpSession httpSession) {
-        legalCustomerService.updateLegalCustomerDto(legalCustomer);
-        httpSession.setAttribute("updateLegalCustomerSuccessMessage",
-                messageSourceComponent.getPersian(
-                        "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
-        return "redirect:http://localhost:8080/legal-customers";
+        try {
+            legalCustomerService.updateLegalCustomerDto(legalCustomer);
+            httpSession.setAttribute("updateLegalCustomerSuccessMessage",
+                    messageSourceComponent.getPersian(
+                            "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
+            return "redirect:http://localhost:8080/legal-customers";
+        } catch (DuplicateEconomicCodeException e) {
+            httpSession.setAttribute("duplicateEconomicCodeException", e.getMessage());
+            return "redirect:http://localhost:8080/update-legal-customer/" + legalCustomer.getCustomerNO();
+        }
     }
 
     @GetMapping(value = "/delete-legal-customer/{customerNO}")
