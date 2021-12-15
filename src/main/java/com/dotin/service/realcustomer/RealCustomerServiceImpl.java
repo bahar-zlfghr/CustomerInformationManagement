@@ -2,7 +2,7 @@ package com.dotin.service.realcustomer;
 
 import com.dotin.dto.RealCustomerDto;
 import com.dotin.exception.DuplicateRealCustomerException;
-import com.dotin.exception.NationalCodeDuplicatedException;
+import com.dotin.exception.DuplicateNationalCodeException;
 import com.dotin.exception.RealCustomerNotFoundException;
 import com.dotin.mapper.realcustomer.RealCustomerMapper;
 import com.dotin.model.data.RealCustomer;
@@ -72,12 +72,12 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     }
 
     @Override
-    public void updateRealCustomer(RealCustomerDto realCustomerDto) throws NationalCodeDuplicatedException {
+    public void updateRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateNationalCodeException {
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getNationalCode());
         if (existingRealCustomer.isPresent()) {
             RealCustomer realCustomer = existingRealCustomer.get();
             if (!realCustomer.getCustomerNO().equals(realCustomerDto.getCustomerNO())) {
-                throw new NationalCodeDuplicatedException(
+                throw new DuplicateNationalCodeException(
                         messageSourceComponent.getPersian("real.customer.nationalCode.duplicated", realCustomerDto.getNationalCode()));
             }
         }
