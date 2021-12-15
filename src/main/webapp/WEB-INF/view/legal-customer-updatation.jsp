@@ -97,6 +97,17 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="2">
+                        <%--@elvariable id="duplicateEconomicCodeException" type="java.lang.String"--%>
+                    <c:set var="duplicateEconomicCode" value="${sessionScope.duplicateEconomicCodeException}"/>
+                    <c:if test="${duplicateEconomicCode.length() > 0}">
+                        <div class="alert alert-danger" role="alert">
+                                ${duplicateEconomicCode}
+                        </div>
+                    </c:if>
+                </td>
+            </tr>
+            <tr>
                 <td rowspan="2">
                     <input type="submit" class="btn btn-success" value="به روز رسانی">
                     <button type="button" class="btn btn-danger">
