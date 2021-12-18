@@ -1,12 +1,9 @@
 package com.dotin.dto;
 
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author : Bahar Zolfaghari
  **/
-@Getter @Setter
 public class LegalCustomerDto {
     private Integer customerNO;
     private String companyName;
