@@ -4,7 +4,6 @@ function validateRealCustomerRegistrationForm() {
     let fatherName = document.getElementById('fatherName').value;
     let birthDate = document.getElementById('birthDate').value;
     let nationalCode = document.getElementById('nationalCode').value;
-    console.log(nationalCode);
 
     let vFirstName = validateFirstName(firstName);
     let vLastName = validateLastName(lastName);
