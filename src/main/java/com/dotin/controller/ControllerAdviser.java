@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * @author : Bahar Zolfaghari
  **/
 @ControllerAdvice
-public class ControllerAdvise {
+public class ControllerAdviser {
 
     @ExceptionHandler(value = DuplicateRealCustomerException.class)
     public ModelAndView duplicateIndividualCustomerException(DuplicateRealCustomerException e) {
