@@ -62,7 +62,7 @@ public class LegalCustomerController {
     @GetMapping(value = "/update-legal-customer/{customerNO}")
     public String getLegalCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
         CustomerDto legalCustomer =
-                legalCustomerService.findLegalCustomerDtoByCustomerNO(Integer.valueOf(customerNO));
+                legalCustomerService.findLegalCustomerByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("legalCustomer", legalCustomer);
         return "legal-customer-updatation";
     }
@@ -70,7 +70,7 @@ public class LegalCustomerController {
     @PostMapping(value = "/update-legal-customer")
     public String updateLegalCustomer(@ModelAttribute CustomerDto legalCustomer, HttpSession httpSession) {
         try {
-            legalCustomerService.updateLegalCustomerDto(legalCustomer);
+            legalCustomerService.updateLegalCustomer(legalCustomer);
             httpSession.setAttribute("updateLegalCustomerSuccessMessage",
                     messageSourceComponent.getPersian(
                             "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
@@ -83,7 +83,7 @@ public class LegalCustomerController {
 
     @GetMapping(value = "/delete-legal-customer/{customerNO}")
     public String deleteLegalCustomer(@PathVariable String customerNO, HttpSession httpSession) {
-        legalCustomerService.deleteLegalCustomerDto(Integer.valueOf(customerNO));
+        legalCustomerService.deleteLegalCustomer(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
         return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/legal-customers";
