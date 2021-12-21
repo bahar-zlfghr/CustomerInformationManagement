@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>لیست مشتریان حقیقی</title>
+    <title>لیست مشتریان</title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
@@ -19,8 +20,7 @@
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/real-customers"/>">لیست مشتریان حقیقی</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/legal-customers"/>">لیست مشتریان حقوقی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
 </nav>
 
 <div class="container rounded-3" style="width: 25%">
@@ -32,9 +32,9 @@
         <table class="table" dir="rtl" style="border: #FFFFFF">
             <tbody>
             <tr>
-                <td>نام</td>
+                <td>نام فرد / شرکت</td>
                 <td>
-                    <label><input type="text" name="firstName" id="firstName"/></label>
+                    <label><input type="text" name="name" id="name"/></label>
                 </td>
             </tr>
             <tr>
@@ -44,9 +44,9 @@
                 </td>
             </tr>
             <tr>
-                <td>کد ملی</td>
+                <td>کد ملی / اقتصادی</td>
                 <td>
-                    <label><input type="text" name="nationalCode" id="nationalCode"/></label>
+                    <label><input type="text" name="code" id="code"/></label>
                 </td>
             </tr>
             <tr>
@@ -56,12 +56,24 @@
                 </td>
             </tr>
             <tr>
+                <td>نوع مشتری</td>
+                <td>
+                    <label>
+                        <select class="form-select" name="customerType" id="customerType">
+                            <option value="" selected>نوع مشتری را انتخاب کنید</option>
+                            <option value="0">حقیقی</option>
+                            <option value="1">حقوقی</option>
+                        </select>
+                    </label>
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <input class="btn btn-info" type="submit" id="search-button" value="جستجو"/>
                 </td>
                 <td>
                     <button class="btn btn-info">
-                        <a href="<c:url value="/real-customers"/>">همه مشتریان حقیقی</a>
+                        <a href="<c:url value="/customers"/>">همه مشتریان</a>
                     </button>
                 </td>
             </tr>
@@ -105,45 +117,99 @@
         </div>
     </c:if>
 
+    <c:if test="${sessionScope.legalCustomerNotFoundException.length() > 0}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.legalCustomerNotFoundException}
+            </h5>
+            <%
+                session.removeAttribute("legalCustomerNotFoundException");
+            %>
+        </div>
+    </c:if>
+
+    <c:if test="${sessionScope.updateLegalCustomerSuccessMessage.length() > 0}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <h5>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${sessionScope.updateLegalCustomerSuccessMessage}
+            </h5>
+            <%
+                session.removeAttribute("updateLegalCustomerSuccessMessage");
+            %>
+        </div>
+    </c:if>
+
+    <c:if test="${sessionScope.deleteLegalCustomerSuccessMessage.length() > 0}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <h5> ${sessionScope.deleteLegalCustomerSuccessMessage} </h5>
+            <%
+                session.removeAttribute("deleteLegalCustomerSuccessMessage");
+            %>
+        </div>
+    </c:if>
+
     <div class="alert alert-primary" role="alert">
         <h5> جدول مشتریان حقیقی </h5>
     </div>
     <c:choose>
-        <c:when test="${realCustomers.size() > 0}">
+        <c:when test="${customers.size() > 0}">
             <table class="table table-sm">
                 <thead>
                 <tr>
                     <th>نوع</th>
-                    <th>نام</th>
+                    <th>نام فرد / شرکت</th>
                     <th>نام خانوادگی</th>
                     <th>نام پدر</th>
-                    <th>تاریخ تولد</th>
-                    <th>کد ملی</th>
+                    <th>تاریخ تولد / ثبت</th>
+                    <th>کد ملی / اقتصادی</th>
                     <th>شماره مشتری</th>
                     <th>به روز رسانی</th>
                     <th>حذف</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="realCustomer" items="${realCustomers}">
+                <c:forEach var="customer" items="${customers}">
                     <tr>
-                        <td>حقیقی</td>
-                        <td>${realCustomer.name}</td>
-                        <td>${realCustomer.lastName}</td>
-                        <td>${realCustomer.fatherName}</td>
-                        <td>${realCustomer.date}</td>
-                        <td>${realCustomer.code}</td>
-                        <td id="real-customerNO">${realCustomer.customerNO}</td>
-                        <td>
-                            <button type="button" class="btn btn-info">
-                                <a href="<c:url value="/update-real-customer/${realCustomer.customerNO}"/>">به روز رسانی</a>
-                            </button>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger">
-                                <a href="<c:url value="/delete-real-customer/${realCustomer.customerNO}"/>">حذف</a>
-                            </button>
-                        </td>
+                        <td>${customer.customerType}</td>
+                        <td>${customer.name}</td>
+                        <c:if test='${customer.customerType.equals("حقیقی")}'>
+                            <td>${customer.lastName}</td>
+                            <td>${customer.fatherName}</td>
+                        </c:if>
+                        <c:if test='${customer.customerType.equals("حقوقی")}'>
+                            <td>_</td>
+                            <td>_</td>
+                        </c:if>
+                        <td>${customer.date}</td>
+                        <td>${customer.code}</td>
+                        <td>${customer.customerNO}</td>
+                        <c:if test='${customer.customerType.equals("حقیقی")}'>
+                            <td>
+                                <button type="button" class="btn btn-info">
+                                    <a href="<c:url value="/update-real-customer/${customer.customerNO}"/>">به روز رسانی</a>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger">
+                                    <a href="<c:url value="/delete-real-customer/${customer.customerNO}"/>">حذف</a>
+                                </button>
+                            </td>
+                        </c:if>
+                        <c:if test='${customer.customerType.equals("حقوقی")}'>
+                            <td>
+                                <button type="button" class="btn btn-info">
+                                    <a href="<c:url value="/update-legal-customer/${customer.customerNO}"/>">به روز رسانی</a>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger">
+                                    <a href="<c:url value="/delete-legal-customer/${customer.customerNO}"/>">حذف</a>
+                                </button>
+                            </td>
+                        </c:if>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -151,7 +217,7 @@
         </c:when>
         <c:otherwise>
             <div class="alert alert-light" role="alert">
-                <h5> هیچ مشتری حقیقی در سیستم یافت نشد! </h5>
+                <h5> هیچ مشتری در سیستم یافت نشد! </h5>
             </div>
         </c:otherwise>
     </c:choose>
@@ -172,11 +238,12 @@
     $("#search-button").on("click", function() {
         $.ajax({
             type: "GET",
-            url: "/real-customers?" + $.param({
-                "firstName": document.getElementById('firstName').value,
+            url: "/customers?" + $.param({
+                "name": document.getElementById('firstName').value,
                 "lastName": document.getElementById('lastName').value,
-                "nationalCode": document.getElementById('nationalCode').value,
-                "customerNO": document.getElementById('customerNO').value
+                "code": document.getElementById('code').value,
+                "customerNO": document.getElementById('customerNO').value,
+                "customerType": document.getElementById('customerType').value
             }),
             dataType : 'json',
             contentType: 'application/json'
