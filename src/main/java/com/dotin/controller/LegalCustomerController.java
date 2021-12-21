@@ -3,6 +3,7 @@ package com.dotin.controller;
 import com.dotin.dto.LegalCustomerDto;
 import com.dotin.exception.DuplicateEconomicCodeException;
 import com.dotin.service.component.MessageSourceComponent;
+import com.dotin.service.component.PropertyReaderComponent;
 import com.dotin.service.legalcustomer.LegalCustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,13 @@ import javax.servlet.http.HttpSession;
 public class LegalCustomerController {
     private final LegalCustomerService legalCustomerService;
     private final MessageSourceComponent messageSourceComponent;
+    private final PropertyReaderComponent propertyReaderComponent;
 
-    public LegalCustomerController(LegalCustomerService legalCustomerService, MessageSourceComponent messageSourceComponent) {
+    public LegalCustomerController(LegalCustomerService legalCustomerService, MessageSourceComponent messageSourceComponent,
+                                   PropertyReaderComponent propertyReaderComponent) {
         this.legalCustomerService = legalCustomerService;
         this.messageSourceComponent = messageSourceComponent;
+        this.propertyReaderComponent = propertyReaderComponent;
     }
 
     @GetMapping(value = "/legal-customers")
@@ -53,7 +57,7 @@ public class LegalCustomerController {
                 messageSourceComponent.getPersian(
                         "legal.customer.customerNumber.generated",
                         economicCode, String.valueOf(registeredLegalCustomer.getCustomerNO())));
-        return "redirect:http://localhost:8080/";
+        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/";
     }
 
     @GetMapping(value = "/update-legal-customer/{customerNO}")
@@ -71,10 +75,10 @@ public class LegalCustomerController {
             httpSession.setAttribute("updateLegalCustomerSuccessMessage",
                     messageSourceComponent.getPersian(
                             "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
-            return "redirect:http://localhost:8080/legal-customers";
+            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/legal-customers";
         } catch (DuplicateEconomicCodeException e) {
             httpSession.setAttribute("duplicateEconomicCodeException", e.getMessage());
-            return "redirect:http://localhost:8080/update-legal-customer/" + legalCustomer.getCustomerNO();
+            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/update-legal-customer/" + legalCustomer.getCustomerNO();
         }
     }
 
@@ -83,6 +87,6 @@ public class LegalCustomerController {
         legalCustomerService.deleteLegalCustomerDto(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
-        return "redirect:http://localhost:8080/legal-customers";
+        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/legal-customers";
     }
 }
