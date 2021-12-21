@@ -28,18 +28,6 @@ public class RealCustomerController {
         this.propertyReaderComponent = propertyReaderComponent;
     }
 
-    @GetMapping(value = "/real-customers")
-    public String getRealCustomers(@RequestParam(required = false, name = "firstName") String firstName,
-                                   @RequestParam(required = false, name = "lastName") String lastName,
-                                   @RequestParam(required = false, name = "nationalCode") String nationalCode,
-                                   @RequestParam(required = false, name = "customerNO") String customerNO,
-                                   Model model) {
-        model.addAttribute("realCustomers",
-                realCustomerService.findAllRealCustomers(firstName, lastName,
-                        nationalCode, customerNO));
-        return "real-customers-list";
-    }
-
     @GetMapping(value = "/save-real-customer")
     public String getRealCustomerRegistrationForm(Model model) {
         model.addAttribute("realCustomer", new CustomerDto());
@@ -76,7 +64,7 @@ public class RealCustomerController {
             httpSession.setAttribute("updateRealCustomerSuccessMessage",
                     messageSourceComponent.getPersian(
                             "real.customer.successfully.updated", String.valueOf(realCustomer.getCustomerNO())));
-            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/real-customers";
+            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
         } catch (DuplicateNationalCodeException e) {
             httpSession.setAttribute("duplicateNationalCodeException", e.getMessage());
             return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/update-real-customer/" + realCustomer.getCustomerNO();
@@ -88,6 +76,6 @@ public class RealCustomerController {
         realCustomerService.deleteRealCustomer(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteRealCustomerSuccessMessage",
                 messageSourceComponent.getPersian("real.customer.successfully.deleted", customerNO));
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/real-customers";
+        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
     }
 }

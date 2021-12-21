@@ -28,16 +28,6 @@ public class LegalCustomerController {
         this.propertyReaderComponent = propertyReaderComponent;
     }
 
-    @GetMapping(value = "/legal-customers")
-    public String saveLegalCustomer(@RequestParam(required = false, name = "companyName") String companyName,
-                                    @RequestParam(required = false, name = "economicCode") String economicCode,
-                                    @RequestParam(required = false, name = "customerNO") String customerNO,
-                                    Model model) {
-        model.addAttribute("legalCustomers",
-                legalCustomerService.findAllLegalCustomers(companyName, economicCode, customerNO));
-        return "legal-customers-list";
-    }
-
     @GetMapping(value = "/save-legal-customer")
     public String getLegalCustomerRegistrationForm(Model model) {
         model.addAttribute("legalCustomer", new CustomerDto());
@@ -74,7 +64,7 @@ public class LegalCustomerController {
             httpSession.setAttribute("updateLegalCustomerSuccessMessage",
                     messageSourceComponent.getPersian(
                             "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
-            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/legal-customers";
+            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
         } catch (DuplicateEconomicCodeException e) {
             httpSession.setAttribute("duplicateEconomicCodeException", e.getMessage());
             return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/update-legal-customer/" + legalCustomer.getCustomerNO();
@@ -86,6 +76,6 @@ public class LegalCustomerController {
         legalCustomerService.deleteLegalCustomer(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/legal-customers";
+        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
     }
 }
