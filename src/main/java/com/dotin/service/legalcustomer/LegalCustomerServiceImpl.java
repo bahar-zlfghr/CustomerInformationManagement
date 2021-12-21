@@ -55,13 +55,13 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     }
 
     @Override
-    public void deleteLegalCustomerDto(Integer customerNO) {
-        CustomerDto legalCustomerDto = findLegalCustomerDtoByCustomerNO(customerNO);
+    public void deleteLegalCustomer(Integer customerNO) {
+        CustomerDto legalCustomerDto = findLegalCustomerByCustomerNO(customerNO);
         legalCustomerRepository.delete(legalCustomerMapper.toLegalCustomer(legalCustomerDto));
     }
 
     @Override
-    public CustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO) {
+    public CustomerDto findLegalCustomerByCustomerNO(Integer customerNO) {
         Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCustomerNO(customerNO);
         return legalCustomerMapper.toLegalCustomerDto(
                 existingLegalCustomer.orElseThrow(() -> new LegalCustomerNotFoundException(
@@ -69,7 +69,7 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     }
 
     @Override
-    public void updateLegalCustomerDto(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException {
+    public void updateLegalCustomer(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException {
         Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getCode());
         if (existingLegalCustomer.isPresent()) {
             LegalCustomer legalCustomer = existingLegalCustomer.get();

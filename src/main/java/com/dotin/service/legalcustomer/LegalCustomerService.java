@@ -12,7 +12,7 @@ public interface LegalCustomerService {
 
     CustomerDto saveLegalCustomer(CustomerDto legalCustomerDto);
     List<CustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO);
-    void deleteLegalCustomerDto(Integer customerNO);
-    CustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO);
-    void updateLegalCustomerDto(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException;
+    void deleteLegalCustomer(Integer customerNO);
+    CustomerDto findLegalCustomerByCustomerNO(Integer customerNO);
+    void updateLegalCustomer(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException;
 }
