@@ -7,7 +7,7 @@ import javax.persistence.Entity;
  * @author : Bahar Zolfaghari
  **/
 @Entity(name = "LegalCustomer")
-@DiscriminatorValue(value = "حقوقی")
+@DiscriminatorValue(value = "1")
 public class LegalCustomer extends Customer {
 
 }
