@@ -52,8 +52,8 @@
                 <tr>
                     <td>نام</td>
                     <td>
-                        <form:label path="firstName">
-                            <form:input path="firstName" id="firstName" type="text"/>
+                        <form:label path="name">
+                            <form:input path="name" id="firstName" type="text"/>
                         </form:label>
                     </td>
                 </tr>
@@ -91,8 +91,8 @@
                 <tr>
                     <td>تاریخ تولد</td>
                     <td>
-                        <form:label path="birthDate">
-                            <form:input path="birthDate" type="text" id="birthDate" class="birth-date" />
+                        <form:label path="date">
+                            <form:input path="date" type="text" id="birthDate" class="birth-date" />
                         </form:label>
                     </td>
                 </tr>
@@ -104,8 +104,8 @@
                 <tr>
                     <td>کد ملی</td>
                     <td>
-                        <form:label path="nationalCode">
-                            <form:input path="nationalCode" type="text" id="nationalCode"/>
+                        <form:label path="code">
+                            <form:input path="code" type="text" id="nationalCode"/>
                         </form:label>
                     </td>
                 </tr>

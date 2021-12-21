@@ -120,9 +120,9 @@
                 <c:forEach var="legalCustomer" items="${legalCustomers}">
                     <tr>
                         <td>حقوقی</td>
-                        <td>${legalCustomer.companyName}</td>
-                        <td>${legalCustomer.economicCode}</td>
-                        <td>${legalCustomer.registrationDate}</td>
+                        <td>${legalCustomer.name}</td>
+                        <td>${legalCustomer.code}</td>
+                        <td>${legalCustomer.date}</td>
                         <td>${legalCustomer.customerNO}</td>
                         <td>
                             <button type="button" class="btn btn-info">

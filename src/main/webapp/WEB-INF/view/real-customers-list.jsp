@@ -128,11 +128,11 @@
                 <c:forEach var="realCustomer" items="${realCustomers}">
                     <tr>
                         <td>حقیقی</td>
-                        <td>${realCustomer.firstName}</td>
+                        <td>${realCustomer.name}</td>
                         <td>${realCustomer.lastName}</td>
                         <td>${realCustomer.fatherName}</td>
-                        <td>${realCustomer.birthDate}</td>
-                        <td>${realCustomer.nationalCode}</td>
+                        <td>${realCustomer.date}</td>
+                        <td>${realCustomer.code}</td>
                         <td id="real-customerNO">${realCustomer.customerNO}</td>
                         <td>
                             <button type="button" class="btn btn-info">

@@ -52,8 +52,8 @@
                 <tr>
                     <td>نام شرکت</td>
                     <td>
-                        <form:label path="companyName">
-                            <form:input path="companyName" id="companyName" type="text"/>
+                        <form:label path="name">
+                            <form:input path="name" id="companyName" type="text"/>
                         </form:label>
                     </td>
                 </tr>
@@ -65,8 +65,8 @@
                 <tr>
                     <td>تاریخ ثبت</td>
                     <td>
-                        <form:label path="registrationDate">
-                            <form:input path="registrationDate" type="text" id="registrationDate" class="registration-date" />
+                        <form:label path="date">
+                            <form:input path="date" type="text" id="registrationDate" class="registration-date" />
                         </form:label>
                     </td>
                 </tr>
@@ -78,8 +78,8 @@
                 <tr>
                     <td>کد اقتصادی</td>
                     <td>
-                        <form:label path="economicCode">
-                            <form:input path="economicCode" type="text" id="economicCode"/>
+                        <form:label path="code">
+                            <form:input path="code" type="text" id="economicCode"/>
                         </form:label>
                     </td>
                 </tr>
