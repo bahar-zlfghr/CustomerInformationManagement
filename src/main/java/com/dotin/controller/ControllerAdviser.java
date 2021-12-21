@@ -27,8 +27,8 @@ public class ControllerAdviser {
     public ModelAndView duplicateIndividualCustomerException(DuplicateRealCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("duplicateRealCustomerException", e.getMessage());
-        modelAndView.addObject("realCustomer", new CustomerDto());
-        modelAndView.setViewName("real-customer-registration");
+        modelAndView.addObject("customer", new CustomerDto());
+        modelAndView.setViewName("customer-registration");
         return modelAndView;
     }
 
@@ -36,8 +36,8 @@ public class ControllerAdviser {
     public ModelAndView duplicateLegalCustomerException(DuplicateLegalCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("duplicateLegalCustomerException", e.getMessage());
-        modelAndView.addObject("legalCustomer", new CustomerDto());
-        modelAndView.setViewName("legal-customer-registration");
+        modelAndView.addObject("customer", new CustomerDto());
+        modelAndView.setViewName("customer-registration");
         return modelAndView;
     }
 

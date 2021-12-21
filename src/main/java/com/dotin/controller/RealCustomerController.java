@@ -28,12 +28,6 @@ public class RealCustomerController {
         this.propertyReaderComponent = propertyReaderComponent;
     }
 
-    @GetMapping(value = "/save-real-customer")
-    public String getRealCustomerRegistrationForm(Model model) {
-        model.addAttribute("realCustomer", new CustomerDto());
-        return "real-customer-registration";
-    }
-
     @PostMapping(value = "/save-real-customer")
     public String saveRealCustomer(@ModelAttribute CustomerDto realCustomerDto, HttpSession httpSession,
                                      BindingResult bindingResult) {

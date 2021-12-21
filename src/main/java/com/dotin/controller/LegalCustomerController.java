@@ -28,12 +28,6 @@ public class LegalCustomerController {
         this.propertyReaderComponent = propertyReaderComponent;
     }
 
-    @GetMapping(value = "/save-legal-customer")
-    public String getLegalCustomerRegistrationForm(Model model) {
-        model.addAttribute("legalCustomer", new CustomerDto());
-        return "legal-customer-registration";
-    }
-
     @PostMapping(value = "/save-legal-customer")
     public String saveLegalCustomer(@ModelAttribute CustomerDto legalCustomer, HttpSession httpSession,
                                     BindingResult bindingResult) {

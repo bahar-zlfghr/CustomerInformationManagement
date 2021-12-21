@@ -48,4 +48,10 @@ public class CustomerController {
         model.addAttribute("customers", customers);
         return "customers-list";
     }
+
+    @GetMapping(value = "/save-customer")
+    public String getRealCustomerRegistrationForm(Model model) {
+        model.addAttribute("customer", new CustomerDto());
+        return "customer-registration";
+    }
 }
