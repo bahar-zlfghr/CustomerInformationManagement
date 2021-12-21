@@ -14,8 +14,7 @@
 <body style="flex-direction: column;">
     <nav class="nav nav-pills flex-column flex-sm-row border-gradient border-gradient-purple">
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
-        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
     </nav>
 
@@ -52,11 +51,7 @@
         </div>
 
         <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/save-real-customer"/>">ثبت نام مشتری حقیقی</a>
-        </button>
-
-        <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/save-legal-customer"/>">ثبت نام مشتری حقوقی</a>
+            <a href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
         </button>
 
         <button type="button" class="btn btn-outline-primary">
