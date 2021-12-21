@@ -1,6 +1,6 @@
 package com.dotin.service.realcustomer;
 
-import com.dotin.dto.RealCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateRealCustomerException;
 import com.dotin.exception.DuplicateNationalCodeException;
 
@@ -11,9 +11,9 @@ import java.util.List;
  **/
 public interface RealCustomerService {
 
-    RealCustomerDto saveRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateRealCustomerException;
-    List<RealCustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO);
+    CustomerDto saveRealCustomer(CustomerDto realCustomerDto) throws DuplicateRealCustomerException;
+    List<CustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO);
     void deleteRealCustomer(Integer customerNO);
-    RealCustomerDto findRealCustomerByCustomerNO(Integer customerNO);
-    void updateRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateNationalCodeException;
+    CustomerDto findRealCustomerByCustomerNO(Integer customerNO);
+    void updateRealCustomer(CustomerDto realCustomerDto) throws DuplicateNationalCodeException;
 }

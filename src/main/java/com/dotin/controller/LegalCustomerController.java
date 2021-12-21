@@ -1,6 +1,6 @@
 package com.dotin.controller;
 
-import com.dotin.dto.LegalCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateEconomicCodeException;
 import com.dotin.service.component.MessageSourceComponent;
 import com.dotin.service.component.PropertyReaderComponent;
@@ -40,16 +40,15 @@ public class LegalCustomerController {
 
     @GetMapping(value = "/save-legal-customer")
     public String getLegalCustomerRegistrationForm(Model model) {
-        LegalCustomerDto legalCustomer = new LegalCustomerDto();
-        model.addAttribute("legalCustomer", legalCustomer);
+        model.addAttribute("legalCustomer", new CustomerDto());
         return "legal-customer-registration";
     }
 
     @PostMapping(value = "/save-legal-customer")
-    public String saveLegalCustomer(@ModelAttribute LegalCustomerDto legalCustomer, HttpSession httpSession,
+    public String saveLegalCustomer(@ModelAttribute CustomerDto legalCustomer, HttpSession httpSession,
                                     BindingResult bindingResult) {
-        LegalCustomerDto registeredLegalCustomer = legalCustomerService.saveLegalCustomer(legalCustomer);
-        String economicCode = registeredLegalCustomer.getEconomicCode();
+        CustomerDto registeredLegalCustomer = legalCustomerService.saveLegalCustomer(legalCustomer);
+        String economicCode = registeredLegalCustomer.getCode();
         httpSession.setAttribute("saveCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
                         "legal.customer.successfully.registered", economicCode));
@@ -62,14 +61,14 @@ public class LegalCustomerController {
 
     @GetMapping(value = "/update-legal-customer/{customerNO}")
     public String getLegalCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
-        LegalCustomerDto legalCustomer =
+        CustomerDto legalCustomer =
                 legalCustomerService.findLegalCustomerDtoByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("legalCustomer", legalCustomer);
         return "legal-customer-updatation";
     }
 
     @PostMapping(value = "/update-legal-customer")
-    public String updateLegalCustomer(@ModelAttribute LegalCustomerDto legalCustomer, HttpSession httpSession) {
+    public String updateLegalCustomer(@ModelAttribute CustomerDto legalCustomer, HttpSession httpSession) {
         try {
             legalCustomerService.updateLegalCustomerDto(legalCustomer);
             httpSession.setAttribute("updateLegalCustomerSuccessMessage",

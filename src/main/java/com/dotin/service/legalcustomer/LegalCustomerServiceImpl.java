@@ -1,6 +1,6 @@
 package com.dotin.service.legalcustomer;
 
-import com.dotin.dto.LegalCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateEconomicCodeException;
 import com.dotin.exception.LegalCustomerNotFoundException;
 import com.dotin.exception.DuplicateLegalCustomerException;
@@ -34,19 +34,19 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     }
 
     @Override
-    public LegalCustomerDto saveLegalCustomer(LegalCustomerDto legalCustomerDto) {
-        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getEconomicCode());
+    public CustomerDto saveLegalCustomer(CustomerDto legalCustomerDto) {
+        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getCode());
         if (existingLegalCustomer.isPresent()) {
             throw new DuplicateLegalCustomerException(
                     messageSourceComponent.getPersian(
-                            "legal.customer.economicCode.duplicated", legalCustomerDto.getEconomicCode()));
+                            "legal.customer.economicCode.duplicated", legalCustomerDto.getCode()));
         }
         return legalCustomerMapper.toLegalCustomerDto(
                 legalCustomerRepository.save(legalCustomerMapper.toLegalCustomer(legalCustomerDto)));
     }
 
     @Override
-    public List<LegalCustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO) {
+    public List<CustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO) {
         return legalCustomerRepository.findAll(Specification
                 .where(LegalCustomerSpecification.search(companyName, economicCode, customerNO)))
                 .stream()
@@ -56,12 +56,12 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
 
     @Override
     public void deleteLegalCustomerDto(Integer customerNO) {
-        LegalCustomerDto legalCustomerDto = findLegalCustomerDtoByCustomerNO(customerNO);
+        CustomerDto legalCustomerDto = findLegalCustomerDtoByCustomerNO(customerNO);
         legalCustomerRepository.delete(legalCustomerMapper.toLegalCustomer(legalCustomerDto));
     }
 
     @Override
-    public LegalCustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO) {
+    public CustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO) {
         Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCustomerNO(customerNO);
         return legalCustomerMapper.toLegalCustomerDto(
                 existingLegalCustomer.orElseThrow(() -> new LegalCustomerNotFoundException(
@@ -69,13 +69,13 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     }
 
     @Override
-    public void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto) throws DuplicateEconomicCodeException {
-        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getEconomicCode());
+    public void updateLegalCustomerDto(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException {
+        Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getCode());
         if (existingLegalCustomer.isPresent()) {
             LegalCustomer legalCustomer = existingLegalCustomer.get();
             if (!legalCustomer.getCustomerNO().equals(legalCustomerDto.getCustomerNO())) {
                 throw new DuplicateEconomicCodeException(
-                  messageSourceComponent.getPersian("legal.customer.economicCode.duplicated", legalCustomerDto.getEconomicCode()));
+                  messageSourceComponent.getPersian("legal.customer.economicCode.duplicated", legalCustomerDto.getCode()));
             }
         }
         legalCustomerMapper.toLegalCustomerDto(

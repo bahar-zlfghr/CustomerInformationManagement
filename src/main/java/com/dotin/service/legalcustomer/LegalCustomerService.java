@@ -1,6 +1,6 @@
 package com.dotin.service.legalcustomer;
 
-import com.dotin.dto.LegalCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateEconomicCodeException;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
  **/
 public interface LegalCustomerService {
 
-    LegalCustomerDto saveLegalCustomer(LegalCustomerDto legalCustomerDto);
-    List<LegalCustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO);
+    CustomerDto saveLegalCustomer(CustomerDto legalCustomerDto);
+    List<CustomerDto> findAllLegalCustomers(String companyName, String economicCode, String customerNO);
     void deleteLegalCustomerDto(Integer customerNO);
-    LegalCustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO);
-    void updateLegalCustomerDto(LegalCustomerDto legalCustomerDto) throws DuplicateEconomicCodeException;
+    CustomerDto findLegalCustomerDtoByCustomerNO(Integer customerNO);
+    void updateLegalCustomerDto(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException;
 }

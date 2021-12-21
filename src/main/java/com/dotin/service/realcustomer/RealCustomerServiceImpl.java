@@ -1,6 +1,6 @@
 package com.dotin.service.realcustomer;
 
-import com.dotin.dto.RealCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateRealCustomerException;
 import com.dotin.exception.DuplicateNationalCodeException;
 import com.dotin.exception.RealCustomerNotFoundException;
@@ -36,20 +36,20 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     }
 
     @Override
-    public RealCustomerDto saveRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateRealCustomerException {
-        Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getNationalCode());
+    public CustomerDto saveRealCustomer(CustomerDto realCustomerDto) throws DuplicateRealCustomerException {
+        Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getCode());
         if (existingRealCustomer.isPresent()) {
             throw new DuplicateRealCustomerException(
                     messageSourceComponent.getPersian(
                             "real.customer.nationalCode.duplicated",
-                            realCustomerDto.getNationalCode()));
+                            realCustomerDto.getCode()));
         }
         return realCustomerMapper.toRealCustomerDto(
                 realCustomerRepository.save(realCustomerMapper.toRealCustomer(realCustomerDto)));
     }
 
     @Override
-    public List<RealCustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO) {
+    public List<CustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO) {
         return realCustomerRepository.findAll(Specification
                 .where(RealCustomerSpecification.search(firstName, lastName, nationalCode, customerNO)))
                 .stream()
@@ -59,12 +59,12 @@ public class RealCustomerServiceImpl implements RealCustomerService {
 
     @Override
     public void deleteRealCustomer(Integer customerNO) {
-        RealCustomerDto realCustomerDto = findRealCustomerByCustomerNO(customerNO);
+        CustomerDto realCustomerDto = findRealCustomerByCustomerNO(customerNO);
         realCustomerRepository.delete(realCustomerMapper.toRealCustomer(realCustomerDto));
     }
 
     @Override
-    public RealCustomerDto findRealCustomerByCustomerNO(Integer customerNO) {
+    public CustomerDto findRealCustomerByCustomerNO(Integer customerNO) {
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCustomerNO(customerNO);
         return realCustomerMapper.toRealCustomerDto(
                 existingRealCustomer.orElseThrow(() -> new RealCustomerNotFoundException(
@@ -72,13 +72,13 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     }
 
     @Override
-    public void updateRealCustomer(RealCustomerDto realCustomerDto) throws DuplicateNationalCodeException {
-        Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getNationalCode());
+    public void updateRealCustomer(CustomerDto realCustomerDto) throws DuplicateNationalCodeException {
+        Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getCode());
         if (existingRealCustomer.isPresent()) {
             RealCustomer realCustomer = existingRealCustomer.get();
             if (!realCustomer.getCustomerNO().equals(realCustomerDto.getCustomerNO())) {
                 throw new DuplicateNationalCodeException(
-                        messageSourceComponent.getPersian("real.customer.nationalCode.duplicated", realCustomerDto.getNationalCode()));
+                        messageSourceComponent.getPersian("real.customer.nationalCode.duplicated", realCustomerDto.getCode()));
             }
         }
         realCustomerMapper.toRealCustomerDto(

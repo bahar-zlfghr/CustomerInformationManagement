@@ -1,7 +1,6 @@
 package com.dotin.controller;
 
-import com.dotin.dto.LegalCustomerDto;
-import com.dotin.dto.RealCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateLegalCustomerException;
 import com.dotin.exception.DuplicateRealCustomerException;
 import com.dotin.exception.LegalCustomerNotFoundException;
@@ -28,7 +27,7 @@ public class ControllerAdviser {
     public ModelAndView duplicateIndividualCustomerException(DuplicateRealCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("duplicateRealCustomerException", e.getMessage());
-        modelAndView.addObject("realCustomer", new RealCustomerDto());
+        modelAndView.addObject("realCustomer", new CustomerDto());
         modelAndView.setViewName("real-customer-registration");
         return modelAndView;
     }
@@ -37,7 +36,7 @@ public class ControllerAdviser {
     public ModelAndView duplicateLegalCustomerException(DuplicateLegalCustomerException e) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("duplicateLegalCustomerException", e.getMessage());
-        modelAndView.addObject("legalCustomer", new LegalCustomerDto());
+        modelAndView.addObject("legalCustomer", new CustomerDto());
         modelAndView.setViewName("legal-customer-registration");
         return modelAndView;
     }

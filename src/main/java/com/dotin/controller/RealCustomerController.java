@@ -1,6 +1,6 @@
 package com.dotin.controller;
 
-import com.dotin.dto.RealCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.exception.DuplicateNationalCodeException;
 import com.dotin.service.component.PropertyReaderComponent;
 import com.dotin.service.realcustomer.RealCustomerService;
@@ -42,15 +42,15 @@ public class RealCustomerController {
 
     @GetMapping(value = "/save-real-customer")
     public String getRealCustomerRegistrationForm(Model model) {
-        model.addAttribute("realCustomer", new RealCustomerDto());
+        model.addAttribute("realCustomer", new CustomerDto());
         return "real-customer-registration";
     }
 
     @PostMapping(value = "/save-real-customer")
-    public String saveRealCustomer(@ModelAttribute RealCustomerDto realCustomerDto, HttpSession httpSession,
+    public String saveRealCustomer(@ModelAttribute CustomerDto realCustomerDto, HttpSession httpSession,
                                      BindingResult bindingResult) {
-        RealCustomerDto registeredRealCustomer = realCustomerService.saveRealCustomer(realCustomerDto);
-        String nationalCode = registeredRealCustomer.getNationalCode();
+        CustomerDto registeredRealCustomer = realCustomerService.saveRealCustomer(realCustomerDto);
+        String nationalCode = registeredRealCustomer.getCode();
         httpSession.setAttribute("saveCustomerSuccessMessage",
                 messageSourceComponent.getPersian(
                 "real.customer.successfully.registered", nationalCode));
@@ -63,14 +63,14 @@ public class RealCustomerController {
 
     @GetMapping(value = "/update-real-customer/{customerNO}")
     public String getRealCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
-        RealCustomerDto realCustomer =
+        CustomerDto realCustomer =
                 realCustomerService.findRealCustomerByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("realCustomer", realCustomer);
         return "real-customer-updatation";
     }
 
     @PostMapping(value = "/update-real-customer")
-    public String updateRealCustomer(@ModelAttribute RealCustomerDto realCustomer, HttpSession httpSession) {
+    public String updateRealCustomer(@ModelAttribute CustomerDto realCustomer, HttpSession httpSession) {
         try {
             realCustomerService.updateRealCustomer(realCustomer);
             httpSession.setAttribute("updateRealCustomerSuccessMessage",
