@@ -9,6 +9,7 @@ import com.dotin.model.data.LegalCustomer;
 import com.dotin.model.repository.LegalCustomerRepository;
 import com.dotin.model.repository.LegalCustomerSpecification;
 import com.dotin.service.component.MessageSourceComponent;
+import com.dotin.service.validator.LegalCustomerValidator;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,7 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     @Override
     public CustomerDto saveLegalCustomer(CustomerDto legalCustomerDto) {
         Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getCode());
-        if (existingLegalCustomer.isPresent()) {
+        if (!LegalCustomerValidator.validateLegalCustomerForSaveOperation(existingLegalCustomer)) {
             throw new DuplicateLegalCustomerException(
                     messageSourceComponent.getPersian(
                             "legal.customer.economicCode.duplicated", legalCustomerDto.getCode()));
@@ -71,12 +72,9 @@ public class LegalCustomerServiceImpl implements LegalCustomerService {
     @Override
     public void updateLegalCustomer(CustomerDto legalCustomerDto) throws DuplicateEconomicCodeException {
         Optional<LegalCustomer> existingLegalCustomer = legalCustomerRepository.findByCode(legalCustomerDto.getCode());
-        if (existingLegalCustomer.isPresent()) {
-            LegalCustomer legalCustomer = existingLegalCustomer.get();
-            if (!legalCustomer.getCustomerNO().equals(legalCustomerDto.getCustomerNO())) {
+        if (!LegalCustomerValidator.validateLegalCustomerForUpdateOperation(existingLegalCustomer, legalCustomerDto)) {
                 throw new DuplicateEconomicCodeException(
                   messageSourceComponent.getPersian("legal.customer.economicCode.duplicated", legalCustomerDto.getCode()));
-            }
         }
         legalCustomerMapper.toLegalCustomerDto(
                 legalCustomerRepository.save(legalCustomerMapper.toLegalCustomer(legalCustomerDto)));

@@ -9,6 +9,7 @@ import com.dotin.model.data.RealCustomer;
 import com.dotin.model.repository.RealCustomerRepository;
 import com.dotin.model.repository.RealCustomerSpecification;
 import com.dotin.service.component.MessageSourceComponent;
+import com.dotin.service.validator.RealCustomerValidator;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     @Override
     public CustomerDto saveRealCustomer(CustomerDto realCustomerDto) throws DuplicateRealCustomerException {
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getCode());
-        if (existingRealCustomer.isPresent()) {
+        if (!RealCustomerValidator.validateRealCustomerForSaveOperation(existingRealCustomer)) {
             throw new DuplicateRealCustomerException(
                     messageSourceComponent.getPersian(
                             "real.customer.nationalCode.duplicated",
@@ -74,12 +75,9 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     @Override
     public void updateRealCustomer(CustomerDto realCustomerDto) throws DuplicateNationalCodeException {
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getCode());
-        if (existingRealCustomer.isPresent()) {
-            RealCustomer realCustomer = existingRealCustomer.get();
-            if (!realCustomer.getCustomerNO().equals(realCustomerDto.getCustomerNO())) {
+        if (!RealCustomerValidator.validateRealCustomerForUpdateOperation(existingRealCustomer, realCustomerDto)) {
                 throw new DuplicateNationalCodeException(
                         messageSourceComponent.getPersian("real.customer.nationalCode.duplicated", realCustomerDto.getCode()));
-            }
         }
         realCustomerMapper.toRealCustomerDto(
                 realCustomerRepository.save(realCustomerMapper.toRealCustomer(realCustomerDto)));
