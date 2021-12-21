@@ -1,6 +1,6 @@
 package com.dotin.mapper.realcustomer;
 
-import com.dotin.dto.RealCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.model.data.RealCustomer;
 
 /**
@@ -8,6 +8,6 @@ import com.dotin.model.data.RealCustomer;
  **/
 public interface RealCustomerMapper {
 
-    RealCustomer toRealCustomer(RealCustomerDto realCustomerDto);
-    RealCustomerDto toRealCustomerDto(RealCustomer realCustomer);
+    RealCustomer toRealCustomer(CustomerDto realCustomerDto);
+    CustomerDto toRealCustomerDto(RealCustomer realCustomer);
 }

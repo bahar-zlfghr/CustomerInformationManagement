@@ -1,6 +1,7 @@
 package com.dotin.mapper.legalcustomer;
 
-import com.dotin.dto.LegalCustomerDto;
+import com.dotin.dto.CustomerDto;
+import com.dotin.service.component.CustomerTypeComponent;
 import com.dotin.model.data.LegalCustomer;
 import org.springframework.stereotype.Component;
 
@@ -9,22 +10,28 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class LegalCustomerMapperImpl implements LegalCustomerMapper {
+    private final CustomerTypeComponent customerTypeComponent;
 
-    @Override
-    public LegalCustomer toLegalCustomer(LegalCustomerDto legalCustomerDto) {
-        return (LegalCustomer) new LegalCustomer()
-                .setCustomerNO(legalCustomerDto.getCustomerNO())
-                .setName(legalCustomerDto.getCompanyName())
-                .setDate(legalCustomerDto.getRegistrationDate())
-                .setCode(legalCustomerDto.getEconomicCode());
+    public LegalCustomerMapperImpl(CustomerTypeComponent customerTypeComponent) {
+        this.customerTypeComponent = customerTypeComponent;
     }
 
     @Override
-    public LegalCustomerDto toLegalCustomerDto(LegalCustomer legalCustomer) {
-        return new LegalCustomerDto()
+    public LegalCustomer toLegalCustomer(CustomerDto legalCustomerDto) {
+        return (LegalCustomer) new LegalCustomer()
+                .setCustomerNO(legalCustomerDto.getCustomerNO())
+                .setName(legalCustomerDto.getName())
+                .setDate(legalCustomerDto.getDate())
+                .setCode(legalCustomerDto.getCode());
+    }
+
+    @Override
+    public CustomerDto toLegalCustomerDto(LegalCustomer legalCustomer) {
+        return new CustomerDto()
                 .setCustomerNO(legalCustomer.getCustomerNO())
-                .setCompanyName(legalCustomer.getName())
-                .setRegistrationDate(legalCustomer.getDate())
-                .setEconomicCode(legalCustomer.getCode());
+                .setCustomerType(customerTypeComponent.getCustomerType("1"))
+                .setName(legalCustomer.getName())
+                .setDate(legalCustomer.getDate())
+                .setCode(legalCustomer.getCode());
     }
 }

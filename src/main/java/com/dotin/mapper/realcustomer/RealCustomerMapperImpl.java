@@ -1,6 +1,7 @@
 package com.dotin.mapper.realcustomer;
 
-import com.dotin.dto.RealCustomerDto;
+import com.dotin.dto.CustomerDto;
+import com.dotin.service.component.CustomerTypeComponent;
 import com.dotin.model.data.RealCustomer;
 import org.springframework.stereotype.Component;
 
@@ -9,27 +10,33 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class RealCustomerMapperImpl implements RealCustomerMapper {
+    private final CustomerTypeComponent customerTypeComponent;
+
+    public RealCustomerMapperImpl(CustomerTypeComponent customerTypeComponent) {
+        this.customerTypeComponent = customerTypeComponent;
+    }
 
     @Override
-    public RealCustomer toRealCustomer(RealCustomerDto realCustomerDto) {
+    public RealCustomer toRealCustomer(CustomerDto realCustomerDto) {
         return (RealCustomer) new RealCustomer()
                 .setLastName(realCustomerDto.getLastName())
                 .setFatherName(realCustomerDto.getFatherName())
                 .setCustomerNO(realCustomerDto.getCustomerNO())
-                .setName(realCustomerDto.getFirstName())
-                .setDate(realCustomerDto.getBirthDate())
-                .setCode(realCustomerDto.getNationalCode());
+                .setName(realCustomerDto.getName())
+                .setDate(realCustomerDto.getDate())
+                .setCode(realCustomerDto.getCode());
 
     }
 
     @Override
-    public RealCustomerDto toRealCustomerDto(RealCustomer realCustomer) {
-        return new RealCustomerDto()
+    public CustomerDto toRealCustomerDto(RealCustomer realCustomer) {
+        return new CustomerDto()
                 .setCustomerNO(realCustomer.getCustomerNO())
-                .setFirstName(realCustomer.getName())
+                .setCustomerType(customerTypeComponent.getCustomerType("0"))
+                .setName(realCustomer.getName())
                 .setLastName(realCustomer.getLastName())
                 .setFatherName(realCustomer.getFatherName())
-                .setBirthDate(realCustomer.getDate())
-                .setNationalCode(realCustomer.getCode());
+                .setDate(realCustomer.getDate())
+                .setCode(realCustomer.getCode());
     }
 }

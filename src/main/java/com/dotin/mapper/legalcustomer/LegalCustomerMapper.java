@@ -1,6 +1,6 @@
 package com.dotin.mapper.legalcustomer;
 
-import com.dotin.dto.LegalCustomerDto;
+import com.dotin.dto.CustomerDto;
 import com.dotin.model.data.LegalCustomer;
 
 /**
@@ -8,6 +8,6 @@ import com.dotin.model.data.LegalCustomer;
  **/
 public interface LegalCustomerMapper {
 
-    LegalCustomer toLegalCustomer(LegalCustomerDto legalCustomerDto);
-    LegalCustomerDto toLegalCustomerDto(LegalCustomer legalCustomer);
+    LegalCustomer toLegalCustomer(CustomerDto legalCustomerDto);
+    CustomerDto toLegalCustomerDto(LegalCustomer legalCustomer);
 }
