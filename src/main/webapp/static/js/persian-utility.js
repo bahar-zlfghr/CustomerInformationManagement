@@ -1,4 +1,5 @@
 const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g];
 
 function toPersianNumber(input) {
     for (let i = 0; i < persianDigits.length; i++) {
@@ -7,10 +8,11 @@ function toPersianNumber(input) {
     return input;
 }
 
-function toFarsiNumber(n) {
-    return n
-        .toString()
-        .split('')
-        .map(x => persianDigits[x])
-        .join('');
+function toEnglishNumber(input) {
+    if (typeof input === 'string') {
+        for (let i = 0; i < 10; i++) {
+            input = input.replace(persianNumbers[i], i);
+        }
+    }
+    return input;
 }
