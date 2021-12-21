@@ -152,6 +152,9 @@
         $('[id*=nationalCode]').keyup(function () {
             $('[id*=nationalCode]').val(toPersianNumber($(this).val()));
         });
+        $('[class*=birth-date]').keyup(function () {
+            $('[class*=birth-date]').val(toPersianNumber($(this).val()));
+        });
     });
 </script>
 </body>
