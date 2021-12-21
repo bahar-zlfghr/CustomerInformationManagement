@@ -60,11 +60,11 @@ public class LegalCustomerController {
     }
 
     @GetMapping(value = "/update-legal-customer/{customerNO}")
-    public String getLegalCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
+    public String getLegalCustomerUpdateForm(@PathVariable String customerNO, Model model) {
         CustomerDto legalCustomer =
                 legalCustomerService.findLegalCustomerByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("legalCustomer", legalCustomer);
-        return "legal-customer-updatation";
+        return "legal-customer-update";
     }
 
     @PostMapping(value = "/update-legal-customer")

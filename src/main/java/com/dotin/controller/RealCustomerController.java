@@ -62,11 +62,11 @@ public class RealCustomerController {
     }
 
     @GetMapping(value = "/update-real-customer/{customerNO}")
-    public String getRealCustomerUpdatationForm(@PathVariable String customerNO, Model model) {
+    public String getRealCustomerUpdateForm(@PathVariable String customerNO, Model model) {
         CustomerDto realCustomer =
                 realCustomerService.findRealCustomerByCustomerNO(Integer.valueOf(customerNO));
         model.addAttribute("realCustomer", realCustomer);
-        return "real-customer-updatation";
+        return "real-customer-update";
     }
 
     @PostMapping(value = "/update-real-customer")
