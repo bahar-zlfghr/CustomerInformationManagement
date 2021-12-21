@@ -36,8 +36,15 @@ function validateCompanyName(companyName) {
 }
 function validateRegistrationDate(registrationDate) {
     let errorMessage;
+    let enRegistrationDate = toEnglishNumber(registrationDate);
+    let datePattern = /^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))$/;
     if (isEmpty(registrationDate)) {
         errorMessage = 'تاریخ ثبت شرکت را وارد کنید';
+        printError(errorMessage, 'registrationDateError');
+        return false;
+    }
+    else if (!datePattern.test(enRegistrationDate)) {
+        errorMessage = 'تاریخ ثبت شرکت معتبر نیست';
         printError(errorMessage, 'registrationDateError');
         return false;
     }
