@@ -65,6 +65,21 @@ a {
     color: #FFFFFF;
 }
 
+.customer-type {
+    padding: 5px;
+}
+
+.btn.btn-light {
+    width: 658px;
+    color: #743ad5;
+    background-color: #FFFFFF;
+    border: none;
+}
+
+.btn.btn-light:hover {
+    color: #743ad5;
+}
+
 .selector-for-some-widget {
     box-sizing: content-box;
 }
