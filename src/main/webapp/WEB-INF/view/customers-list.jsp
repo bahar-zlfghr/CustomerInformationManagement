@@ -151,7 +151,7 @@
     </c:if>
 
     <div class="alert alert-primary" role="alert">
-        <h5> جدول مشتریان حقیقی </h5>
+        <h5> جدول مشتریان </h5>
     </div>
     <c:choose>
         <c:when test="${customers.size() > 0}">
