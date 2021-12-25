@@ -19,13 +19,10 @@ import javax.servlet.http.HttpSession;
 public class LegalCustomerController {
     private final LegalCustomerService legalCustomerService;
     private final MessageSourceComponent messageSourceComponent;
-    private final PropertyReaderComponent propertyReaderComponent;
 
-    public LegalCustomerController(LegalCustomerService legalCustomerService, MessageSourceComponent messageSourceComponent,
-                                   PropertyReaderComponent propertyReaderComponent) {
+    public LegalCustomerController(LegalCustomerService legalCustomerService, MessageSourceComponent messageSourceComponent) {
         this.legalCustomerService = legalCustomerService;
         this.messageSourceComponent = messageSourceComponent;
-        this.propertyReaderComponent = propertyReaderComponent;
     }
 
     @PostMapping(value = "/save-legal-customer")
@@ -40,7 +37,7 @@ public class LegalCustomerController {
                 messageSourceComponent.getPersian(
                         "legal.customer.customerNumber.generated",
                         economicCode, String.valueOf(registeredLegalCustomer.getCustomerNO())));
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/";
+        return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/";
     }
 
     @GetMapping(value = "/update-legal-customer/{customerNO}")
@@ -58,10 +55,10 @@ public class LegalCustomerController {
             httpSession.setAttribute("updateLegalCustomerSuccessMessage",
                     messageSourceComponent.getPersian(
                             "legal.customer.successfully.updated", String.valueOf(legalCustomer.getCustomerNO())));
-            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
+            return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/customers";
         } catch (DuplicateEconomicCodeException e) {
             httpSession.setAttribute("duplicateEconomicCodeException", e.getMessage());
-            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/update-legal-customer/" + legalCustomer.getCustomerNO();
+            return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/update-legal-customer/" + legalCustomer.getCustomerNO();
         }
     }
 
@@ -70,6 +67,6 @@ public class LegalCustomerController {
         legalCustomerService.deleteLegalCustomer(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteLegalCustomerSuccessMessage",
                 messageSourceComponent.getPersian("legal.customer.successfully.deleted", customerNO));
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
+        return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/customers";
     }
 }

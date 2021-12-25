@@ -17,11 +17,6 @@ import javax.servlet.http.HttpSession;
  **/
 @ControllerAdvice
 public class ControllerAdviser {
-    private final PropertyReaderComponent propertyReaderComponent;
-
-    public ControllerAdviser(PropertyReaderComponent propertyReaderComponent) {
-        this.propertyReaderComponent = propertyReaderComponent;
-    }
 
     @ExceptionHandler(value = DuplicateRealCustomerException.class)
     public ModelAndView duplicateIndividualCustomerException(DuplicateRealCustomerException e) {
@@ -44,12 +39,12 @@ public class ControllerAdviser {
     @ExceptionHandler(value = RealCustomerNotFoundException.class)
     public String realCustomerNotFoundException(RealCustomerNotFoundException e, HttpSession httpSession) {
         httpSession.setAttribute("realCustomerNotFoundException", e.getMessage());
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/real-customers";
+        return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/real-customers";
     }
 
     @ExceptionHandler(value = LegalCustomerNotFoundException.class)
     public String legalCustomerNotFoundException(LegalCustomerNotFoundException e, HttpSession httpSession) {
         httpSession.setAttribute("legalCustomerNotFoundException", e.getMessage());
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/legal-customers";
+        return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/legal-customers";
     }
 }

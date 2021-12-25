@@ -3,6 +3,7 @@ package com.dotin.mapper.legalcustomer;
 import com.dotin.dto.CustomerDto;
 import com.dotin.service.component.CustomerTypeComponent;
 import com.dotin.model.data.LegalCustomer;
+import com.dotin.service.component.PropertyReaderComponent;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,7 +30,8 @@ public class LegalCustomerMapperImpl implements LegalCustomerMapper {
     public CustomerDto toLegalCustomerDto(LegalCustomer legalCustomer) {
         return new CustomerDto()
                 .setCustomerNO(legalCustomer.getCustomerNO())
-                .setCustomerType(customerTypeComponent.getCustomerType("1"))
+                .setCustomerType(customerTypeComponent.getCustomerType(
+                        PropertyReaderComponent.getProperty("customer.type.legal.binary")))
                 .setName(legalCustomer.getName())
                 .setDate(legalCustomer.getDate())
                 .setCode(legalCustomer.getCode());

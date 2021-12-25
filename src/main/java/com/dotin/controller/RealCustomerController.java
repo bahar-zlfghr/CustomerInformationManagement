@@ -19,13 +19,10 @@ import javax.servlet.http.HttpSession;
 public class RealCustomerController {
     private final RealCustomerService realCustomerService;
     private final MessageSourceComponent messageSourceComponent;
-    private final PropertyReaderComponent propertyReaderComponent;
 
-    public RealCustomerController(RealCustomerService realCustomerService, MessageSourceComponent messageSourceComponent,
-                                  PropertyReaderComponent propertyReaderComponent) {
+    public RealCustomerController(RealCustomerService realCustomerService, MessageSourceComponent messageSourceComponent) {
         this.realCustomerService = realCustomerService;
         this.messageSourceComponent = messageSourceComponent;
-        this.propertyReaderComponent = propertyReaderComponent;
     }
 
     @PostMapping(value = "/save-real-customer")
@@ -40,7 +37,7 @@ public class RealCustomerController {
                 messageSourceComponent.getPersian(
                         "real.customer.customerNumber.generated",
                         nationalCode, String.valueOf(registeredRealCustomer.getCustomerNO())));
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/";
+        return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/";
     }
 
     @GetMapping(value = "/update-real-customer/{customerNO}")
@@ -58,10 +55,10 @@ public class RealCustomerController {
             httpSession.setAttribute("updateRealCustomerSuccessMessage",
                     messageSourceComponent.getPersian(
                             "real.customer.successfully.updated", String.valueOf(realCustomer.getCustomerNO())));
-            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
+            return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/customers";
         } catch (DuplicateNationalCodeException e) {
             httpSession.setAttribute("duplicateNationalCodeException", e.getMessage());
-            return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/update-real-customer/" + realCustomer.getCustomerNO();
+            return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/update-real-customer/" + realCustomer.getCustomerNO();
         }
     }
 
@@ -70,6 +67,6 @@ public class RealCustomerController {
         realCustomerService.deleteRealCustomer(Integer.valueOf(customerNO));
         httpSession.setAttribute("deleteRealCustomerSuccessMessage",
                 messageSourceComponent.getPersian("real.customer.successfully.deleted", customerNO));
-        return "redirect:" + propertyReaderComponent.getProperty("app.domain") + "/customers";
+        return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/customers";
     }
 }

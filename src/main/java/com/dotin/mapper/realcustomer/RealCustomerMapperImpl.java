@@ -3,6 +3,7 @@ package com.dotin.mapper.realcustomer;
 import com.dotin.dto.CustomerDto;
 import com.dotin.service.component.CustomerTypeComponent;
 import com.dotin.model.data.RealCustomer;
+import com.dotin.service.component.PropertyReaderComponent;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,7 +33,9 @@ public class RealCustomerMapperImpl implements RealCustomerMapper {
     public CustomerDto toRealCustomerDto(RealCustomer realCustomer) {
         return new CustomerDto()
                 .setCustomerNO(realCustomer.getCustomerNO())
-                .setCustomerType(customerTypeComponent.getCustomerType("0"))
+                .setCustomerType(customerTypeComponent.getCustomerType(
+                        PropertyReaderComponent.getProperty("customer.type.real.binary")
+                ))
                 .setName(realCustomer.getName())
                 .setLastName(realCustomer.getLastName())
                 .setFatherName(realCustomer.getFatherName())
