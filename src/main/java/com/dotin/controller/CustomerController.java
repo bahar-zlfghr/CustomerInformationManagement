@@ -26,12 +26,12 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/customers")
-    public String saveLegalCustomer(@RequestParam(required = false, name = "customerNO") String customerNO,
-                                    @RequestParam(required = false, name = "customerType") String customerType,
-                                    @RequestParam(required = false, name = "name") String name,
-                                    @RequestParam(required = false, name = "lastName") String lastName,
-                                    @RequestParam(required = false, name = "code") String code,
-                                    Model model) {
+    public String getCustomers(@RequestParam(required = false, name = "customerNO") String customerNO,
+                               @RequestParam(required = false, name = "customerType") String customerType,
+                               @RequestParam(required = false, name = "name") String name,
+                               @RequestParam(required = false, name = "lastName") String lastName,
+                               @RequestParam(required = false, name = "code") String code,
+                               Model model) {
         List<CustomerDto> customers = new ArrayList<>();
         List<CustomerDto> realCustomers = realCustomerService.findAllRealCustomers(name, lastName, code, customerNO);
         List<CustomerDto> legalCustomers = legalCustomerService.findAllLegalCustomers(name, code, customerNO);
@@ -50,7 +50,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/save-customer")
-    public String getRealCustomerRegistrationForm(Model model) {
+    public String getCustomerRegistrationForm(Model model) {
         model.addAttribute("customer", new CustomerDto());
         return "customer-registration";
     }
