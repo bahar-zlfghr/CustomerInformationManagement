@@ -1,5 +1,7 @@
 package com.dotin.model.data;
 
+import com.dotin.configuration.property.CustomerProperties;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -7,7 +9,7 @@ import javax.persistence.Entity;
  * @author : Bahar Zolfaghari
  **/
 @Entity(name = "LegalCustomer")
-@DiscriminatorValue(value = "customer.type.legal.binary")
+@DiscriminatorValue(value = CustomerProperties.LEGAL)
 public class LegalCustomer extends Customer {
 
 }
