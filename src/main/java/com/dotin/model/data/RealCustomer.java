@@ -7,7 +7,7 @@ import javax.persistence.Entity;
  * @author : Bahar Zolfaghari
  **/
 @Entity(name = "RealCustomer")
-@DiscriminatorValue(value = "0")
+@DiscriminatorValue(value = "customer.type.real.binary")
 public class RealCustomer extends Customer {
 
     private String lastName;
