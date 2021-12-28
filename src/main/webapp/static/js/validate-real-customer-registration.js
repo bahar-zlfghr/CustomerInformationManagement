@@ -103,6 +103,10 @@ function validateNationalCode(nationalCode) {
         errorMessage = 'کد ملی مشتری باید 10 رقمی باشد';
         printError(errorMessage, 'nationalCodeError');
         return false;
+    } else if (!checkNationalCode(nationalCode)) {
+        errorMessage = 'کد ملی مشتری معتبر نیست';
+        printError(errorMessage, 'nationalCodeError');
+        return false;
     }
     return true;
 }
