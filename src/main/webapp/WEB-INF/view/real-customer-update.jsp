@@ -11,6 +11,7 @@
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/js/persian-datepicker.js"></script>
     <script src="<c:url value="/static/js/validate-real-customer-registration.js"/>"></script>
     <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
+    <script src="<c:url value="/static/js/validate-national-code.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/css/persian-datepicker.css" rel="stylesheet"/>
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
@@ -98,7 +99,7 @@
                 <td>تاریخ تولد</td>
                 <td>
                     <form:label path="date">
-                        <form:input path="date" type="text" id="date" class="birth-date" />
+                        <form:input path="date" type="text" id="birthDate" class="birth-date" />
                     </form:label>
                 </td>
             </tr>
