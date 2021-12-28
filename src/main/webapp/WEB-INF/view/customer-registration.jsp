@@ -12,6 +12,7 @@
     <script src="<c:url value="/static/js/validate-real-customer-registration.js"/>"></script>
     <script src="<c:url value="/static/js/validate-legal-customer-registration.js"/>"></script>
     <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
+    <script src="<c:url value="/static/js/validate-national-code.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/css/persian-datepicker.css" rel="stylesheet"/>
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
