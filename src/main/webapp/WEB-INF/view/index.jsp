@@ -57,6 +57,10 @@
         <button type="button" class="btn btn-outline-primary">
             <a href="<c:url value="/customers"/>">لیست مشتریان</a>
         </button>
+
+        <button type="button" class="btn btn-outline-primary">
+            <a href="<c:url value="/create-loan-type"/>">ثبت نوع تسهیلات جدید</a>
+        </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
