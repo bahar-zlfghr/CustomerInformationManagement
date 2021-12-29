@@ -1,7 +1,6 @@
 package com.dotin.model.repository;
 
 import com.dotin.model.data.LegalCustomer;
-import com.dotin.service.component.DigitConverterComponent;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,7 +25,7 @@ public interface LegalCustomerSpecification {
                 predicates.add(criteriaBuilder.equal(root.get("code"), economicCode));
             }
             if (!Objects.isNull(customerNO) && !customerNO.isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("customerNO"), DigitConverterComponent.convertFaToEn(customerNO)));
+                predicates.add(criteriaBuilder.equal(root.get("customerNO"), customerNO));
             }
             return customerCriteriaQuery.select(root).where(predicates.toArray(new Predicate[0])).getRestriction();
         };
