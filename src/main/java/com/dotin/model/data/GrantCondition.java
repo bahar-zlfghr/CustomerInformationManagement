@@ -21,7 +21,7 @@ public class GrantCondition {
     private BigDecimal minAmount;
     private BigDecimal maxAmount;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "loanTypeID", referencedColumnName = "ID")
     private LoanType loanType;
 
