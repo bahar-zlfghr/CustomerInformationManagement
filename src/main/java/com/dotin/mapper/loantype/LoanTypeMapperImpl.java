@@ -13,6 +13,7 @@ public class LoanTypeMapperImpl implements LoanTypeMapper {
     @Override
     public LoanType toLoanType(LoanTypeDto loanTypeDto) {
         return new LoanType()
+                .setId(loanTypeDto.getId())
                 .setName(loanTypeDto.getName())
                 .setInterestRate(loanTypeDto.getInterestRate());
     }
@@ -20,6 +21,7 @@ public class LoanTypeMapperImpl implements LoanTypeMapper {
     @Override
     public LoanTypeDto toLoanTypeDto(LoanType loanType) {
         return new LoanTypeDto()
+                .setId(loanType.getId())
                 .setName(loanType.getName())
                 .setInterestRate(loanType.getInterestRate());
     }
