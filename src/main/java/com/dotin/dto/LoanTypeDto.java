@@ -4,8 +4,18 @@ package com.dotin.dto;
  * @author : Bahar Zolfaghari
  **/
 public class LoanTypeDto {
+    private Integer id;
     private String name;
     private Integer interestRate;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public LoanTypeDto setId(Integer id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
