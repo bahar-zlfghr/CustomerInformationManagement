@@ -15,11 +15,12 @@
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
 </nav>
 
 <div class="container rounded-3">
     <div class="alert alert-light" role="alert">
-        <h1> ۴۰۴ </h1>
+        <h1> 404 </h1>
         <h5> صفحه مورد نظر شما یافت نشد! </h5>
     </div>
 

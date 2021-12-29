@@ -25,6 +25,7 @@
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
 </nav>
 
 <div class="container rounded-3" style="margin: 100px auto">
@@ -125,12 +126,6 @@
         $(".registration-date").persianDatepicker({
             format: 'YYYY/MM/DD',
             initialValue: false
-        });
-    });
-
-    $(function () {
-        $('[id*=economicCode]').keyup(function () {
-            $('[id*=economicCode]').val(toPersianNumber($(this).val()));
         });
     });
 </script>

@@ -20,6 +20,7 @@
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
 </nav>
 
 <div class="container rounded-3" style="width: 25%">
@@ -225,14 +226,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        $('[id*=nationalCode]').keyup(function () {
-            $('[id*=nationalCode]').val(toPersianNumber($(this).val()));
-        });
-        $('[id*=customerNO]').keyup(function () {
-            $('[id*=customerNO]').val(toPersianNumber($(this).val()));
-        });
-    });
 
     $("#search-button").on("click", function() {
         $.ajax({

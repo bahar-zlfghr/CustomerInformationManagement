@@ -24,6 +24,7 @@
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
     <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
 </nav>
 
 <div class="container rounded-3" style="margin: 100px auto">
@@ -32,8 +33,8 @@
     </div>
 
     <form:form modelAttribute="loanType"
-               method="post"
-               action="/create-grant-condition"
+               method="get"
+               action="/save-grant-condition"
                onsubmit="return validateLoanTypeCreationForm()">
         <table class="table" dir="rtl">
             <tbody>
@@ -79,12 +80,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('[id*=interestRate]').keyup(function () {
-            $('[id*=interestRate]').val(toPersianNumber($(this).val()));
-        });
-    });
-</script>
 </body>
 </html>

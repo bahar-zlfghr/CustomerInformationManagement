@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.dotin.service.component.DigitConverterComponent" %>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
@@ -16,6 +15,7 @@
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
         <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
+        <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
     </nav>
 
     <div class="container rounded-3">
@@ -36,13 +36,21 @@
                 <h5>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     <%
-                        out.print(DigitConverterComponent.convertEnToFa(
-                                String.valueOf(session.getAttribute("customerNumberMessage"))));
+                        out.print(session.getAttribute("customerNumberMessage"));
                     %>
                 </h5>
                 <%
                     session.removeAttribute("customerNumberMessage");
                 %>
+            </div>
+        </c:if>
+
+        <c:if test="${saveLoanTypeSuccessMessage.length() > 0}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    ${saveLoanTypeSuccessMessage}
+                </h5>
             </div>
         </c:if>
 
@@ -59,7 +67,7 @@
         </button>
 
         <button type="button" class="btn btn-outline-primary">
-            <a href="<c:url value="/create-loan-type"/>">ثبت نوع تسهیلات جدید</a>
+            <a href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
         </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
