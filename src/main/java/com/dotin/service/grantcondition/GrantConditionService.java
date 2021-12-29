@@ -1,7 +1,7 @@
 package com.dotin.service.grantcondition;
 
-import com.dotin.model.data.GrantCondition;
-import com.dotin.model.data.LoanType;
+import com.dotin.dto.GrantConditionDto;
+import com.dotin.dto.LoanTypeDto;
 
 import java.util.List;
 
@@ -10,6 +10,6 @@ import java.util.List;
  **/
 public interface GrantConditionService {
 
-    void saveAllGrantConditions(List<GrantCondition> grantConditions);
-    List<GrantCondition> findAllGrantConditionsByLoanType(LoanType loanType);
+    void saveAllGrantConditions(List<GrantConditionDto> grantConditions);
+    List<GrantConditionDto> findAllGrantConditionsByLoanType(LoanTypeDto loanTypeDto);
 }
