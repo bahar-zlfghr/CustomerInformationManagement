@@ -60,9 +60,9 @@
                 <td>
                     <label>
                         <select class="form-select" name="customerType" id="customerType">
-                            <option value="" selected>نوع مشتری را انتخاب کنید</option>
-                            <option value="0">حقیقی</option>
-                            <option value="1">حقوقی</option>
+                            <option value="" selected style="font-family: Vazir-Regular">نوع مشتری را انتخاب کنید</option>
+                            <option value="0" style="font-family: Vazir-Regular">حقیقی</option>
+                            <option value="1" style="font-family: Vazir-Regular">حقوقی</option>
                         </select>
                     </label>
                 </td>
