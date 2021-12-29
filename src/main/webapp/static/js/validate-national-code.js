@@ -1,5 +1,4 @@
-function checkNationalCode(PersianNationalCode) {
-    const nationalCode = toEnglishNumber(PersianNationalCode);
+function checkNationalCode(nationalCode) {
     let nationalCodeDigits = String(nationalCode)
         .split("")
         .map(

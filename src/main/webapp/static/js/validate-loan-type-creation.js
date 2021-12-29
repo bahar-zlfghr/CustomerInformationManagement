@@ -31,13 +31,12 @@ function validateName(name) {
 
 function validateInterestRate(interestRate) {
     let errorMessage;
-    let interestRateEn = toEnglishNumber(interestRate);
     if (isEmpty(interestRate)) {
         errorMessage = 'نرخ سود را وارد کنید';
         printError(errorMessage, 'interestRateError');
         return false;
     }
-    else if (interestRateEn < 0 || interestRateEn > 100) {
+    else if (interestRate < 0 || interestRate > 100) {
         errorMessage = 'نرخ سود باید بین ۰ تا ۱۰۰ باشد';
         printError(errorMessage, 'interestRateError');
         return false;

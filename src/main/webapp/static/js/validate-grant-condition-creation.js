@@ -49,13 +49,12 @@ function validateName(name) {
 
 function validateMinPeriod(minPeriod) {
     let errorMessage;
-    let minPeriodEn = toEnglishNumber(minPeriod);
     if (isEmpty(minPeriod)) {
         errorMessage = 'حداقل مدت قرارداد را وارد کنید';
         printError(errorMessage, 'minPeriodError');
         return false;
     }
-    else if (minPeriodEn < 0) {
+    else if (minPeriod < 0) {
         errorMessage = 'حداقل مدت قرارداد باید بزرگتر از ۰ باشد';
         printError(errorMessage, 'minPeriodError');
         return false;
@@ -65,13 +64,12 @@ function validateMinPeriod(minPeriod) {
 
 function validateMaxPeriod(maxPeriod) {
     let errorMessage;
-    let maxPeriodEn = toEnglishNumber(maxPeriod);
     if (isEmpty(maxPeriod)) {
         errorMessage = 'حداکثر مدت قرارداد را وارد کنید';
         printError(errorMessage, 'maxPeriodError');
         return false;
     }
-    else if (maxPeriodEn < 0) {
+    else if (maxPeriod < 0) {
         errorMessage = 'حداکثر مدت قرارداد باید بزرگتر از ۰ باشد';
         printError(errorMessage, 'maxPeriodError');
         return false;
@@ -81,13 +79,12 @@ function validateMaxPeriod(maxPeriod) {
 
 function validateMinAmount(minAmount) {
     let errorMessage;
-    let minAmountEn = toEnglishNumber(minAmount);
     if (isEmpty(minAmount)) {
         errorMessage = 'حداقل مبلغ قرارداد را وارد کنید';
         printError(errorMessage, 'minAmountError');
         return false;
     }
-    else if (minAmountEn < 0) {
+    else if (minAmount < 0) {
         errorMessage = 'حداقل مبلغ قرارداد باید بزرگتر از ۰ باشد';
         printError(errorMessage, 'minAmountError');
         return false;
@@ -97,13 +94,12 @@ function validateMinAmount(minAmount) {
 
 function validateMaxAmount(maxAmount) {
     let errorMessage;
-    let maxAmountEn = toEnglishNumber(maxAmount);
     if (isEmpty(maxAmount)) {
         errorMessage = 'حداکثر مبلغ قرارداد را وارد کنید';
         printError(errorMessage, 'maxAmountError');
         return false;
     }
-    else if (maxAmountEn < 0) {
+    else if (maxAmount < 0) {
         errorMessage = 'حداکثر مبلغ قرارداد باید بزرگتر از ۰ باشد';
         printError(errorMessage, 'maxAmountError');
         return false;

@@ -77,14 +77,13 @@ function validateFatherName(fatherName) {
 
 function validateBirthDate(birthDate) {
     let errorMessage;
-    let enBirthDate = toEnglishNumber(birthDate);
     let datePattern = /^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))$/;
     if (isEmpty(birthDate)) {
         errorMessage = 'تاریخ تولد مشتری را وارد کنید';
         printError(errorMessage, 'birthDateError');
         return false;
     }
-    else if (!datePattern.test(enBirthDate)) {
+    else if (!datePattern.test(toEnglishNumber(birthDate))) {
         errorMessage = 'تاریخ تولد مشتری معتبر نیست';
         printError(errorMessage, 'birthDateError');
         return false;
