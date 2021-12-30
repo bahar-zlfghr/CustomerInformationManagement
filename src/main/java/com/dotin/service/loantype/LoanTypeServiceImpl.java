@@ -6,6 +6,9 @@ import com.dotin.model.repository.LoanTypeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author : Bahar Zolfaghari
  **/
@@ -24,5 +27,19 @@ public class LoanTypeServiceImpl implements LoanTypeService {
     public LoanTypeDto saveLoanType(LoanTypeDto loanTypeDto) {
         return loanTypeMapper.toLoanTypeDto(
                 loanTypeRepository.save(loanTypeMapper.toLoanType(loanTypeDto)));
+    }
+
+    @Override
+    public LoanTypeDto getLoanTypeByID(Integer customerNO) {
+        return loanTypeMapper.toLoanTypeDto(
+                loanTypeRepository.getById(customerNO));
+    }
+
+    @Override
+    public List<LoanTypeDto> getAllLoanTypes() {
+        return loanTypeRepository.findAll()
+                .stream()
+                .map(loanTypeMapper::toLoanTypeDto)
+                .collect(Collectors.toList());
     }
 }
