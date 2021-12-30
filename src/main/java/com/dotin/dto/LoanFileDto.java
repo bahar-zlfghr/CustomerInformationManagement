@@ -8,8 +8,10 @@ import java.math.BigDecimal;
 public class LoanFileDto {
     private Integer period;
     private BigDecimal amount;
-    private String loanTypeName;
-    private int loanTypeInterestRate;
+    private CustomerDto realCustomer;
+    private LoanTypeDto loanType;
+    private Integer realCustomerNO;
+    private Integer loanTypeID;
 
     public Integer getPeriod() {
         return period;
@@ -29,21 +31,39 @@ public class LoanFileDto {
         return this;
     }
 
-    public String getLoanTypeName() {
-        return loanTypeName;
+    public CustomerDto getRealCustomer() {
+        return realCustomer;
     }
 
-    public LoanFileDto setLoanTypeName(String loanTypeName) {
-        this.loanTypeName = loanTypeName;
+    public LoanFileDto setRealCustomer(CustomerDto realCustomer) {
+        this.realCustomer = realCustomer;
         return this;
     }
 
-    public Integer getLoanTypeInterestRate() {
-        return loanTypeInterestRate;
+    public LoanTypeDto getLoanType() {
+        return loanType;
     }
 
-    public LoanFileDto setLoanTypeInterestRate(Integer loanTypeInterestRate) {
-        this.loanTypeInterestRate = loanTypeInterestRate;
+    public LoanFileDto setLoanType(LoanTypeDto loanType) {
+        this.loanType = loanType;
+        return this;
+    }
+
+    public Integer getRealCustomerNO() {
+        return realCustomerNO;
+    }
+
+    public LoanFileDto setRealCustomerNO(Integer realCustomerNO) {
+        this.realCustomerNO = realCustomerNO;
+        return this;
+    }
+
+    public Integer getLoanTypeID() {
+        return loanTypeID;
+    }
+
+    public LoanFileDto setLoanTypeID(Integer loanTypeID) {
+        this.loanTypeID = loanTypeID;
         return this;
     }
 }
