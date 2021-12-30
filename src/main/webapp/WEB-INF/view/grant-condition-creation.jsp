@@ -125,7 +125,7 @@
         <h5> هیچ شرط اعطائی اضافه نشده است ! </h5>
     </div>
 
-    <table class="table" id="table" style="display: none">
+    <table class="table table-bordered" id="table" style="display: none">
         <thead>
             <tr>
                 <th>نام</th>
@@ -143,12 +143,16 @@
     <div class="alert alert-primary" role="alert">
         <h5> اطلاعات نوع تسهیلات </h5>
     </div>
-    <table class="table-sm">
-        <tbody>
+    <table class="table table-sm" style="border-color: #FFFFFF">
+        <thead>
             <tr>
                 <th>نام نوع تسهیلات</th>
-                <td>${sessionScope.loanType.name}</td>
                 <th> نرخ سود</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${sessionScope.loanType.name}</td>
                 <td>${sessionScope.loanType.interestRate} درصد</td>
             </tr>
             <tr>
