@@ -1,14 +1,18 @@
 package com.dotin.controller;
 
 import com.dotin.dto.CustomerDto;
+import com.dotin.dto.LoanFileDto;
 import com.dotin.exception.DuplicateNationalCodeException;
+import com.dotin.exception.RealCustomerNotFoundException;
 import com.dotin.service.component.PropertyReaderComponent;
+import com.dotin.service.loantype.LoanTypeService;
 import com.dotin.service.realcustomer.RealCustomerService;
 import com.dotin.service.component.MessageSourceComponent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,10 +23,13 @@ import javax.servlet.http.HttpSession;
 public class RealCustomerController {
     private final RealCustomerService realCustomerService;
     private final MessageSourceComponent messageSourceComponent;
+    private final LoanTypeService loanTypeService;
 
-    public RealCustomerController(RealCustomerService realCustomerService, MessageSourceComponent messageSourceComponent) {
+    public RealCustomerController(RealCustomerService realCustomerService, MessageSourceComponent messageSourceComponent,
+                                  LoanTypeService loanTypeService) {
         this.realCustomerService = realCustomerService;
         this.messageSourceComponent = messageSourceComponent;
+        this.loanTypeService = loanTypeService;
     }
 
     @PostMapping(value = "/save-real-customer")
@@ -68,5 +75,22 @@ public class RealCustomerController {
         httpSession.setAttribute("deleteRealCustomerSuccessMessage",
                 messageSourceComponent.getPersian("real.customer.successfully.deleted", customerNO));
         return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/customers";
+    }
+
+    @GetMapping(value = "/real-customers")
+    public ModelAndView getRealCustomerByCustomerNO(@RequestParam(required = false, name = "customerNO") String customerNO,
+                                                    @ModelAttribute LoanFileDto loanFileDto,
+                                                    HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView("loan-file-creation");
+        modelAndView.addObject("loanTypes", loanTypeService.getAllLoanTypes());
+        modelAndView.addObject("loanFile", new LoanFileDto());
+        try {
+            CustomerDto realCustomer = realCustomerService.findRealCustomerByCustomerNO(Integer.valueOf(customerNO));
+            modelAndView.addObject("realCustomer", realCustomer);
+        } catch (RealCustomerNotFoundException e) {
+            httpSession.setAttribute("realCustomerNotFoundException",
+                    messageSourceComponent.getPersian("real.customer.not.found", customerNO));
+        }
+        return modelAndView;
     }
 }
