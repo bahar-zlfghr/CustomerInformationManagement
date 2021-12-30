@@ -18,11 +18,11 @@ public class LoanFile {
     private Integer period;
     private BigDecimal amount;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "realCustomerNO")
     private RealCustomer realCustomer;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "loanTypeID")
     private LoanType loanType;
 
@@ -41,6 +41,15 @@ public class LoanFile {
 
     public LoanFile setPeriod(Integer period) {
         this.period = period;
+        return this;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public LoanFile setAmount(BigDecimal amount) {
+        this.amount = amount;
         return this;
     }
 
