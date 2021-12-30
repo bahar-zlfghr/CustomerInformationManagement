@@ -5,6 +5,7 @@ import com.dotin.dto.LoanTypeDto;
 import com.dotin.service.component.MessageSourceComponent;
 import com.dotin.service.grantcondition.GrantConditionService;
 import com.dotin.service.loantype.LoanTypeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,13 @@ public class LoanTypeController {
         this.loanTypeService = loanTypeService;
         this.grantConditionService = grantConditionService;
         this.messageSourceComponent = messageSourceComponent;
+    }
+
+    @GetMapping(value = "/loan-types/{id}")
+    public ResponseEntity<List<GrantConditionDto>> getLoanTypeGrantConditions(@PathVariable(name = "id") Integer id) {
+        List<GrantConditionDto> grantConditions = grantConditionService
+                .findAllGrantConditionsByLoanType(loanTypeService.getLoanTypeByID(id));
+        return ResponseEntity.ok(grantConditions);
     }
 
     @GetMapping(value = "/save-loan-type")
