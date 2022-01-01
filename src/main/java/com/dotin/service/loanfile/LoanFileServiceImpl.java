@@ -10,6 +10,7 @@ import com.dotin.model.repository.GrantConditionRepository;
 import com.dotin.model.repository.LoanFileRepository;
 import com.dotin.service.component.MessageSourceComponent;
 import com.dotin.service.validator.LoanFileValidator;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class LoanFileServiceImpl implements LoanFileService {
     private final RealCustomerMapper realCustomerMapper;
     private final MessageSourceComponent messageSourceComponent;
     private final List<RuntimeException> exceptions = new ArrayList<>();
+    private final Logger logger = Logger.getLogger(LoanFileServiceImpl.class);
 
     public LoanFileServiceImpl(LoanFileRepository loanFileRepository, GrantConditionRepository grantConditionRepository,
                                LoanFileMapper loanFileMapper, LoanTypeMapper loanTypeMapper,
@@ -44,6 +46,7 @@ public class LoanFileServiceImpl implements LoanFileService {
 
     @Override
     public void saveLoanFile(LoanFileDto loanFileDto) {
+        logger.info("Loan file information is being stored...");
         List<GrantCondition> grantConditions =
                 grantConditionRepository.findAllByLoanType(loanTypeMapper.toLoanType(loanFileDto.getLoanType()));
         LoanFileValidator.validateLoanFilePeriod(
@@ -52,16 +55,22 @@ public class LoanFileServiceImpl implements LoanFileService {
                 messageSourceComponent, loanFileDto, grantConditions, loanFileDto.getAmount(), exceptions);
         if (exceptions.isEmpty()) {
             loanFileRepository.save(loanFileMapper.toLoanFile(loanFileDto));
+            logger.info("Loan file information with loan type name '" + loanFileDto.getLoanType().getName() +
+                    "' for real customer with full name '" + loanFileDto.getRealCustomer().getName() +
+                    " " + loanFileDto.getRealCustomer().getLastName() + "' was successfully saved.");
         }
     }
 
     @Override
     public List<LoanFileDto> findLoanFilesByRealCustomer(CustomerDto realCustomer) {
-        return loanFileRepository
+        logger.info("Loan files information is being fetched...");
+        List<LoanFileDto> loanFiles = loanFileRepository
                 .findAllByRealCustomer(realCustomerMapper.toRealCustomer(realCustomer))
                 .stream()
                 .map(loanFileMapper::toLoanFileDto)
                 .collect(Collectors.toList());
+        logger.info("All loan files information was successfully found.");
+        return loanFiles;
     }
 
     @Override

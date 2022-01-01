@@ -10,6 +10,7 @@ import com.dotin.model.repository.RealCustomerRepository;
 import com.dotin.model.repository.RealCustomerSpecification;
 import com.dotin.service.component.MessageSourceComponent;
 import com.dotin.service.validator.RealCustomerValidator;
+import org.apache.log4j.Logger;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,7 @@ public class RealCustomerServiceImpl implements RealCustomerService {
     private final RealCustomerRepository realCustomerRepository;
     private final MessageSourceComponent messageSourceComponent;
     private final RealCustomerMapper realCustomerMapper;
+    private final Logger logger = Logger.getLogger(RealCustomerServiceImpl.class);
 
     public RealCustomerServiceImpl(RealCustomerRepository realCustomerRepository, 
                                    MessageSourceComponent messageSourceComponent, 
@@ -38,48 +40,72 @@ public class RealCustomerServiceImpl implements RealCustomerService {
 
     @Override
     public CustomerDto saveRealCustomer(CustomerDto realCustomerDto) throws DuplicateRealCustomerException {
+        logger.info("Real customer information is being stored...");
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getCode());
         if (!RealCustomerValidator.validateRealCustomerForSaveOperation(existingRealCustomer)) {
-            throw new DuplicateRealCustomerException(
+            DuplicateRealCustomerException duplicateRealCustomerException = new DuplicateRealCustomerException(
                     messageSourceComponent.getPersian(
                             "real.customer.nationalCode.duplicated",
                             realCustomerDto.getCode()));
+            logger.error("Real customer information with national code '" +
+                    realCustomerDto.getCode() + "' was duplicated!", duplicateRealCustomerException);
+            throw duplicateRealCustomerException;
         }
+        logger.info("Real customer information with national code '" +
+                realCustomerDto.getCode() + "' was successfully saved.");
         return realCustomerMapper.toRealCustomerDto(
                 realCustomerRepository.save(realCustomerMapper.toRealCustomer(realCustomerDto)));
     }
 
     @Override
     public List<CustomerDto> findAllRealCustomers(String firstName, String lastName, String nationalCode, String customerNO) {
-        return realCustomerRepository.findAll(Specification
+        logger.info("Real customers information is being fetched...");
+        List<CustomerDto> realCustomers = realCustomerRepository.findAll(Specification
                 .where(RealCustomerSpecification.search(firstName, lastName, nationalCode, customerNO)))
                 .stream()
                 .map(realCustomerMapper::toRealCustomerDto)
                 .collect(Collectors.toList());
+        logger.info("All real customers information was successfully found.");
+        return realCustomers;
     }
 
     @Override
     public void deleteRealCustomer(Integer customerNO) {
+        logger.info("Real customer information is being removed by customer number...");
         CustomerDto realCustomerDto = findRealCustomerByCustomerNO(customerNO);
         realCustomerRepository.delete(realCustomerMapper.toRealCustomer(realCustomerDto));
+        logger.info("Real customer with national code '" + realCustomerDto.getCode() + "' was successfully removed.");
     }
 
     @Override
     public CustomerDto findRealCustomerByCustomerNO(Integer customerNO) {
+        logger.info("Real customer information is being found by customer number...");
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCustomerNO(customerNO);
-        return realCustomerMapper.toRealCustomerDto(
-                existingRealCustomer.orElseThrow(() -> new RealCustomerNotFoundException(
-                        messageSourceComponent.getPersian("real.customer.not.found", String.valueOf(customerNO)))));
+        CustomerDto customerDto = realCustomerMapper.toRealCustomerDto(
+                existingRealCustomer.orElseThrow(() -> {
+                    RealCustomerNotFoundException realCustomerNotFoundException = new RealCustomerNotFoundException(
+                            messageSourceComponent.getPersian("real.customer.not.found", String.valueOf(customerNO)));
+                    logger.error("There is no real customer with customer number '" + customerNO + "'!", realCustomerNotFoundException);
+                    return realCustomerNotFoundException;
+                })
+        );
+        logger.info("Real customer with customer number '" + customerNO + "' was successfully found.");
+        return customerDto;
     }
 
     @Override
     public void updateRealCustomer(CustomerDto realCustomerDto) throws DuplicateNationalCodeException {
+        logger.info("Real customer information is being updated...");
         Optional<RealCustomer> existingRealCustomer = realCustomerRepository.findByCode(realCustomerDto.getCode());
         if (!RealCustomerValidator.validateRealCustomerForUpdateOperation(existingRealCustomer, realCustomerDto)) {
-                throw new DuplicateNationalCodeException(
-                        messageSourceComponent.getPersian("real.customer.nationalCode.duplicated", realCustomerDto.getCode()));
+            DuplicateNationalCodeException duplicateNationalCodeException = new DuplicateNationalCodeException(
+                    messageSourceComponent.getPersian("real.customer.nationalCode.duplicated", realCustomerDto.getCode()));
+            logger.error("National code '" + realCustomerDto.getCode() + "' belongs to another real customer!",
+                    duplicateNationalCodeException);
+            throw duplicateNationalCodeException;
         }
         realCustomerMapper.toRealCustomerDto(
                 realCustomerRepository.save(realCustomerMapper.toRealCustomer(realCustomerDto)));
+        logger.info("Real customer information was successfully updated");
     }
 }
