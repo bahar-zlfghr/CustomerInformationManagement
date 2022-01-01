@@ -5,6 +5,7 @@ import com.dotin.dto.LoanFileDto;
 import com.dotin.exception.DuplicateNationalCodeException;
 import com.dotin.exception.RealCustomerNotFoundException;
 import com.dotin.service.component.PropertyReaderComponent;
+import com.dotin.service.loanfile.LoanFileService;
 import com.dotin.service.loantype.LoanTypeService;
 import com.dotin.service.realcustomer.RealCustomerService;
 import com.dotin.service.component.MessageSourceComponent;
@@ -24,12 +25,14 @@ public class RealCustomerController {
     private final RealCustomerService realCustomerService;
     private final MessageSourceComponent messageSourceComponent;
     private final LoanTypeService loanTypeService;
+    private final LoanFileService loanFileService;
 
     public RealCustomerController(RealCustomerService realCustomerService, MessageSourceComponent messageSourceComponent,
-                                  LoanTypeService loanTypeService) {
+                                  LoanTypeService loanTypeService, LoanFileService loanFileService) {
         this.realCustomerService = realCustomerService;
         this.messageSourceComponent = messageSourceComponent;
         this.loanTypeService = loanTypeService;
+        this.loanFileService = loanFileService;
     }
 
     @PostMapping(value = "/save-real-customer")
@@ -86,6 +89,8 @@ public class RealCustomerController {
         modelAndView.addObject("loanFile", new LoanFileDto());
         try {
             CustomerDto realCustomer = realCustomerService.findRealCustomerByCustomerNO(Integer.valueOf(customerNO));
+            modelAndView.addObject("realCustomerLoanFiles",
+                    loanFileService.findLoanFilesByRealCustomer(realCustomer));
             modelAndView.addObject("realCustomer", realCustomer);
         } catch (RealCustomerNotFoundException e) {
             httpSession.setAttribute("realCustomerNotFoundException",
