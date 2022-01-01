@@ -183,8 +183,7 @@
     </form:form>
 </div>
 
-<div class="container rounded-3" style="margin: 100px 50px">
-
+<div class="container rounded-3" style="width: 70%; margin: 100px 50px">
     <div class="alert alert-primary" role="alert">
         <h5> اطلاعات مشتری حقیقی </h5>
     </div>
@@ -202,6 +201,37 @@
                     <td id="real-customer-name">${realCustomer.name}</td>
                     <td>${realCustomer.lastName}</td>
                 </tr>
+                </tbody>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <div class="alert alert-light" role="alert">
+                <h5> اطلاعاتی جهت نمایش وجود ندارد! </h5>
+            </div>
+        </c:otherwise>
+    </c:choose>
+
+    <div class="alert alert-primary" role="alert">
+        <h5> اطلاعات پرونده های تسهیلاتی مشتری حقیقی </h5>
+    </div>
+    <c:choose>
+        <c:when test="${realCustomerLoanFiles != null}">
+            <table class="table table-sm" style="border-color: #FFFFFF">
+                <thead>
+                <tr>
+                    <th>نوع تسهیلات</th>
+                    <th>مبلغ قرارداد (ریال)</th>
+                    <th>مدت قرارداد (ماه)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${realCustomerLoanFiles}" var="loanFile">
+                        <tr>
+                            <td>${loanFile.loanType.name}</td>
+                            <td>${loanFile.amount.longValue()}</td>
+                            <td>${loanFile.period}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </c:when>
