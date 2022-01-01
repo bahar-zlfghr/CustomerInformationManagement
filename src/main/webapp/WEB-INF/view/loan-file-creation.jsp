@@ -215,7 +215,7 @@
         <h5> اطلاعات پرونده های تسهیلاتی مشتری حقیقی </h5>
     </div>
     <c:choose>
-        <c:when test="${realCustomerLoanFiles != null}">
+        <c:when test="${realCustomerLoanFiles.size() != 0 && realCustomerLoanFiles != null}">
             <table class="table table-sm" style="border-color: #FFFFFF">
                 <thead>
                 <tr>
