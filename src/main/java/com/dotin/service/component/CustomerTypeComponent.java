@@ -12,11 +12,9 @@ public class CustomerTypeComponent {
         if (key.equals(PropertyReaderComponent.getProperty("customer.type.real.binary"))) {
             return PropertyReaderComponent.getProperty("customer.type.real.text");
         }
-        else if (key.equals(PropertyReaderComponent.getProperty("customer.type.legal.binary"))) {
-            return PropertyReaderComponent.getProperty("customer.type.legal.text");
+        if (key.equals(PropertyReaderComponent.getProperty("customer.type.legal.binary"))) {
+           return PropertyReaderComponent.getProperty("customer.type.legal.text");
         }
-        else {
-            return null;
-        }
+        return null;
     }
 }
