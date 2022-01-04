@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>لیست مشتریان</title>
+    <title><fmt:message key="customers.list.page.title"/></title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
@@ -17,53 +18,53 @@
 </head>
 <body>
 <nav class="nav nav-pills flex-column flex-sm-row border-gradient border-gradient-purple">
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-file"/>">تشکیل پرونده تسهیلاتی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>"><fmt:message key="menu.item.main.page"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>"><fmt:message key="menu.item.save.customer"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>"><fmt:message key="menu.item.customers.list"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>"><fmt:message key="menu.item.save.loan.type"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-file"/>"><fmt:message key="menu.item.save.loan.file"/></a>
 </nav>
 
 <div class="container rounded-3" style="width: 25%">
     <div class="alert alert-primary" role="alert">
-        <h5> جستجو </h5>
+        <h5><fmt:message key="button.search"/></h5>
     </div>
 
     <form id="search-form">
         <table class="table" dir="rtl" style="border: #FFFFFF">
             <tbody>
             <tr>
-                <td>نام فرد / شرکت</td>
+                <td><fmt:message key="customer.name"/></td>
                 <td>
                     <label><input type="text" name="name" id="name"/></label>
                 </td>
             </tr>
             <tr>
-                <td>نام خانوادگی</td>
+                <td><fmt:message key="real.customer.last.name"/></td>
                 <td>
                     <label><input type="text" name="lastName" id="lastName"/></label>
                 </td>
             </tr>
             <tr>
-                <td>کد ملی / اقتصادی</td>
+                <td><fmt:message key="customer.code"/></td>
                 <td>
                     <label><input type="text" name="code" id="code"/></label>
                 </td>
             </tr>
             <tr>
-                <td>شماره مشتری</td>
+                <td><fmt:message key="customer.customer.no"/></td>
                 <td>
                     <label><input type="text" name="customerNO" id="customerNO"/></label>
                 </td>
             </tr>
             <tr>
-                <td>نوع مشتری</td>
+                <td><fmt:message key="customer.type"/></td>
                 <td>
                     <label>
                         <select class="form-select" name="customerType" id="customerType">
-                            <option value="" selected style="font-family: Vazir-Regular">نوع مشتری را انتخاب کنید</option>
-                            <option value="0" style="font-family: Vazir-Regular">حقیقی</option>
-                            <option value="1" style="font-family: Vazir-Regular">حقوقی</option>
+                            <option value="" selected style="font-family: Vazir-Regular"><fmt:message key="customer.type.message.select.customer.type"/></option>
+                            <option value="0" style="font-family: Vazir-Regular"><fmt:message key="real.customer.type"/></option>
+                            <option value="1" style="font-family: Vazir-Regular"><fmt:message key="legal.customer.type"/></option>
                         </select>
                     </label>
                 </td>
@@ -74,7 +75,7 @@
                 </td>
                 <td>
                     <button class="btn btn-info">
-                        <a href="<c:url value="/customers"/>">همه مشتریان</a>
+                        <a href="<c:url value="/customers"/>"><fmt:message key="button.all.customers"/></a>
                     </button>
                 </td>
             </tr>
@@ -153,22 +154,22 @@
     </c:if>
 
     <div class="alert alert-primary" role="alert">
-        <h5> جدول مشتریان </h5>
+        <h5><fmt:message key="table.name.customers"/></h5>
     </div>
     <c:choose>
         <c:when test="${customers.size() > 0}">
             <table class="table table-sm">
                 <thead>
                 <tr>
-                    <th>نوع</th>
-                    <th>نام فرد / شرکت</th>
-                    <th>نام خانوادگی</th>
-                    <th>نام پدر</th>
-                    <th>تاریخ تولد / ثبت</th>
-                    <th>کد ملی / اقتصادی</th>
-                    <th>شماره مشتری</th>
-                    <th>به روز رسانی</th>
-                    <th>حذف</th>
+                    <th><fmt:message key="customer.type"/></th>
+                    <th><fmt:message key="customer.name"/></th>
+                    <th><fmt:message key="real.customer.last.name"/></th>
+                    <th><fmt:message key="real.customer.father.name"/></th>
+                    <th><fmt:message key="customer.date"/></th>
+                    <th><fmt:message key="customer.code"/></th>
+                    <th><fmt:message key="customer.customer.no"/></th>
+                    <th><fmt:message key="button.update"/></th>
+                    <th><fmt:message key="button.delete"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -176,38 +177,38 @@
                     <tr>
                         <td>${customer.customerType}</td>
                         <td>${customer.name}</td>
-                        <c:if test='${customer.customerType.equals("حقیقی")}'>
+                        <c:if test='${customer.customerType.equals(sessionScope.real)}'>
                             <td>${customer.lastName}</td>
                             <td>${customer.fatherName}</td>
                         </c:if>
-                        <c:if test='${customer.customerType.equals("حقوقی")}'>
+                        <c:if test='${customer.customerType.equals(sessionScope.legal)}'>
                             <td>_</td>
                             <td>_</td>
                         </c:if>
                         <td>${customer.date}</td>
                         <td>${customer.code}</td>
                         <td>${customer.customerNO}</td>
-                        <c:if test='${customer.customerType.equals("حقیقی")}'>
+                        <c:if test='${customer.customerType.equals(sessionScope.real)}'>
                             <td>
                                 <button type="button" class="btn btn-info">
-                                    <a href="<c:url value="/update-real-customer/${customer.customerNO}"/>">به روز رسانی</a>
+                                    <a href="<c:url value="/update-real-customer/${customer.customerNO}"/>"><fmt:message key="button.update"/></a>
                                 </button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger">
-                                    <a href="<c:url value="/delete-real-customer/${customer.customerNO}"/>">حذف</a>
+                                    <a href="<c:url value="/delete-real-customer/${customer.customerNO}"/>"><fmt:message key="button.delete"/></a>
                                 </button>
                             </td>
                         </c:if>
-                        <c:if test='${customer.customerType.equals("حقوقی")}'>
+                        <c:if test='${customer.customerType.equals(sessionScope.legal)}'>
                             <td>
                                 <button type="button" class="btn btn-info">
-                                    <a href="<c:url value="/update-legal-customer/${customer.customerNO}"/>">به روز رسانی</a>
+                                    <a href="<c:url value="/update-legal-customer/${customer.customerNO}"/>"><fmt:message key="button.update"/></a>
                                 </button>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger">
-                                    <a href="<c:url value="/delete-legal-customer/${customer.customerNO}"/>">حذف</a>
+                                    <a href="<c:url value="/delete-legal-customer/${customer.customerNO}"/>"><fmt:message key="button.delete"/></a>
                                 </button>
                             </td>
                         </c:if>
@@ -218,7 +219,7 @@
         </c:when>
         <c:otherwise>
             <div class="alert alert-light" role="alert">
-                <h5> هیچ مشتری در سیستم یافت نشد! </h5>
+                <h5><fmt:message key="customer.alert.not.found.any.customer"/></h5>
             </div>
         </c:otherwise>
     </c:choose>
