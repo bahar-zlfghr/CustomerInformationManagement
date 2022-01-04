@@ -1,4 +1,27 @@
-const grantConditions = [];
+let grantConditions;
+if (localStorage.getItem("grantConditions") == null) {
+    grantConditions = [];
+}
+else {
+    grantConditions = JSON.parse(localStorage.getItem("grantConditions"))
+}
+
+function showGrantConditionItems() {
+    for (let i = 0; i < grantConditions.length; i++) {
+        const table = document.getElementById("table");
+
+        table.style.display = 'flex';
+        table.style.justifyContent = 'center';
+
+        let row = table.insertRow(table.rows.length);
+        row.insertCell(0).innerHTML = grantConditions[i].name;
+        row.insertCell(1).innerHTML = grantConditions[i].minPeriod;
+        row.insertCell(2).innerHTML = grantConditions[i].maxPeriod;
+        row.insertCell(3).innerHTML = grantConditions[i].minAmount;
+        row.insertCell(4).innerHTML = grantConditions[i].maxAmount;
+    }
+}
+
 
 function validateGrantConditionCreationForm() {
     let name = document.getElementById('name').value;
@@ -33,85 +56,68 @@ function validateGrantConditionCreationForm() {
 }
 
 function validateName(name) {
-    let errorMessage;
     if (isEmpty(name)) {
-        errorMessage = 'نام شرط اعطاء را وارد کنید';
-        printError(errorMessage, 'nameError');
+        printError(grant_condition_name_error, 'nameError');
         return false;
     }
-    else if (name.length < 3) {
-        errorMessage = 'حداقل طول نام شرط اعطاء ۳ است';
-        printError(errorMessage, 'nameError');
+    else if (name.length < grant_condition_name_min_length) {
+        printError(grant_condition_name_min_length_error, 'nameError');
         return false;
     }
     return true;
 }
 
 function validateMinPeriod(minPeriod) {
-    let errorMessage;
     if (isEmpty(minPeriod)) {
-        errorMessage = 'حداقل مدت قرارداد را وارد کنید';
-        printError(errorMessage, 'minPeriodError');
+        printError(grant_condition_min_period_error, 'minPeriodError');
         return false;
     }
-    else if (minPeriod < 0) {
-        errorMessage = 'حداقل مدت قرارداد باید بزرگتر از ۰ باشد';
-        printError(errorMessage, 'minPeriodError');
+    else if (minPeriod <= 0) {
+        printError(grant_condition_negative_min_period_error, 'minPeriodError');
         return false;
     }
     return true;
 }
 
 function validateMaxPeriod(maxPeriod) {
-    let errorMessage;
     if (isEmpty(maxPeriod)) {
-        errorMessage = 'حداکثر مدت قرارداد را وارد کنید';
-        printError(errorMessage, 'maxPeriodError');
+        printError(grant_condition_max_period_error, 'maxPeriodError');
         return false;
     }
-    else if (maxPeriod < 0) {
-        errorMessage = 'حداکثر مدت قرارداد باید بزرگتر از ۰ باشد';
-        printError(errorMessage, 'maxPeriodError');
+    else if (maxPeriod <= 0) {
+        printError(grant_condition_negative_max_period_error, 'maxPeriodError');
         return false;
     }
     return true;
 }
 
 function validateMinAmount(minAmount) {
-    let errorMessage;
     if (isEmpty(minAmount)) {
-        errorMessage = 'حداقل مبلغ قرارداد را وارد کنید';
-        printError(errorMessage, 'minAmountError');
+        printError(grant_condition_min_amount_error, 'minAmountError');
         return false;
     }
-    else if (minAmount < 0) {
-        errorMessage = 'حداقل مبلغ قرارداد باید بزرگتر از ۰ باشد';
-        printError(errorMessage, 'minAmountError');
+    else if (minAmount <= 0) {
+        printError(grant_condition_negative_min_amount_error, 'minAmountError');
         return false;
     }
     return true;
 }
 
 function validateMaxAmount(maxAmount) {
-    let errorMessage;
     if (isEmpty(maxAmount)) {
-        errorMessage = 'حداکثر مبلغ قرارداد را وارد کنید';
-        printError(errorMessage, 'maxAmountError');
+        printError(grant_condition_max_amount_error, 'maxAmountError');
         return false;
     }
-    else if (maxAmount < 0) {
-        errorMessage = 'حداکثر مبلغ قرارداد باید بزرگتر از ۰ باشد';
-        printError(errorMessage, 'maxAmountError');
+    else if (maxAmount <= 0) {
+        printError(grant_condition_negative_max_amount_error, 'maxAmountError');
         return false;
     }
     return true;
 }
 
 function validateGrantConditions() {
-    let errorMessage;
     if (grantConditions.length === 0) {
-        errorMessage = 'هر نوع تسهیلات حداقل باید یک شرط اعطاء داشته باشد';
-        printError(errorMessage, 'grantConditionsError');
+        printError(loan_type_min_grant_conditions_error, 'grantConditionsError');
         return false;
     }
     return true;

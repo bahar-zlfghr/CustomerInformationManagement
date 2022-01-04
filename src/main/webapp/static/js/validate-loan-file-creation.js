@@ -29,8 +29,7 @@ function validateLoanFileCreationForm() {
 function validateCustomerNO() {
     let customerNO = document.getElementById('customerNO').value;
     if (isEmpty(customerNO)) {
-        let errorMessage = 'شماره مشتری را وارد کنید';
-        printError(errorMessage, 'customerNOError');
+        printError(loan_file_customer_no_error, 'customerNOError');
         return false;
     }
     return true;
@@ -38,48 +37,39 @@ function validateCustomerNO() {
 
 function validateRealCustomer(name) {
     if (isEmpty(name)) {
-        let errorMessage = 'ابتدا اطلاعات مشتری مورد نظر را بازیابی کنید';
-        printError(errorMessage, 'customerNOError');
+        printError(loan_file_real_customer_recovery_error, 'customerNOError');
         return false;
     }
     return true;
 }
 
 function validateLoanType(loanType) {
-    let errorMessage;
     if (loanType === '-1') {
-        errorMessage = 'نوع تسهیلات را انتخاب کنید';
-        printError(errorMessage, 'loanTypeError');
+        printError(loan_file_loan_type_error, 'loanTypeError');
         return false;
     }
     return true;
 }
 
 function validatePeriod(period) {
-    let errorMessage;
     if (isEmpty(period)) {
-        errorMessage = 'مدت قرارداد را وارد کنید';
-        printError(errorMessage, 'periodError');
+        printError(loan_file_period_error, 'periodError');
         return false;
     }
-    else if (period < 0) {
-        errorMessage = 'مدت قرارداد باید بزرگتر از ۰ باشد';
-        printError(errorMessage, 'periodError');
+    else if (period <= 0) {
+        printError(loan_file_negative_period_error, 'periodError');
         return false;
     }
     return true;
 }
 
 function validateAmount(amount) {
-    let errorMessage;
     if (isEmpty(amount)) {
-        errorMessage = 'مبلغ قرارداد را وارد کنید';
-        printError(errorMessage, 'amountError');
+        printError(loan_file_amount_error, 'amountError');
         return false;
     }
-    else if (amount < 0) {
-        errorMessage = 'مبلغ قرارداد باید بزرگتر از ۰ باشد';
-        printError(errorMessage, 'amountError');
+    else if (amount <= 0) {
+        printError(loan_file_negative_amount_error, 'amountError');
         return false;
     }
     return true;
