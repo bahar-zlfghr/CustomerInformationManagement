@@ -1,5 +1,6 @@
 package com.dotin.controller;
 
+import com.dotin.configuration.property.CustomerProperties;
 import com.dotin.dto.CustomerDto;
 import com.dotin.service.legalcustomer.LegalCustomerService;
 import com.dotin.service.realcustomer.RealCustomerService;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,7 +33,10 @@ public class CustomerController {
                                @RequestParam(required = false, name = "name") String name,
                                @RequestParam(required = false, name = "lastName") String lastName,
                                @RequestParam(required = false, name = "code") String code,
+                               HttpSession httpSession,
                                Model model) {
+        httpSession.setAttribute("real", CustomerProperties.REAL_TEXT);
+        httpSession.setAttribute("legal", CustomerProperties.LEGAL_TEXT);
         List<CustomerDto> customers = new ArrayList<>();
         List<CustomerDto> realCustomers = realCustomerService.findAllRealCustomers(name, lastName, code, customerNO);
         List<CustomerDto> legalCustomers = legalCustomerService.findAllLegalCustomers(name, code, customerNO);
