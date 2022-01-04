@@ -1,10 +1,10 @@
 package com.dotin.controller;
 
+import com.dotin.dto.CustomerDto;
 import com.dotin.dto.LoanFileDto;
 import com.dotin.exception.LoanFileAmountNotValidException;
 import com.dotin.exception.LoanFilePeriodNotValidException;
 import com.dotin.service.component.MessageSourceComponent;
-import com.dotin.service.component.PropertyReaderComponent;
 import com.dotin.service.loanfile.LoanFileService;
 import com.dotin.service.loantype.LoanTypeService;
 import com.dotin.service.realcustomer.RealCustomerService;
@@ -43,26 +43,31 @@ public class LoanFileController {
     }
 
     @PostMapping(value = "/save-loan-file")
-    public String saveLoanFile(@ModelAttribute LoanFileDto loanFile,
+    public ModelAndView saveLoanFile(@ModelAttribute LoanFileDto loanFile,
                                HttpSession httpSession,
                                BindingResult bindingResult) {
-        loanFile.setRealCustomer(
-                realCustomerService.findRealCustomerByCustomerNO(loanFile.getRealCustomerNO()));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("loanFile", loanFile);
+        CustomerDto realCustomer = realCustomerService.findRealCustomerByCustomerNO(loanFile.getRealCustomerNO());
+        modelAndView.addObject("realCustomer", realCustomer);
+        modelAndView.addObject("realCustomerLoanFiles", loanFileService.findLoanFilesByRealCustomer(realCustomer));
+        loanFile.setRealCustomer(realCustomer);
         loanFile.setLoanType(
                 loanTypeService.getLoanTypeByID(loanFile.getLoanTypeID()));
         loanFileService.saveLoanFile(loanFile);
         List<RuntimeException> exceptions = loanFileService.getExceptions();
         if (exceptions.size() > 0) {
+            modelAndView.setViewName("loan-file-creation");
             setErrorInSession(exceptions, httpSession);
             exceptions.clear();
-            return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/save-loan-file";
         }
         else {
+            modelAndView.setViewName("index");
             httpSession.setAttribute("saveLoanFileSuccessfullyMessage",
                     messageSourceComponent.getPersian("loan.file.successfully.saved",
                             loanFile.getLoanType().getName(), loanFile.getRealCustomer().getName(), loanFile.getRealCustomer().getLastName()));
-            return "redirect:" + PropertyReaderComponent.getProperty("app.domain") + "/";
         }
+        return modelAndView;
     }
 
     private void setErrorInSession(List<RuntimeException> exceptions, HttpSession httpSession) {

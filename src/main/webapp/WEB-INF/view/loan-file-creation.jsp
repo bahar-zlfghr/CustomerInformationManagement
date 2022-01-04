@@ -1,12 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>تشکیل پرونده تسهیلاتی</title>
+    <title><fmt:message key="loan.file.page.title"/></title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="<c:url value="/static/js/messages.js"/>"></script>
     <script src="<c:url value="/static/js/validate-loan-file-creation.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="icon" type="image/ico" href="<c:url value="/static/img/logo.png"/>">
@@ -17,11 +19,11 @@
 </head>
 <body>
 <nav class="nav nav-pills flex-column flex-sm-row border-gradient border-gradient-purple">
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-file"/>">تشکیل پرونده تسهیلاتی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>"><fmt:message key="menu.item.main.page"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>"><fmt:message key="menu.item.save.customer"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>"><fmt:message key="menu.item.customers.list"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>"><fmt:message key="menu.item.save.loan.type"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-file"/>"><fmt:message key="menu.item.save.loan.file"/></a>
 </nav>
 
 <div class="container rounded-3" style="margin-right: 50px">
@@ -54,7 +56,7 @@
     </c:if>
 
     <div class="alert alert-primary" role="alert">
-        <h5> اطلاعات پرونده تسهیلاتی را جهت ثبت با دقت وارد کنید </h5>
+        <h5><fmt:message key="loan.file.save.message"/></h5>
     </div>
 
     <form action="<c:url value="/real-customers"/>"
@@ -64,14 +66,14 @@
         <table class="table" dir="rtl" style="border: #FFFFFF">
             <tbody>
                 <tr>
-                    <td>شماره مشتری حقیقی</td>
+                    <td><fmt:message key="customer.customer.no"/> <fmt:message key="real.customer.type"/></td>
                     <td>
                         <label>
                             <input type="text" name="customerNO" id="customerNO" value="${realCustomer.customerNO}"/>
                         </label>
                     </td>
                     <td>
-                        <input class="btn btn-info" type="submit" id="recovery-button" value="بازیابی"/>
+                        <input class="btn btn-info" type="submit" id="recovery-button" value="<fmt:message key="button.recovery"/>"/>
                     </td>
                 </tr>
                 <tr>
@@ -111,11 +113,11 @@
                 </td>
             </tr>
             <tr>
-                <td>نوع تسهیلات</td>
+                <td><fmt:message key="loan.type"/></td>
                 <td>
                     <form:label path="loanTypeID">
                         <form:select path="loanTypeID" class="form-select" id="loanType" onclick="getGrantConditions()">
-                            <option value="-1" selected style="font-family: Vazir-Regular">نوع تسهیلات را انتخاب کنید
+                            <option value="-1" selected style="font-family: Vazir-Regular"><fmt:message key="loan.file.message.select.loan.type"/>
                             </option>
                             <c:forEach items="${loanTypes}" var="loanType">
                                 <option value="${loanType.id}"
@@ -131,12 +133,13 @@
                 </td>
             </tr>
             <tr>
-                <td>مدت قرارداد</td>
+                <td><fmt:message key="loan.file.period"/></td>
                 <td>
                     <form:label path="period">
                         <form:input path="period" type="number" id="period" lang="en"/>
                     </form:label>
                 </td>
+                <td><fmt:message key="period.unit"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -151,12 +154,13 @@
                 </td>
             </tr>
             <tr>
-                <td>مبلغ قرارداد</td>
+                <td><fmt:message key="loan.file.amount"/></td>
                 <td>
                     <form:label path="amount">
                         <form:input path="amount" type="number" id="amount" lang="en"/>
                     </form:label>
                 </td>
+                <td><fmt:message key="amount.unit"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -172,9 +176,9 @@
             </tr>
             <tr>
                 <td rowspan="2">
-                    <input class="btn btn-success" type="submit" id="submit-button" value="ثبت"/>
+                    <input class="btn btn-success" type="submit" id="submit-button" value="<fmt:message key="button.submit"/>"/>
                     <button type="button" class="btn btn-danger">
-                        <a href="<c:url value="/"/>">انصراف</a>
+                        <a href="<c:url value="/"/>"><fmt:message key="button.cancel"/></a>
                     </button>
                 </td>
             </tr>
@@ -185,15 +189,15 @@
 
 <div class="container rounded-3" style="width: 70%; margin: 100px 50px">
     <div class="alert alert-primary" role="alert">
-        <h5> اطلاعات مشتری حقیقی </h5>
+        <h5><fmt:message key="table.name.real.customer"/></h5>
     </div>
     <c:choose>
         <c:when test="${realCustomer != null}">
             <table class="table table-sm" style="border-color: #FFFFFF">
                 <thead>
                 <tr>
-                    <th>نام مشتری حقیقی</th>
-                    <th>نام خانوادگی مشتری حقیقی</th>
+                    <th><fmt:message key="real.customer.first.name"/> <fmt:message key="customer"/> <fmt:message key="real.customer.type"/></th>
+                    <th><fmt:message key="real.customer.last.name"/> <fmt:message key="customer"/> <fmt:message key="real.customer.type"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -206,22 +210,22 @@
         </c:when>
         <c:otherwise>
             <div class="alert alert-light" role="alert">
-                <h5> اطلاعاتی جهت نمایش وجود ندارد! </h5>
+                <h5><fmt:message key="loan.file.page.not.info.found.message"/></h5>
             </div>
         </c:otherwise>
     </c:choose>
 
     <div class="alert alert-primary" role="alert">
-        <h5> اطلاعات پرونده های تسهیلاتی مشتری حقیقی </h5>
+        <h5><fmt:message key="table.name.real.customer.loan.files"/></h5>
     </div>
     <c:choose>
-        <c:when test="${realCustomerLoanFiles != null}">
+        <c:when test="${realCustomerLoanFiles.size() != 0 && realCustomerLoanFiles != null}">
             <table class="table table-sm" style="border-color: #FFFFFF">
                 <thead>
                 <tr>
-                    <th>نوع تسهیلات</th>
-                    <th>مبلغ قرارداد (ریال)</th>
-                    <th>مدت قرارداد (ماه)</th>
+                    <th><fmt:message key="loan.type"/></th>
+                    <th><fmt:message key="loan.file.amount"/> (<fmt:message key="amount.unit"/>)</th>
+                    <th><fmt:message key="loan.file.period"/> (<fmt:message key="period.unit"/>)</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -237,7 +241,7 @@
         </c:when>
         <c:otherwise>
             <div class="alert alert-light" role="alert">
-                <h5> اطلاعاتی جهت نمایش وجود ندارد! </h5>
+                <h5><fmt:message key="loan.file.page.not.info.found.message"/></h5>
             </div>
         </c:otherwise>
     </c:choose>

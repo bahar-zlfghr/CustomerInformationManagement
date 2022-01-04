@@ -21,45 +21,35 @@ function validateLegalCustomerRegistrationForm() {
 }
 
 function validateCompanyName(companyName) {
-    let errorMessage;
     if (isEmpty(companyName)) {
-        errorMessage = 'نام شرکت را وارد کنید';
-        printError(errorMessage, 'companyNameError');
+        printError(legal_customer_company_name_error, 'companyNameError');
         return false;
     }
-    else if (companyName.length < 3) {
-        errorMessage = 'حداقل طول نام شرکت ۳ است';
-        printError(errorMessage, 'companyNameError');
+    else if (companyName.length < legal_customer_company_name_min_length) {
+        printError(legal_customer_company_name_min_length_error, 'companyNameError');
         return false;
     }
     return true;
 }
 function validateRegistrationDate(registrationDate) {
-    let errorMessage;
-    let datePattern = /^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|31|([1-2][0-9])|(0[1-9]))))$/;
     if (isEmpty(registrationDate)) {
-        errorMessage = 'تاریخ ثبت شرکت را وارد کنید';
-        printError(errorMessage, 'registrationDateError');
+        printError(legal_customer_registration_date_error, 'registrationDateError');
         return false;
     }
-    else if (!datePattern.test(toEnglishNumber(registrationDate))) {
-        errorMessage = 'تاریخ ثبت شرکت معتبر نیست';
-        printError(errorMessage, 'registrationDateError');
+    else if (!date_pattern.test(toEnglishNumber(registrationDate))) {
+        printError(legal_customer_registration_date_not_valid_error, 'registrationDateError');
         return false;
     }
     return true;
 }
 
 function validateEconomicCode(nationalCode) {
-    let errorMessage;
     if (isEmpty(nationalCode)) {
-        errorMessage = 'کد اقتصادی مشتری حقوقی را وارد کنید';
-        printError(errorMessage, 'economicCodeError');
+        printError(legal_customer_economic_code_error, 'economicCodeError');
         return false;
     }
-    else if (nationalCode.length !== 12) {
-        errorMessage = 'کد اقتصادی مشتری حقوقی باید ۱۲ رقمی باشد';
-        printError(errorMessage, 'economicCodeError');
+    else if (nationalCode.length !== legal_customer_economic_code_length) {
+        printError(legal_customer_economic_code_length_error, 'economicCodeError');
         return false;
     }
     return true;

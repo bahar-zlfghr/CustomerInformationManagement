@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  * @author : Bahar Zolfaghari
  **/
 @Entity(name = "LegalCustomer")
-@DiscriminatorValue(value = CustomerProperties.LEGAL)
+@DiscriminatorValue(value = CustomerProperties.LEGAL_BINARY)
 public class LegalCustomer extends Customer {
 
 }

@@ -1,15 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html dir="rtl" lang="fa-IR">
 <head>
-    <title>ثبت شروط اعطاء نوع تسهیلات جدید</title>
+    <title><fmt:message key="grant.condition.creation.page.title"/></title>
     <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-date/dist/persian-date.js"></script>
     <script src="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/js/persian-datepicker.js"></script>
     <script src="<c:url value="/static/js/validate-grant-condition-creation.js"/>"></script>
+    <script src="<c:url value="/static/js/messages.js"/>"></script>
     <script src="<c:url value="/static/js/persian-utility.js"/>"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="http://babakhani.github.io/PersianWebToolkit/beta/lib/persian-datepicker/dist/css/persian-datepicker.css" rel="stylesheet"/>
@@ -22,23 +24,23 @@
 </head>
 <body>
 <nav class="nav nav-pills flex-column flex-sm-row border-gradient border-gradient-purple">
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>">صفحه اصلی</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>">ثبت نام مشتری جدید</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>">لیست مشتریان</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>">ثبت نوع تسهیلات جدید</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-file"/>">تشکیل پرونده تسهیلاتی</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/"/>"><fmt:message key="menu.item.main.page"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-customer"/>"><fmt:message key="menu.item.save.customer"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/customers"/>"><fmt:message key="menu.item.customers.list"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-type"/>"><fmt:message key="menu.item.save.loan.type"/></a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="<c:url value="/save-loan-file"/>"><fmt:message key="menu.item.save.loan.file"/></a>
 </nav>
 
 <div class="container rounded-3" style="margin: 100px 50px">
     <div class="alert alert-primary" role="alert">
-        <h5> شروط اعطاء نوع تسهیلات را جهت ثبت با دقت وارد کنید </h5>
+        <h5><fmt:message key="grant.condition.save.message"/></h5>
     </div>
 
     <form>
         <table class="table grant-condition" dir="rtl">
             <tbody>
             <tr>
-                <td>نام</td>
+                <td><fmt:message key="grant.condition.name"/></td>
                 <td>
                     <label>
                         <input id="name" type="text"/>
@@ -51,13 +53,13 @@
                 </td>
             </tr>
             <tr>
-                <td>حداقل مدت قرارداد</td>
+                <td><fmt:message key="grant.condition.min.period"/></td>
                 <td>
                     <label>
                         <input type="number" id="minPeriod" lang="en" />
                     </label>
                 </td>
-                <td>ماه</td>
+                <td><fmt:message key="period.unit"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -65,13 +67,13 @@
                 </td>
             </tr>
             <tr>
-                <td>حداکثر مدت قرارداد</td>
+                <td><fmt:message key="grant.condition.max.period"/></td>
                 <td>
                     <label>
                         <input type="number" id="maxPeriod" lang="en" />
                     </label>
                 </td>
-                <td>ماه</td>
+                <td><fmt:message key="period.unit"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -80,13 +82,13 @@
                 </td>
             </tr>
             <tr>
-                <td>حداقل مبلغ قرارداد</td>
+                <td><fmt:message key="grant.condition.min.amount"/></td>
                 <td>
                     <label>
                         <input type="number" id="minAmount" lang="en" />
                     </label>
                 </td>
-                <td>ریال</td>
+                <td><fmt:message key="amount.unit"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -94,13 +96,13 @@
                 </td>
             </tr>
             <tr>
-                <td>حداکثر مبلغ قرارداد</td>
+                <td><fmt:message key="grant.condition.max.amount"/></td>
                 <td>
                     <label>
                         <input type="number" id="maxAmount" lang="en" />
                     </label>
                 </td>
-                <td>ریال</td>
+                <td><fmt:message key="amount.unit"/></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -110,7 +112,7 @@
             </tr>
             <tr>
                 <td colspan="1">
-                    <input type="button" id="add-button" class="btn btn-info" value="افزودن" style="color: #FFFFFF;">
+                    <input type="button" id="add-button" class="btn btn-info" value="<fmt:message key="button.add"/>" style="color: #FFFFFF;">
                 </td>
             </tr>
             </tbody>
@@ -120,20 +122,20 @@
 
 <div class="container rounded-3" style="margin-left: 50px">
     <div class="alert alert-primary" role="alert">
-        <h5> اطلاعات شروط اعطاء </h5>
+        <h5><fmt:message key="table.name.grant.conditions"/></h5>
     </div>
     <div id="grant-condition-alert" class="alert alert-light" role="alert" style="display: none">
-        <h5> هیچ شرط اعطائی اضافه نشده است ! </h5>
+        <h5><fmt:message key="grant.condition.alert.not.added.any.condition"/></h5>
     </div>
 
     <table class="table table-bordered" id="table" style="display: none">
         <thead>
             <tr>
-                <th>نام</th>
-                <th>حداقل مدت قرارداد</th>
-                <th>حداکثر مدت قرارداد</th>
-                <th>حداقل مبلغ قرارداد</th>
-                <th>حداکثر مبلغ قرارداد</th>
+                <th><fmt:message key="grant.condition.name"/></th>
+                <th><fmt:message key="grant.condition.min.period"/></th>
+                <th><fmt:message key="grant.condition.max.period"/></th>
+                <th><fmt:message key="grant.condition.min.amount"/></th>
+                <th><fmt:message key="grant.condition.max.amount"/></th>
             </tr>
         </thead>
         <tbody>
@@ -142,19 +144,19 @@
     </table>
 
     <div class="alert alert-primary" role="alert">
-        <h5> اطلاعات نوع تسهیلات </h5>
+        <h5><fmt:message key="table.name.loan.type"/></h5>
     </div>
     <table class="table table-sm" style="border-color: #FFFFFF">
         <thead>
             <tr>
-                <th>نام نوع تسهیلات</th>
-                <th> نرخ سود</th>
+                <th><fmt:message key="loan.type.name"/></th>
+                <th><fmt:message key="loan.type.interest.rate"/></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>${sessionScope.loanType.name}</td>
-                <td>${sessionScope.loanType.interestRate} درصد</td>
+                <td>${sessionScope.loanType.interestRate} <fmt:message key="interest.rate.unit"/></td>
             </tr>
             <tr>
                 <td colspan="4">
@@ -163,9 +165,9 @@
             </tr>
             <tr>
                 <td colspan="1">
-                    <input type="submit" id="save-button" class="btn btn-success" value="ثبت">
+                    <input type="submit" id="save-button" class="btn btn-success" value="<fmt:message key="button.submit"/>">
                     <button type="button" class="btn btn-danger">
-                        <a href="<c:url value="/"/>">انصراف</a>
+                        <a href="<c:url value="/"/>" onclick="removeGrantConditionsFromLocalStorage()"><fmt:message key="button.cancel"/></a>
                     </button>
                 </td>
             </tr>
@@ -180,6 +182,7 @@
         if (grantConditions.length === 0) {
             document.getElementById('grant-condition-alert').style.display = 'block';
         }
+        showGrantConditionItems();
     });
 
     $("#add-button").on("click", function() {
@@ -191,24 +194,17 @@
             let maxAmount = document.getElementById('maxAmount').value;
 
             if (maxPeriod < minPeriod) {
-                printError(
-                    'حداکثر مدت قرارداد باید از حداقل مدت قرارداد بزرگتر باشد',
-                    'periodError'
-                );
+                printError(grant_condition_min_max_period_error, 'periodError');
             }
             else {
                 document.getElementById('periodError').style.display = 'none';
             }
             if (maxAmount < minAmount) {
-                printError(
-                    'حداکثر مبلغ قرارداد باید از حداقل مبلغ قرارداد بزرگتر باشد',
-                    'amountError'
-                );
+                printError(grant_condition_min_max_amount_error, 'amountError');
             }
             else {
                 document.getElementById('amountError').style.display = 'none';
             }
-
             if (maxPeriod >= minPeriod && maxAmount >= minAmount) {
                 grantConditions.push({
                     name: name,
@@ -217,8 +213,9 @@
                     minAmount: minAmount,
                     maxAmount: maxAmount
                 });
-
+                localStorage.setItem('grantConditions', JSON.stringify(grantConditions));
                 document.getElementById('grant-condition-alert').style.display = 'none';
+
                 const table = document.getElementById("table");
 
                 table.style.display = 'flex';
@@ -248,6 +245,10 @@
             });
         }
     });
+
+    function removeGrantConditionsFromLocalStorage() {
+        localStorage.removeItem('grantConditions');
+    }
 </script>
 </body>
 </html>

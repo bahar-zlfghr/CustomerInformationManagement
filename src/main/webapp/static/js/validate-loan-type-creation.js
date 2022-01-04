@@ -15,30 +15,24 @@ function validateLoanTypeCreationForm() {
 }
 
 function validateName(name) {
-    let errorMessage;
     if (isEmpty(name)) {
-        errorMessage = 'نام نوع تسهیلات را وارد کنید';
-        printError(errorMessage, 'nameError');
+        printError(loan_type_name_error, 'nameError');
         return false;
     }
-    else if (name.length < 5) {
-        errorMessage = 'حداقل طول نام نوع تسهیلات ۵ است';
-        printError(errorMessage, 'nameError');
+    else if (name.length < loan_type_name_min_length) {
+        printError(loan_type_name_min_length_error, 'nameError');
         return false;
     }
     return true;
 }
 
 function validateInterestRate(interestRate) {
-    let errorMessage;
     if (isEmpty(interestRate)) {
-        errorMessage = 'نرخ سود را وارد کنید';
-        printError(errorMessage, 'interestRateError');
+        printError(loan_type_interest_rate_error, 'interestRateError');
         return false;
     }
-    else if (interestRate < 0 || interestRate > 100) {
-        errorMessage = 'نرخ سود باید بین ۰ تا ۱۰۰ باشد';
-        printError(errorMessage, 'interestRateError');
+    else if (interestRate < loan_type_interest_rate_min_value || interestRate > loan_type_interest_rate_max_value) {
+        printError(loan_type_interest_rate_value_error, 'interestRateError');
         return false;
     }
     return true;
